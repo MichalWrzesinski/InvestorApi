@@ -22,7 +22,6 @@ final class Version20250329201938 extends AbstractMigration
                     id UUID NOT NULL,
                     symbol VARCHAR(15) NOT NULL,
                     name VARCHAR(50) NOT NULL,
-                    price DOUBLE PRECISION DEFAULT NULL,
                     type VARCHAR(20) NOT NULL,
                     processor VARCHAR(20) NOT NULL,
                     created_at TIMESTAMP(0) WITHOUT TIME ZONE DEFAULT NULL,

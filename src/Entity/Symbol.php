@@ -42,10 +42,6 @@ class Symbol
     #[Groups(['symbol:read', 'symbol:write'])]
     private string $name;
 
-    #[ORM\Column(type: Types::FLOAT, nullable: true)]
-    #[Groups(['symbol:read', 'symbol:write'])]
-    private ?float $price = null;
-
     #[ORM\Column(enumType: SymbolType::class)]
     #[Groups(['symbol:read', 'symbol:write'])]
     private SymbolType $type;
@@ -79,18 +75,6 @@ class Symbol
     public function setName(string $name): self
     {
         $this->name = $name;
-
-        return $this;
-    }
-
-    public function getPrice(): ?float
-    {
-        return $this->price;
-    }
-
-    public function setPrice(?float $price): self
-    {
-        $this->price = $price;
 
         return $this;
     }

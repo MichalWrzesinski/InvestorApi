@@ -1,0 +1,108 @@
+App\Entity\Symbol:
+  symbol_pln:
+    symbol: 'PLN'
+    name: 'Polski Złoty'
+    type: '<(App\Enum\SymbolType::FIAT)>'
+    processor: '<(App\Enum\DataProcessor::NBP)>'
+
+  symbol_usd:
+    symbol: 'USD'
+    name: 'Dolar amerykański'
+    type: '<(App\Enum\SymbolType::FIAT)>'
+    processor: '<(App\Enum\DataProcessor::NBP)>'
+
+  symbol_eur:
+    symbol: 'EUR'
+    name: 'Euro'
+    type: '<(App\Enum\SymbolType::FIAT)>'
+    processor: '<(App\Enum\DataProcessor::NBP)>'
+
+  symbol_gbp:
+    symbol: 'GBP'
+    name: 'Funt szterling'
+    type: '<(App\Enum\SymbolType::FIAT)>'
+    processor: '<(App\Enum\DataProcessor::NBP)>'
+
+  symbol_chf:
+    symbol: 'CHF'
+    name: 'Frank szwajcarski'
+    type: '<(App\Enum\SymbolType::FIAT)>'
+    processor: '<(App\Enum\DataProcessor::NBP)>'
+
+  symbol_jpy:
+    symbol: 'JPY'
+    name: 'Jen japoński'
+    type: '<(App\Enum\SymbolType::FIAT)>'
+    processor: '<(App\Enum\DataProcessor::NBP)>'
+
+  symbol_btc:
+    symbol: 'BTC'
+    name: 'Bitcoin'
+    type: '<(App\Enum\SymbolType::CRYPTO)>'
+    processor: '<(App\Enum\DataProcessor::BINANCE)>'
+
+  symbol_eth:
+    symbol: 'ETH'
+    name: 'Ethereum'
+    type: '<(App\Enum\SymbolType::CRYPTO)>'
+    processor: '<(App\Enum\DataProcessor::BINANCE)>'
+
+  symbol_ltc:
+    symbol: 'LTC'
+    name: 'Litecoin'
+    type: '<(App\Enum\SymbolType::CRYPTO)>'
+    processor: '<(App\Enum\DataProcessor::BINANCE)>'
+
+  symbol_sol:
+    symbol: 'SOL'
+    name: 'Solana'
+    type: '<(App\Enum\SymbolType::CRYPTO)>'
+    processor: '<(App\Enum\DataProcessor::BINANCE)>'
+
+  symbol_sui:
+    symbol: 'SUI'
+    name: 'Sui'
+    type: '<(App\Enum\SymbolType::CRYPTO)>'
+    processor: '<(App\Enum\DataProcessor::BINANCE)>'
+
+  symbol_xrp:
+    symbol: 'XRP'
+    name: 'Ripple'
+    type: '<(App\Enum\SymbolType::CRYPTO)>'
+    processor: '<(App\Enum\DataProcessor::BINANCE)>'
+
+  symbol_atom:
+    symbol: 'ATOM'
+    name: 'Cosmos'
+    type: '<(App\Enum\SymbolType::CRYPTO)>'
+    processor: '<(App\Enum\DataProcessor::BINANCE)>'
+
+  symbol_aapl:
+    symbol: 'AAPL'
+    name: 'Apple Inc.'
+    type: '<(App\Enum\SymbolType::STOCK)>'
+    processor: '<(App\Enum\DataProcessor::STOOQ)>'
+
+  symbol_msft:
+    symbol: 'MSFT'
+    name: 'Microsoft Corp.'
+    type: '<(App\Enum\SymbolType::STOCK)>'
+    processor: '<(App\Enum\DataProcessor::STOOQ)>'
+
+  symbol_ko:
+    symbol: 'KO'
+    name: 'Coca-Cola Co.'
+    type: '<(App\Enum\SymbolType::STOCK)>'
+    processor: '<(App\Enum\DataProcessor::STOOQ)>'
+
+  symbol_pg:
+    symbol: 'PG'
+    name: 'Procter & Gamble'
+    type: '<(App\Enum\SymbolType::STOCK)>'
+    processor: '<(App\Enum\DataProcessor::STOOQ)>'
+
+  symbol_jnj:
+    symbol: 'JNJ'
+    name: 'Johnson & Johnson'
+    type: '<(App\Enum\SymbolType::STOCK)>'
+    processor: '<(App\Enum\DataProcessor::STOOQ)>'
