@@ -35,6 +35,12 @@ App\Entity\Symbol:
     type: '<(App\Enum\SymbolType::FIAT)>'
     processor: '<(App\Enum\DataProcessor::NBP)>'
 
+  symbol_usdc:
+    symbol: 'USDC'
+    name: 'USD coin'
+    type: '<(App\Enum\SymbolType::CRYPTO)>'
+    processor: '<(App\Enum\DataProcessor::BINANCE)>'
+
   symbol_btc:
     symbol: 'BTC'
     name: 'Bitcoin'
@@ -47,21 +53,15 @@ App\Entity\Symbol:
     type: '<(App\Enum\SymbolType::CRYPTO)>'
     processor: '<(App\Enum\DataProcessor::BINANCE)>'
 
-  symbol_ltc:
-    symbol: 'LTC'
-    name: 'Litecoin'
+  symbol_bnb:
+    symbol: 'BNB'
+    name: 'Binance coin'
     type: '<(App\Enum\SymbolType::CRYPTO)>'
     processor: '<(App\Enum\DataProcessor::BINANCE)>'
 
   symbol_sol:
     symbol: 'SOL'
     name: 'Solana'
-    type: '<(App\Enum\SymbolType::CRYPTO)>'
-    processor: '<(App\Enum\DataProcessor::BINANCE)>'
-
-  symbol_sui:
-    symbol: 'SUI'
-    name: 'Sui'
     type: '<(App\Enum\SymbolType::CRYPTO)>'
     processor: '<(App\Enum\DataProcessor::BINANCE)>'
 
@@ -77,6 +77,42 @@ App\Entity\Symbol:
     type: '<(App\Enum\SymbolType::CRYPTO)>'
     processor: '<(App\Enum\DataProcessor::BINANCE)>'
 
+  symbol_sui:
+    symbol: 'SUI'
+    name: 'Sui'
+    type: '<(App\Enum\SymbolType::CRYPTO)>'
+    processor: '<(App\Enum\DataProcessor::BINANCE)>'
+
+  symbol_ada:
+    symbol: 'ADA'
+    name: 'Cardano'
+    type: '<(App\Enum\SymbolType::CRYPTO)>'
+    processor: '<(App\Enum\DataProcessor::BINANCE)>'
+
+  symbol_ltc:
+    symbol: 'LTC'
+    name: 'Litecoin'
+    type: '<(App\Enum\SymbolType::CRYPTO)>'
+    processor: '<(App\Enum\DataProcessor::BINANCE)>'
+
+  symbol_ale:
+    symbol: 'ALE'
+    name: 'Allegro S.A.'
+    type: '<(App\Enum\SymbolType::STOCK)>'
+    processor: '<(App\Enum\DataProcessor::STOOQ)>'
+
+  symbol_pkn:
+    symbol: 'PKN'
+    name: 'PKN Orlen S.A.'
+    type: '<(App\Enum\SymbolType::STOCK)>'
+    processor: '<(App\Enum\DataProcessor::STOOQ)>'
+
+  symbol_inpt:
+    symbol: 'INPSTA.XD'
+    name: 'Inpost S.A.'
+    type: '<(App\Enum\SymbolType::STOCK)>'
+    processor: '<(App\Enum\DataProcessor::STOOQ)>'
+
   symbol_aapl:
     symbol: 'AAPL'
     name: 'Apple Inc.'
@@ -89,9 +125,21 @@ App\Entity\Symbol:
     type: '<(App\Enum\SymbolType::STOCK)>'
     processor: '<(App\Enum\DataProcessor::STOOQ)>'
 
+  symbol_mcd:
+    symbol: 'MCD'
+    name: 'Macdonalds Corporation'
+    type: '<(App\Enum\SymbolType::STOCK)>'
+    processor: '<(App\Enum\DataProcessor::STOOQ)>'
+
   symbol_ko:
     symbol: 'KO'
     name: 'Coca-Cola Co.'
+    type: '<(App\Enum\SymbolType::STOCK)>'
+    processor: '<(App\Enum\DataProcessor::STOOQ)>'
+
+  symbol_jnj:
+    symbol: 'JNJ'
+    name: 'Johnson & Johnson'
     type: '<(App\Enum\SymbolType::STOCK)>'
     processor: '<(App\Enum\DataProcessor::STOOQ)>'
 
@@ -101,8 +149,26 @@ App\Entity\Symbol:
     type: '<(App\Enum\SymbolType::STOCK)>'
     processor: '<(App\Enum\DataProcessor::STOOQ)>'
 
-  symbol_jnj:
-    symbol: 'JNJ'
-    name: 'Johnson & Johnson'
+  symbol_tm:
+    symbol: 'TM'
+    name: 'Toyota Motor Corporation'
+    type: '<(App\Enum\SymbolType::STOCK)>'
+    processor: '<(App\Enum\DataProcessor::STOOQ)>'
+
+  symbol_ubs:
+    symbol: 'UBS'
+    name: 'UBS Group AG'
+    type: '<(App\Enum\SymbolType::STOCK)>'
+    processor: '<(App\Enum\DataProcessor::STOOQ)>'
+
+  symbol_ibe:
+    symbol: 'IBE1.DE'
+    name: 'Iberdrola S.A.'
+    type: '<(App\Enum\SymbolType::STOCK)>'
+    processor: '<(App\Enum\DataProcessor::STOOQ)>'
+
+  symbol_bayn:
+    symbol: 'BAYN.DE'
+    name: 'Bayer Aktiengesellschaft'
     type: '<(App\Enum\SymbolType::STOCK)>'
     processor: '<(App\Enum\DataProcessor::STOOQ)>'

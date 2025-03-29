@@ -11,4 +11,5 @@ enum DataProcessor: string
     case BINANCE = 'binance';
     case NBP = 'nbp';
     case STOOQ = 'stooq';
+    case YAHOO = 'yahoo';
 }
