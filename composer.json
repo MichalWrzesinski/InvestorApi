@@ -103,6 +103,7 @@
         }
     },
     "require-dev": {
+        "dama/doctrine-test-bundle": "^8.2",
         "doctrine/doctrine-fixtures-bundle": "^4.1",
         "fakerphp/faker": "^1.24",
         "hautelook/alice-bundle": "^2.15",

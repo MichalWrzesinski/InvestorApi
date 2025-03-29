@@ -25,6 +25,5 @@ class UserPasswordProcessor implements ProcessorInterface
     }
 
     public function postProcess(string $id, object $object): void
-    {
-    }
+    {}
 }
