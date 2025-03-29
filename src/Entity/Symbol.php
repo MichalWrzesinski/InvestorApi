@@ -5,6 +5,9 @@ declare(strict_types=1);
 namespace App\Entity;
 
 use ApiPlatform\Metadata\ApiResource;
+use ApiPlatform\Metadata\ApiFilter;
+use ApiPlatform\Doctrine\Orm\Filter\OrderFilter;
+use ApiPlatform\Doctrine\Orm\Filter\SearchFilter;
 use App\Enum\DataProcessor;
 use App\Enum\SymbolType;
 use App\Repository\SymbolRepository;
@@ -20,8 +23,19 @@ use Symfony\Component\Serializer\Annotation\Groups;
 #[ORM\HasLifecycleCallbacks]
 #[ApiResource(
     normalizationContext: ['groups' => ['symbol:read']],
-    denormalizationContext: ['groups' => ['symbol:write']]
+    denormalizationContext: ['groups' => ['symbol:write']],
+    filters: ['symbol.search_filter', 'symbol.order_filter']
 )]
+#[ApiFilter(SearchFilter::class, properties: [
+    'symbol' => 'partial',
+    'name' => 'partial',
+    'type' => 'exact'
+])]
+#[ApiFilter(OrderFilter::class, properties: [
+    'symbol',
+    'name',
+    'type'
+])]
 class Symbol
 {
     use TimestampableTrait;
@@ -35,15 +49,15 @@ class Symbol
     private ?Uuid $id = null;
 
     #[ORM\Column(type: Types::STRING, length: 15, unique: true)]
-    #[Groups(['symbol:read', 'symbol:write'])]
+    #[Groups(['symbol:read', 'symbol:write', 'exchange_rate:read'])]
     private string $symbol;
 
     #[ORM\Column(type: Types::STRING, length: 50)]
-    #[Groups(['symbol:read', 'symbol:write'])]
+    #[Groups(['symbol:read', 'symbol:write', 'exchange_rate:read'])]
     private string $name;
 
     #[ORM\Column(enumType: SymbolType::class)]
-    #[Groups(['symbol:read', 'symbol:write'])]
+    #[Groups(['symbol:read', 'symbol:write', 'exchange_rate:read'])]
     private SymbolType $type;
 
     #[ORM\Column(enumType: DataProcessor::class)]

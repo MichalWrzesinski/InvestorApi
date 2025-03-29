@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Entity;
 
+use ApiPlatform\Metadata\ApiProperty;
 use App\Entity\Trait\TimestampableTrait;
 use App\Entity\Trait\SoftDeletableTrait;
 use App\Repository\ExchangeRateRepository;
@@ -34,12 +35,14 @@ class ExchangeRate
 
     #[ORM\ManyToOne(targetEntity: Symbol::class)]
     #[ORM\JoinColumn(nullable: false)]
-    #[Groups(['exchange_rate:read', 'exchange_rate:write'])]
+    #[ApiProperty(readableLink: true)]
+    #[Groups(['exchange_rate:read', 'exchange_rate:write', 'symbol:read'])]
     private Symbol $base;
 
     #[ORM\ManyToOne(targetEntity: Symbol::class)]
     #[ORM\JoinColumn(nullable: false)]
-    #[Groups(['exchange_rate:read', 'exchange_rate:write'])]
+    #[ApiProperty(readableLink: true)]
+    #[Groups(['exchange_rate:read', 'exchange_rate:write', 'symbol:read'])]
     private Symbol $quote;
 
     #[ORM\Column(type: Types::FLOAT)]
