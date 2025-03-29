@@ -17,9 +17,11 @@ class UserPasswordProcessor implements ProcessorInterface
     public function preProcess(string $id, object $object): void
     {
         if ($object instanceof User) {
-            $plainPassword = $object->getPassword();
             $object->setPassword(
-                $this->passwordHasher->hashPassword($object, $plainPassword)
+                $this->passwordHasher->hashPassword(
+                    $object,
+                    $object->getPassword()
+                )
             );
         }
     }

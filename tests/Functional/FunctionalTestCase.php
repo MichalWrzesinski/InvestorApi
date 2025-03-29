@@ -61,8 +61,7 @@ abstract class FunctionalTestCase extends WebTestCase
                 'command' => 'hautelook:fixtures:load',
                 '--env' => 'test',
                 '--no-interaction' => true,
-                '--quiet' => true,
-                '--no-bundles' => true,
+                //'--quiet' => true,
             ])
         );
 
