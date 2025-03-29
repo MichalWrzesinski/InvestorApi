@@ -1,0 +1,7 @@
+App\Entity\User:
+  user:
+    email: example@example.com
+    password: 'plainPassword:test123'
+    createdAt: '<(new \DateTimeImmutable())>'
+    roles: ['ROLE_USER']
+    active: true
