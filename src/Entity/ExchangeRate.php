@@ -13,11 +13,20 @@ use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Uid\Uuid;
 use Symfony\Component\Serializer\Annotation\Groups;
 use ApiPlatform\Metadata\ApiResource;
+use ApiPlatform\Metadata as Metadata;
 
 #[ORM\Entity(repositoryClass: ExchangeRateRepository::class)]
 #[ORM\Table(name: 'exchange_rate')]
 #[ORM\HasLifecycleCallbacks]
 #[ApiResource(
+    operations: [
+        new Metadata\Get(security: 'is_granted("ROLE_USER")'),
+        new Metadata\GetCollection(security: 'is_granted("ROLE_USER")'),
+        new Metadata\Post(security: 'is_granted("ROLE_ADMIN")'),
+        new Metadata\Put(security: 'is_granted("ROLE_ADMIN")'),
+        new Metadata\Patch(security: 'is_granted("ROLE_ADMIN")'),
+        new Metadata\Delete(security: 'is_granted("ROLE_ADMIN")'),
+    ],
     normalizationContext: ['groups' => ['exchange_rate:read']],
     denormalizationContext: ['groups' => ['exchange_rate:write']]
 )]
