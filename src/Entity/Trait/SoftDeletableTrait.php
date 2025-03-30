@@ -10,7 +10,7 @@ use Doctrine\ORM\Mapping as ORM;
 
 trait SoftDeletableTrait
 {
-    #[ORM\Column(type: Types::DATETIME_MUTABLE, nullable: true)]
+    #[ORM\Column(type: Types::DATETIME_IMMUTABLE, nullable: true)]
     private ?DateTimeImmutable $deletedAt = null;
 
     public function getDeletedAt(): ?DateTimeImmutable
