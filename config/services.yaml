@@ -14,3 +14,7 @@ services:
 
     App\DataFixtures\Processor\UserPasswordProcessor:
         tags: [ 'fidry_alice_data_fixtures.processor' ]
+
+    App\EventSubscriber\:
+        resource: '../src/EventSubscriber'
+        tags: [ 'doctrine.event_subscriber' ]

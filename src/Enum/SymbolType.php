@@ -6,8 +6,8 @@ namespace App\Enum;
 
 enum SymbolType: string
 {
-    case FIAT = 'fiat';
-    case CRYPTO = 'crypto';
-    case STOCK = 'stock';
-    case ETF = 'etf';
+    case FIAT = 'FIAT';
+    case CRYPTO = 'CRYPTO';
+    case STOCK = 'STOCK';
+    case ETF = 'ETF';
 }

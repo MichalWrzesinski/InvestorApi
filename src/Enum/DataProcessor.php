@@ -8,8 +8,8 @@ namespace App\Enum;
 
 enum DataProcessor: string
 {
-    case BINANCE = 'binance';
-    case NBP = 'nbp';
-    case STOOQ = 'stooq';
-    case YAHOO = 'yahoo';
+    case BINANCE = 'BINANCE';
+    case NBP = 'NBP';
+    case STOOQ = 'STOOQ';
+    case YAHOO = 'YAHOO';
 }
