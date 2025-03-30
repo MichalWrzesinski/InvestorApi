@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Service\ExchangeRate;
+namespace App\State\Processor\ExchangeRate;
 
 use App\Entity\ExchangeRate;
 use App\Enum\DataProcessor;
@@ -12,7 +12,7 @@ use Doctrine\ORM\EntityManagerInterface;
 use Psr\Log\LoggerInterface;
 use Throwable;
 
-class YahooProcessor implements ProcessorInterface
+class YahooProcessor implements ProcessorInterface, ExchangeRateInterface
 {
     public function __construct(
         private readonly YahooApiClient $client,

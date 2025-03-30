@@ -12,6 +12,16 @@ services:
             - '../src/Entity/'
             - '../src/Kernel.php'
 
+    App\State\Processor\ExchangeRate\:
+        resource: '../src/State/Processor/ExchangeRate'
+        tags: ['app.exchange_rate_processor']
+        autowire: true
+        autoconfigure: false
+
+    App\State\Processor\:
+        resource: '../src/State/Processor'
+        exclude: '../src/State/Processor/ExchangeRate'
+
     App\State\Processor\DataFixtures\UserPasswordProcessor:
         tags: [ 'fidry_alice_data_fixtures.processor' ]
 
@@ -20,6 +30,10 @@ services:
             $persistProcessor: '@api_platform.doctrine.orm.state.persist_processor'
         tags:
             - { name: 'api_platform.state_processor', uriTemplate: '/symbols', priority: 10 }
+
+    App\MessageHandler\UpdateRatesHandler:
+        arguments:
+            $processors: !tagged_iterator app.exchange_rate_processor
 
     App\EventSubscriber\:
         resource: '../src/EventSubscriber'

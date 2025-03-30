@@ -31,4 +31,21 @@ class ExchangeRateRepository extends ServiceEntityRepository
                 ->getQuery()
                 ->getOneOrNullResult() !== null;
     }
+
+    public function findAllUniquePairsGroupedByProcessor(): array
+    {
+        return $this->createQueryBuilder('e')
+            ->select(
+                'IDENTITY(e.base) AS base_id',
+                'IDENTITY(e.quote) AS quote_id',
+                's1.code AS base_code',
+                's2.code AS quote_code',
+                'e.processor'
+            )
+            ->join('e.base', 's1')
+            ->join('e.quote', 's2')
+            ->groupBy('e.base, e.quote, e.processor')
+            ->getQuery()
+            ->getArrayResult();
+    }
 }

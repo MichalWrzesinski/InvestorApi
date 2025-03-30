@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace App\MessageHandler;
 
 use App\Message\UpdateRatesMessage;
-use App\Service\ExchangeRate\ProcessorInterface;
+use Psr\Log\LoggerInterface;
 use Symfony\Component\Messenger\Attribute\AsMessageHandler;
 use Symfony\Component\Messenger\MessageBusInterface;
 use Symfony\Component\Messenger\Stamp\DelayStamp;
@@ -17,17 +17,24 @@ class UpdateRatesHandler
 {
     public function __construct(
         private iterable $processors,
-        private MessageBusInterface $bus
+        private MessageBusInterface $bus,
+        private LoggerInterface $logger,
     ) {}
 
     public function __invoke(UpdateRatesMessage $message): void
     {
+        $processorEnum = $message->getProcessorEnum();
+
         foreach ($this->processors as $processor) {
-            if ($processor->supports($message->processor)) {
+            if ($processorEnum && $processor->supports($processorEnum)) {
                 try {
                     $processor->update($message->pairs);
                 } catch (Throwable $e) {
-                    // TODO: logowanie błędu
+                    $this->logger->error('Error processing currency rate processor', [
+                        'exception' => $e,
+                        'processor' => $message->processor,
+                        'pairs' => $message->pairs,
+                    ]);
                 }
 
                 $this->bus->dispatch(
@@ -39,6 +46,8 @@ class UpdateRatesHandler
             }
         }
 
-        throw new RuntimeException("Brak obsługi procesora: {$message->processor}");
+        throw new RuntimeException(
+            sprintf('No processor support: %s', $message->processor)
+        );
     }
 }
