@@ -6,7 +6,7 @@ namespace App\Command;
 
 use App\Entity\ExchangeRate;
 use App\Repository\ExchangeRateRepository;
-use App\Generator\ValidPairGenerator;
+use App\Generator\ValidSymbolPairGenerator;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;
@@ -17,9 +17,9 @@ use Symfony\Component\Console\Output\OutputInterface;
 final class SynchronizeExchangeRatesCommand extends Command
 {
     public function __construct(
-        private readonly ValidPairGenerator $pairGenerator,
-        private readonly ExchangeRateRepository $exchangeRateRepository,
-        private readonly EntityManagerInterface $entityManager,
+        private readonly ValidSymbolPairGenerator $pairGenerator,
+        private readonly ExchangeRateRepository   $exchangeRateRepository,
+        private readonly EntityManagerInterface   $entityManager,
     ) {
         parent::__construct();
     }

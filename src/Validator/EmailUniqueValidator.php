@@ -13,7 +13,8 @@ use Symfony\Component\Validator\Exception\UnexpectedValueException;
 
 final class EmailUniqueValidator extends ConstraintValidator
 {
-    public function __construct(private EntityManagerInterface $em) {}
+    public function __construct(private EntityManagerInterface $entityManager)
+    {}
 
     public function validate($value, Constraint $constraint): void
     {
@@ -29,7 +30,7 @@ final class EmailUniqueValidator extends ConstraintValidator
             throw new UnexpectedValueException($value, 'string');
         }
 
-        $existingUser = $this->em->getRepository(User::class)->findOneBy(['email' => $value]);
+        $existingUser = $this->entityManager->getRepository(User::class)->findOneBy(['email' => $value]);
 
         $currentObject = $this->context->getObject();
         if ($existingUser && $existingUser !== $currentObject) {

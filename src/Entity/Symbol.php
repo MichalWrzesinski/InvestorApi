@@ -8,6 +8,8 @@ use ApiPlatform\Metadata\ApiResource;
 use ApiPlatform\Metadata\ApiFilter;
 use ApiPlatform\Doctrine\Orm\Filter\OrderFilter;
 use ApiPlatform\Doctrine\Orm\Filter\SearchFilter;
+use App\Entity\Trait\SoftDeletableTraitInterface;
+use App\Entity\Trait\TimestampableTraitInterface;
 use App\Enum\DataProcessor;
 use App\Enum\SymbolType;
 use App\Repository\SymbolRepository;
@@ -19,6 +21,7 @@ use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Uid\Uuid;
 use Symfony\Component\Serializer\Annotation\Groups;
 use ApiPlatform\Metadata as Metadata;
+use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: SymbolRepository::class)]
 #[ORM\Table(name: 'symbol')]
@@ -46,7 +49,7 @@ use ApiPlatform\Metadata as Metadata;
     'name',
     'type'
 ])]
-class Symbol
+class Symbol implements SoftDeletableTraitInterface, TimestampableTraitInterface
 {
     use TimestampableTrait;
     use SoftDeletableTrait;
@@ -58,18 +61,23 @@ class Symbol
     #[Groups(['symbol:read'])]
     private ?Uuid $id = null;
 
+    #[Assert\NotBlank]
+    #[Assert\Length(max: 15)]
     #[ORM\Column(type: Types::STRING, length: 15, unique: true)]
     #[Groups(['symbol:read', 'symbol:write', 'exchange_rate:read'])]
     private string $symbol;
 
+    #[Assert\NotBlank]
     #[ORM\Column(type: Types::STRING, length: 50)]
     #[Groups(['symbol:read', 'symbol:write', 'exchange_rate:read'])]
     private string $name;
 
+    #[Assert\NotBlank]
     #[ORM\Column(enumType: SymbolType::class)]
     #[Groups(['symbol:read', 'symbol:write', 'exchange_rate:read'])]
     private SymbolType $type;
 
+    #[Assert\NotBlank]
     #[ORM\Column(enumType: DataProcessor::class)]
     #[Groups(['symbol:read', 'symbol:write'])]
     private DataProcessor $processor;

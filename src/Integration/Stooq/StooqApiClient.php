@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Integration\Stooq;
 
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Contracts\HttpClient\HttpClientInterface;
 use RuntimeException;
 
@@ -18,8 +19,18 @@ final class StooqApiClient
     public function getPriceForSymbol(string $symbol): float
     {
         $url = sprintf(self::URL, strtolower($symbol));
-
         $response = $this->httpClient->request('GET', $url);
+
+        if ($response->getStatusCode() !== Response::HTTP_OK) {
+            throw new RuntimeException(
+                sprintf(
+                    'Stooq API error (%d) for symbol %s',
+                    $response->getStatusCode(),
+                    $symbol
+                )
+            );
+        }
+
         $csv = $response->getContent();
         $rows = array_map('str_getcsv', explode("\n", trim($csv)));
 

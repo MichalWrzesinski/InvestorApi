@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Integration\Nbp;
 
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Contracts\HttpClient\HttpClientInterface;
 use RuntimeException;
 
@@ -19,6 +20,17 @@ final class NbpApiClient
     {
         $url = sprintf(self::URL, strtolower($symbol));
         $response = $this->httpClient->request('GET', $url);
+
+        if ($response->getStatusCode() !== Response::HTTP_OK) {
+            throw new RuntimeException(
+                sprintf(
+                    'NBP API error (%d) for symbol %s',
+                    $response->getStatusCode(),
+                    $symbol
+                )
+            );
+        }
+
         $data = $response->toArray(false);
 
         if (!isset($data['rates'][0]['mid'])) {

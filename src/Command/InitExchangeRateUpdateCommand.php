@@ -4,7 +4,7 @@ namespace App\Command;
 
 use App\Enum\DataProcessor;
 use App\Enum\SymbolType;
-use App\Generator\ValidPairGeneratorInterface;
+use App\Generator\ValidSymbolPairGeneratorInterface;
 use App\Message\UpdateRatesMessage;
 use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;
@@ -16,8 +16,8 @@ use Symfony\Component\Messenger\MessageBusInterface;
 final class InitExchangeRateUpdateCommand extends Command
 {
     public function __construct(
-        private readonly MessageBusInterface $bus,
-        private readonly ValidPairGeneratorInterface $pairGenerator,
+        private readonly MessageBusInterface               $bus,
+        private readonly ValidSymbolPairGeneratorInterface $pairGenerator,
     ) {
         parent::__construct();
     }

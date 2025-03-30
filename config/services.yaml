@@ -26,7 +26,7 @@ services:
         resource: '../src/State/Processor'
         exclude: '../src/State/Processor/ExchangeRate'
 
-    App\State\Processor\DataFixtures\UserPasswordProcessor:
+    App\State\Processor\DataFixture\UserPasswordProcessor:
         tags: [ 'fidry_alice_data_fixtures.processor' ]
 
     App\State\Processor\SymbolProcessor:

@@ -6,12 +6,12 @@ namespace App\Tests\Unit\Generator;
 
 use App\Entity\Symbol;
 use App\Enum\SymbolType;
-use App\Generator\ValidPairGenerator;
+use App\Generator\ValidSymbolPairGenerator;
 use App\Repository\SymbolRepositoryInterface;
 use App\Validator\SymbolPairValidatorInterface;
 use PHPUnit\Framework\TestCase;
 
-final class ValidPairGeneratorTest extends TestCase
+final class ValidSymbolPairGeneratorTest extends TestCase
 {
     /**
      * @dataProvider provideSymbolPairs
@@ -35,7 +35,7 @@ final class ValidPairGeneratorTest extends TestCase
                     default => false,
                 });
 
-        $generator = new ValidPairGenerator($symbolRepository, $validator);
+        $generator = new ValidSymbolPairGenerator($symbolRepository, $validator);
         $actualPairs = iterator_to_array($generator->generate());
 
         $this->assertCount(count($expectedPairs), $actualPairs);

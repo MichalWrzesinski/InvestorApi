@@ -31,8 +31,8 @@ final class StooqProcessor implements ProcessorInterface, ExchangeRateInterface
                 $symbolCode = strtolower($base . $quote);
                 $price = $this->client->getPriceForSymbol($symbolCode);
 
-                $baseSymbol = $this->symbolRepository->findOneBy(['code' => strtoupper($base)]);
-                $quoteSymbol = $this->symbolRepository->findOneBy(['code' => strtoupper($quote)]);
+                $baseSymbol = $this->symbolRepository->findOneBy(['symbol' => strtoupper($base)]);
+                $quoteSymbol = $this->symbolRepository->findOneBy(['symbol' => strtoupper($quote)]);
 
                 if (!$baseSymbol || !$quoteSymbol) {
                     continue;

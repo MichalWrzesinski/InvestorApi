@@ -5,6 +5,8 @@ declare(strict_types=1);
 namespace App\Entity;
 
 use ApiPlatform\Metadata\ApiResource;
+use App\Entity\Trait\SoftDeletableTraitInterface;
+use App\Entity\Trait\TimestampableTraitInterface;
 use App\Repository\UserRepository;
 use App\Entity\Trait\SoftDeletableTrait;
 use App\Entity\Trait\TimestampableTrait;
@@ -14,6 +16,7 @@ use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Doctrine\ORM\Mapping as ORM;
 use ApiPlatform\Metadata as Metadata;
+use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: UserRepository::class)]
 #[ORM\Table(name: '`user`')]
@@ -30,7 +33,7 @@ use ApiPlatform\Metadata as Metadata;
     normalizationContext: ['groups' => ['user:read']],
     denormalizationContext: ['groups' => ['user:write']]
 )]
-class User implements UserInterface, PasswordAuthenticatedUserInterface
+class User implements UserInterface, PasswordAuthenticatedUserInterface, SoftDeletableTraitInterface, TimestampableTraitInterface
 {
     use TimestampableTrait;
     use SoftDeletableTrait;
@@ -41,22 +44,22 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[Groups(['user:read'])]
     private ?int $id = null;
 
+    #[Assert\NotNull]
     #[EmailUnique]
     #[ORM\Column(length: 180, unique: true)]
     #[Groups(['user:read', 'user:write'])]
     private string $email;
 
+    #[Assert\NotNull]
     #[ORM\Column]
-    #[Groups(['user:write'])]
     private string $password;
 
     #[ORM\Column]
-    #[Groups(['user:read'])]
     private array $roles = [];
 
     #[ORM\Column]
     #[Groups(['user:read'])]
-    private ?bool $active = null;
+    private ?bool $active = false;
 
     public function getId(): ?int
     {

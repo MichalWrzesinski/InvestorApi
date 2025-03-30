@@ -4,12 +4,14 @@ declare(strict_types=1);
 
 namespace App\Integration\Yahoo;
 
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Contracts\HttpClient\HttpClientInterface;
 use RuntimeException;
 
 final class YahooApiClient
 {
     private const URL = 'https://query1.finance.yahoo.com/v8/finance/chart/%s?range=1d&interval=1d';
+    private const HEADERS = ['User-Agent' => 'Mozilla/5.0'];
 
     public function __construct(
         private readonly HttpClientInterface $httpClient,
@@ -21,9 +23,19 @@ final class YahooApiClient
 
         $response = $this->httpClient->request('GET', $url, [
             'headers' => [
-                'User-Agent' => 'Mozilla/5.0'
+                'User-Agent' => self::HEADERS,
             ]
         ]);
+
+        if ($response->getStatusCode() !== Response::HTTP_OK) {
+            throw new RuntimeException(
+                sprintf(
+                    'Yahoo API error (%d) for symbol %s',
+                    $response->getStatusCode(),
+                    $symbol
+                )
+            );
+        }
 
         $data = $response->toArray(false);
         $price = $data['chart']['result'][0]['meta']['regularMarketPrice'] ?? null;

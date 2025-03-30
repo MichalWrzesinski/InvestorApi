@@ -42,6 +42,10 @@ final class ExchangeRateSynchronizer
 
     private function getSymmetricSymbolPairs(Symbol $symbolA, Symbol $symbolB): array
     {
+        if ($symbolA === $symbolB) {
+            return [['base' => $symbolA, 'quote' => $symbolB]];
+        }
+
         return [
             ['base' => $symbolA, 'quote' => $symbolB],
             ['base' => $symbolB, 'quote' => $symbolA],

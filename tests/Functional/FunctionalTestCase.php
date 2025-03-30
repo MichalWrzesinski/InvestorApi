@@ -14,7 +14,10 @@ abstract class FunctionalTestCase extends WebTestCase
 {
     protected static bool $fixturesLoaded = false;
 
+    private ?string $token = null;
+
     private const USER_EMAIL = 'example@example.com';
+
     private const USER_PASSWORD = 'root';
 
     protected function getJwtToken(string $email = self::USER_EMAIL, string $password = self::USER_PASSWORD): ?string
@@ -27,20 +30,30 @@ abstract class FunctionalTestCase extends WebTestCase
         $response = $client->getResponse();
         $data = json_decode($response->getContent(), true);
 
-        return $data['token'] ?? null;
+        return $this->token = $data['token'] ?? null;
     }
 
-    protected function requestJson(string $method, string $uri, array $data = []): KernelBrowser
-    {
+    protected function requestJson(
+        string $method,
+        string $uri,
+        array $data = [],
+        ?string $token = null,
+    ): KernelBrowser {
         $client = static::createClient();
         $this->ensureFixturesLoaded();
+
+        $headers = ['CONTENT_TYPE' => 'application/json'];
+
+        if ($token) {
+            $headers['HTTP_Authorization'] = sprintf('Bearer %s', $token);
+        }
 
         $client->request(
             $method,
             $uri,
             [],
             [],
-            ['CONTENT_TYPE' => 'application/json'],
+            $headers,
             json_encode($data)
         );
 

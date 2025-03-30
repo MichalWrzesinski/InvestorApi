@@ -32,8 +32,8 @@ final class BinanceProcessor implements ProcessorInterface, ExchangeRateInterfac
             try {
                 $price = $this->client->getPriceForPair($base, $quote);
 
-                $baseSymbol = $this->symbolRepository->findOneBy(['code' => strtoupper($base)]);
-                $quoteSymbol = $this->symbolRepository->findOneBy(['code' => strtoupper($quote)]);
+                $baseSymbol = $this->symbolRepository->findOneBy(['symbol' => strtoupper($base)]);
+                $quoteSymbol = $this->symbolRepository->findOneBy(['symbol' => strtoupper($quote)]);
 
                 if (!$baseSymbol || !$quoteSymbol) {
                     continue;

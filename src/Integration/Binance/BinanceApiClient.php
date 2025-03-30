@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Integration\Binance;
 
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Contracts\HttpClient\HttpClientInterface;
 use RuntimeException;
 
@@ -21,6 +22,17 @@ final class BinanceApiClient
         $url = sprintf(self::URL, $symbol);
 
         $response = $this->httpClient->request('GET', $url);
+
+        if (Response::HTTP_OK !== $response->getStatusCode()) {
+            throw new RuntimeException(
+                sprintf(
+                    'Binance API error (%d) for symbol %s',
+                    $response->getStatusCode(),
+                    $symbol
+                )
+            );
+        }
+
         $data = $response->toArray(false);
 
         if (!isset($data['price'])) {

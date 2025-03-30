@@ -16,6 +16,7 @@ final class PingControllerTest extends FunctionalTestCase
 
         $this->assertResponseIsSuccessful();
         $this->assertResponseFormatSame('json');
+        $this->assertJson($client->getResponse()->getContent());
 
         $expected = ['status' => Response::HTTP_OK];
         $actual = json_decode($client->getResponse()->getContent(), true);

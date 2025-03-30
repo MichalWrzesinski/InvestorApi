@@ -5,6 +5,8 @@ declare(strict_types=1);
 namespace App\Entity;
 
 use ApiPlatform\Metadata\ApiProperty;
+use App\Entity\Trait\SoftDeletableTraitInterface;
+use App\Entity\Trait\TimestampableTraitInterface;
 use App\Entity\Trait\TimestampableTrait;
 use App\Entity\Trait\SoftDeletableTrait;
 use App\Repository\ExchangeRateRepository;
@@ -14,6 +16,7 @@ use Symfony\Component\Uid\Uuid;
 use Symfony\Component\Serializer\Annotation\Groups;
 use ApiPlatform\Metadata\ApiResource;
 use ApiPlatform\Metadata as Metadata;
+use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: ExchangeRateRepository::class)]
 #[ORM\Table(name: 'exchange_rate')]
@@ -30,7 +33,7 @@ use ApiPlatform\Metadata as Metadata;
     normalizationContext: ['groups' => ['exchange_rate:read']],
     denormalizationContext: ['groups' => ['exchange_rate:write']]
 )]
-class ExchangeRate
+class ExchangeRate implements SoftDeletableTraitInterface, TimestampableTraitInterface
 {
     use TimestampableTrait;
     use SoftDeletableTrait;
@@ -42,18 +45,22 @@ class ExchangeRate
     #[Groups(['exchange_rate:read'])]
     private ?Uuid $id = null;
 
+    #[Assert\NotNull]
     #[ORM\ManyToOne(targetEntity: Symbol::class)]
     #[ORM\JoinColumn(nullable: false)]
     #[ApiProperty(readableLink: true)]
     #[Groups(['exchange_rate:read', 'exchange_rate:write', 'symbol:read'])]
     private Symbol $base;
 
+    #[Assert\NotNull]
     #[ORM\ManyToOne(targetEntity: Symbol::class)]
     #[ORM\JoinColumn(nullable: false)]
     #[ApiProperty(readableLink: true)]
     #[Groups(['exchange_rate:read', 'exchange_rate:write', 'symbol:read'])]
     private Symbol $quote;
 
+    #[Assert\NotBlank]
+    #[Assert\Positive]
     #[ORM\Column(type: Types::FLOAT)]
     #[Groups(['exchange_rate:read', 'exchange_rate:write'])]
     private float $price;

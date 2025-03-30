@@ -87,35 +87,35 @@ class EmailUniqueValidatorTest extends TestCase
     {
         $existingUser = new User();
 
-        yield [
+        yield 'null email' => [
             'value' => null,
             'existingUser' => null,
             'currentObject' => null,
             'expectViolation' => false,
         ];
 
-        yield [
+        yield 'empty string' => [
             'value' => '',
             'existingUser' => null,
             'currentObject' => null,
             'expectViolation' => false,
         ];
 
-        yield [
+        yield 'new email' => [
             'value' => 'nowy@user.pl',
             'existingUser' => null,
             'currentObject' => null,
             'expectViolation' => false,
         ];
 
-        yield [
+        yield 'duplicate email (different object)' => [
             'value' => 'istnieje@user.pl',
             'existingUser' => $existingUser,
             'currentObject' => new stdClass(),
             'expectViolation' => true,
         ];
 
-        yield [
+        yield 'same user (no violation)' => [
             'value' => 'ten.sam@user.pl',
             'existingUser' => $existingUser,
             'currentObject' => $existingUser,

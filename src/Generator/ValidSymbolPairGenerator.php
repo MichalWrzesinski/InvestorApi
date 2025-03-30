@@ -8,7 +8,7 @@ use App\Entity\Symbol;
 use App\Repository\SymbolRepositoryInterface;
 use App\Validator\SymbolPairValidatorInterface;
 
-final class ValidPairGenerator implements ValidPairGeneratorInterface
+final class ValidSymbolPairGenerator implements ValidSymbolPairGeneratorInterface
 {
     public function __construct(
         private readonly SymbolRepositoryInterface $symbolRepository,
