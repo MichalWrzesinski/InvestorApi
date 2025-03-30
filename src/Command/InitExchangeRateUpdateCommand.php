@@ -37,7 +37,7 @@ final class InitExchangeRateUpdateCommand extends Command
                 continue;
             }
 
-            $grouped[$processor][] = [$base->getCode(), $quote->getCode()];
+            $grouped[$processor][] = [$base->getSymbol(), $quote->getSymbol()];
         }
 
         foreach ($grouped as $processor => $pairs) {
@@ -52,9 +52,9 @@ final class InitExchangeRateUpdateCommand extends Command
     private function resolveProcessor(string $baseType, string $quoteType): ?string
     {
         return match (true) {
-            $quoteType === 'PLN' && $baseType === SymbolType::FIAT => DataProcessor::NBP->value,
-            $baseType === SymbolType::CRYPTO || $quoteType === SymbolType::CRYPTO => DataProcessor::BINANCE->value,
-            $baseType === SymbolType::STOCK || $baseType === SymbolType::ETF => DataProcessor::YAHOO->value,
+            $quoteType === 'PLN' && $baseType === SymbolType::FIAT->value => DataProcessor::NBP->value,
+            $baseType === SymbolType::CRYPTO->value || $quoteType === SymbolType::CRYPTO->value => DataProcessor::BINANCE->value,
+            $baseType === SymbolType::STOCK->value || $baseType === SymbolType::ETF->value => DataProcessor::YAHOO->value,
             default => null,
         };
     }
