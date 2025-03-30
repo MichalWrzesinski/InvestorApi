@@ -6,7 +6,7 @@ namespace App\Service;
 
 use App\Entity\Symbol;
 use App\Entity\ExchangeRate;
-use App\Repository\ExchangeRateRepository;
+use App\Repository\ExchangeRateRepositoryInterface;
 use App\Validator\SymbolPairValidatorInterface;
 use Doctrine\ORM\EntityManagerInterface;
 
@@ -14,7 +14,7 @@ final class ExchangeRateSynchronizer implements ExchangeRateSynchronizerInterfac
 {
     public function __construct(
         private readonly SymbolPairValidatorInterface $symbolPairValidator,
-        private readonly ExchangeRateRepository $exchangeRateRepository,
+        private readonly ExchangeRateRepositoryInterface $exchangeRateRepository,
         private readonly EntityManagerInterface $entityManager,
     ) {}
 
