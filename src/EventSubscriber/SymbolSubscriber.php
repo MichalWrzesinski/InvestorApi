@@ -29,8 +29,6 @@ final class SymbolSubscriber implements EventSubscriber
             return;
         }
 
-        file_put_contents('symbol_subscriber.log', $entity->getSymbol() . PHP_EOL, FILE_APPEND);
-
         $this->synchronizer->synchronizeFor($entity);
     }
 }
