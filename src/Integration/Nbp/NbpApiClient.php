@@ -8,7 +8,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Contracts\HttpClient\HttpClientInterface;
 use RuntimeException;
 
-final class NbpApiClient
+final class NbpApiClient implements NbpApiClientInterface
 {
     private const URL = 'https://api.nbp.pl/api/exchangerates/rates/a/%s/?format=json';
 

@@ -4,8 +4,8 @@ namespace App\State\Processor\ExchangeRate;
 
 use App\Entity\ExchangeRate;
 use App\Enum\DataProcessor;
-use App\Integration\Nbp\NbpApiClient;
-use App\Repository\SymbolRepository;
+use App\Integration\Nbp\NbpApiClientInterface;
+use App\Repository\SymbolRepositoryInterface;
 use Doctrine\ORM\EntityManagerInterface;
 use Psr\Log\LoggerInterface;
 use Throwable;
@@ -13,8 +13,8 @@ use Throwable;
 final class NbpProcessor implements ProcessorInterface, ExchangeRateInterface
 {
     public function __construct(
-        private readonly NbpApiClient $client,
-        private readonly SymbolRepository $symbolRepository,
+        private readonly NbpApiClientInterface $client,
+        private readonly SymbolRepositoryInterface $symbolRepository,
         private readonly EntityManagerInterface $entityManager,
         private readonly LoggerInterface $logger,
     ) {}

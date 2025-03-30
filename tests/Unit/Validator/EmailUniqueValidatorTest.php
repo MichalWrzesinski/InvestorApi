@@ -9,6 +9,7 @@ use App\Validator\EmailUnique;
 use App\Validator\EmailUniqueValidator;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\EntityRepository;
+use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Validator\Context\ExecutionContextInterface;
 use Symfony\Component\Validator\Violation\ConstraintViolationBuilderInterface;
@@ -17,9 +18,9 @@ use stdClass;
 class EmailUniqueValidatorTest extends TestCase
 {
     private EmailUniqueValidator $validator;
-    private EntityManagerInterface $entityManager;
-    private EntityRepository $repository;
-    private ExecutionContextInterface $context;
+    private EntityManagerInterface&MockObject $entityManager;
+    private EntityRepository&MockObject $repository;
+    private ExecutionContextInterface&MockObject $context;
 
     protected function setUp(): void
     {

@@ -10,7 +10,7 @@ use App\Repository\ExchangeRateRepository;
 use App\Validator\SymbolPairValidatorInterface;
 use Doctrine\ORM\EntityManagerInterface;
 
-final class ExchangeRateSynchronizer
+final class ExchangeRateSynchronizer implements ExchangeRateSynchronizerInterface
 {
     public function __construct(
         private readonly SymbolPairValidatorInterface $symbolPairValidator,

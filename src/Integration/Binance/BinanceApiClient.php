@@ -8,7 +8,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Contracts\HttpClient\HttpClientInterface;
 use RuntimeException;
 
-final class BinanceApiClient
+final class BinanceApiClient implements BinanceApiClientInterface
 {
     private const URL = 'https://api.binance.com/api/v3/ticker/price?symbol=%s';
 

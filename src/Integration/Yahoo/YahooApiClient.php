@@ -8,7 +8,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Contracts\HttpClient\HttpClientInterface;
 use RuntimeException;
 
-final class YahooApiClient
+final class YahooApiClient implements YahooApiClientInterface
 {
     private const URL = 'https://query1.finance.yahoo.com/v8/finance/chart/%s?range=1d&interval=1d';
     private const HEADERS = ['User-Agent' => 'Mozilla/5.0'];

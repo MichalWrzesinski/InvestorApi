@@ -8,7 +8,6 @@ use App\Entity\Symbol;
 
 /**
  * @method Symbol|null find($id, $lockMode = null, $lockVersion = null)
- * @method Symbol|null findOneBy(array $criteria, array $orderBy = null)
  * @method Symbol[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
 interface SymbolRepositoryInterface
@@ -17,4 +16,10 @@ interface SymbolRepositoryInterface
      * @return Symbol[]
      */
     public function findAll(): array;
+
+    /**
+     * @param array $criteria
+     * @return Symbol|null
+     */
+    public function findOneBy(array $criteria, ?array $orderBy = null): ?object;
 }

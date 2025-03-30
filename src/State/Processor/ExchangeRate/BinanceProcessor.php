@@ -6,8 +6,8 @@ namespace App\State\Processor\ExchangeRate;
 
 use App\Entity\ExchangeRate;
 use App\Enum\DataProcessor;
-use App\Integration\Binance\BinanceApiClient;
-use App\Repository\SymbolRepository;
+use App\Integration\Binance\BinanceApiClientInterface;
+use App\Repository\SymbolRepositoryInterface;
 use Doctrine\ORM\EntityManagerInterface;
 use Psr\Log\LoggerInterface;
 use Throwable;
@@ -15,8 +15,8 @@ use Throwable;
 final class BinanceProcessor implements ProcessorInterface, ExchangeRateInterface
 {
     public function __construct(
-        private readonly BinanceApiClient $client,
-        private readonly SymbolRepository $symbolRepository,
+        private readonly BinanceApiClientInterface $client,
+        private readonly SymbolRepositoryInterface $symbolRepository,
         private readonly EntityManagerInterface $entityManager,
         private readonly LoggerInterface $logger,
     ) {}

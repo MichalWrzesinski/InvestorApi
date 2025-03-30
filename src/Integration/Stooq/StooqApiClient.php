@@ -8,7 +8,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Contracts\HttpClient\HttpClientInterface;
 use RuntimeException;
 
-final class StooqApiClient
+final class StooqApiClient implements StooqApiClientInterface
 {
     private const URL = 'https://stooq.com/q/l/?s=%s&f=sd2t2ohlcv&h&e=csv';
 

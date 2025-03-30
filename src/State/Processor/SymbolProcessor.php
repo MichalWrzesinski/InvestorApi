@@ -7,13 +7,13 @@ namespace App\State\Processor;
 use ApiPlatform\Metadata\Operation;
 use ApiPlatform\State\ProcessorInterface;
 use App\Entity\Symbol;
-use App\Service\ExchangeRateSynchronizer;
+use App\Service\ExchangeRateSynchronizerInterface;
 
 final class SymbolProcessor implements ProcessorInterface
 {
     public function __construct(
         private readonly ProcessorInterface $persistProcessor,
-        private readonly ExchangeRateSynchronizer $synchronizer,
+        private readonly ExchangeRateSynchronizerInterface $synchronizer,
     ) {}
 
     public function process(mixed $data, Operation $operation, array $uriVariables = [], array $context = []): mixed
