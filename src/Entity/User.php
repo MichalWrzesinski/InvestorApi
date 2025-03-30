@@ -8,15 +8,25 @@ use ApiPlatform\Metadata\ApiResource;
 use App\Repository\UserRepository;
 use App\Entity\Trait\SoftDeletableTrait;
 use App\Entity\Trait\TimestampableTrait;
+use App\Validator\EmailUnique;
 use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Doctrine\ORM\Mapping as ORM;
+use ApiPlatform\Metadata as Metadata;
 
 #[ORM\Entity(repositoryClass: UserRepository::class)]
 #[ORM\Table(name: '`user`')]
 #[ORM\HasLifecycleCallbacks]
 #[ApiResource(
+    operations: [
+        new Metadata\Get(security: 'is_granted("ROLE_USER")'),
+        new Metadata\GetCollection(security: 'is_granted("ROLE_ADMIN")'),
+        new Metadata\Post(security: 'is_granted("ROLE_ADMIN")'),
+        new Metadata\Put(security: 'is_granted("ROLE_ADMIN")'),
+        new Metadata\Patch(security: 'is_granted("ROLE_ADMIN")'),
+        new Metadata\Delete(security: 'is_granted("ROLE_ADMIN")'),
+    ],
     normalizationContext: ['groups' => ['user:read']],
     denormalizationContext: ['groups' => ['user:write']]
 )]
@@ -31,6 +41,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[Groups(['user:read'])]
     private ?int $id = null;
 
+    #[EmailUnique]
     #[ORM\Column(length: 180, unique: true)]
     #[Groups(['user:read', 'user:write'])]
     private string $email;
@@ -40,11 +51,11 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private string $password;
 
     #[ORM\Column]
-    #[Groups(['user:read', 'user:write'])]
+    #[Groups(['user:read'])]
     private array $roles = [];
 
     #[ORM\Column]
-    #[Groups(['user:read', 'user:write'])]
+    #[Groups(['user:read'])]
     private ?bool $active = null;
 
     public function getId(): ?int

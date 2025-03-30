@@ -1,6 +1,18 @@
 App\Entity\User:
-  user:
-    email: 'example@example.com'
+  admin:
+    email: 'admin@example.com'
     password: 'root'
-    roles: ['ROLE_USER']
+    roles: ['ROLE_ADMIN']
     active: true
+
+  user_1:
+    email: 'user@example.com'
+    password: 'root'
+    roles: [ 'ROLE_USER' ]
+    active: true
+
+  user_{2..10}:
+    email: '<userName()>@example.com'
+    password: 'root'
+    roles: [ 'ROLE_USER' ]
+    active: <boolean(90)>
