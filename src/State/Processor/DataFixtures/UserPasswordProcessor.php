@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\DataFixtures\Processor;
+namespace App\State\Processor\DataFixtures;
 
 use App\Entity\User;
 use Fidry\AliceDataFixtures\ProcessorInterface;

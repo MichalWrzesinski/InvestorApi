@@ -12,7 +12,7 @@ services:
             - '../src/Entity/'
             - '../src/Kernel.php'
 
-    App\DataFixtures\Processor\UserPasswordProcessor:
+    App\State\Processor\DataFixtures\UserPasswordProcessor:
         tags: [ 'fidry_alice_data_fixtures.processor' ]
 
     App\State\Processor\SymbolProcessor:
