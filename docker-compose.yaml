@@ -17,14 +17,14 @@ services:
       - "8080:80"
     volumes:
       - .:/var/www/html
-      - ./nginx/nginx.conf:/etc/nginx/nginx.conf
+      - ./build/nginx/nginx.conf:/etc/nginx/nginx.conf
     depends_on:
       - php
 
   php:
     build:
       context: .
-      dockerfile: Dockerfile
+      dockerfile: ./build/Dockerfile
     volumes:
       - .:/var/www/html
     working_dir: /var/www/html
