@@ -11,7 +11,7 @@ use Doctrine\Persistence\ManagerRegistry;
 /**
  * @extends ServiceEntityRepository<Symbol>
  */
-class SymbolRepository extends ServiceEntityRepository
+final class SymbolRepository extends ServiceEntityRepository implements ExchangeRateRepositoryInterface
 {
     public function __construct(ManagerRegistry $registry)
     {

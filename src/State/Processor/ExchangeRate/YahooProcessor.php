@@ -12,7 +12,7 @@ use Doctrine\ORM\EntityManagerInterface;
 use Psr\Log\LoggerInterface;
 use Throwable;
 
-class YahooProcessor implements ProcessorInterface, ExchangeRateInterface
+final class YahooProcessor implements ProcessorInterface, ExchangeRateInterface
 {
     public function __construct(
         private readonly YahooApiClient $client,

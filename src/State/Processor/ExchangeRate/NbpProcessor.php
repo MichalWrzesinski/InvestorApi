@@ -10,7 +10,7 @@ use Doctrine\ORM\EntityManagerInterface;
 use Psr\Log\LoggerInterface;
 use Throwable;
 
-class NbpProcessor implements ProcessorInterface, ExchangeRateInterface
+final class NbpProcessor implements ProcessorInterface, ExchangeRateInterface
 {
     public function __construct(
         private readonly NbpApiClient $client,

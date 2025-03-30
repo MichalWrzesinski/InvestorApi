@@ -10,7 +10,7 @@ use Doctrine\ORM\EntityManagerInterface;
 use Psr\Log\LoggerInterface;
 use Throwable;
 
-class StooqProcessor implements ProcessorInterface, ExchangeRateInterface
+final class StooqProcessor implements ProcessorInterface, ExchangeRateInterface
 {
     public function __construct(
         private readonly StooqApiClient $client,

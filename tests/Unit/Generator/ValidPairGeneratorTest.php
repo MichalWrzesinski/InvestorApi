@@ -7,7 +7,7 @@ namespace App\Tests\Unit\Generator;
 use App\Entity\Symbol;
 use App\Enum\SymbolType;
 use App\Generator\ValidPairGenerator;
-use App\Repository\SymbolRepository;
+use App\Repository\SymbolRepositoryInterface;
 use App\Validator\SymbolPairValidatorInterface;
 use PHPUnit\Framework\TestCase;
 
@@ -23,7 +23,7 @@ final class ValidPairGeneratorTest extends TestCase
             $symbols[] = $this->createSymbolMock($code, $type);
         }
 
-        $symbolRepository = $this->createMock(SymbolRepository::class);
+        $symbolRepository = $this->createMock(SymbolRepositoryInterface::class);
         $symbolRepository->method('findAll')->willReturn($symbols);
 
         $validator = $this->createMock(SymbolPairValidatorInterface::class);

@@ -4,6 +4,10 @@ services:
     _defaults:
         autowire: true
         autoconfigure: true
+        bind:
+            App\Repository\UserRepositoryInterface: '@App\Repository\UserRepository'
+            App\Repository\ExchangeRateRepositoryInterface: '@App\Repository\ExchangeRateRepository'
+            App\Repository\SymbolRepositoryInterface: '@App\Repository\SymbolRepository'
 
     App\:
         resource: '../src/'

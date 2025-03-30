@@ -12,7 +12,7 @@ use Doctrine\Persistence\ManagerRegistry;
 /**
  * @extends ServiceEntityRepository<ExchangeRate>
  */
-class ExchangeRateRepository extends ServiceEntityRepository
+final class ExchangeRateRepository extends ServiceEntityRepository implements ExchangeRateRepositoryInterface
 {
     public function __construct(ManagerRegistry $registry)
     {

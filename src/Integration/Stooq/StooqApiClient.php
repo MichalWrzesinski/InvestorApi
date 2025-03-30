@@ -7,7 +7,7 @@ namespace App\Integration\Stooq;
 use Symfony\Contracts\HttpClient\HttpClientInterface;
 use RuntimeException;
 
-class StooqApiClient
+final class StooqApiClient
 {
     private const URL = 'https://stooq.com/q/l/?s=%s&f=sd2t2ohlcv&h&e=csv';
 

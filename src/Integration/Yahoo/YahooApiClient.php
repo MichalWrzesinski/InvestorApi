@@ -7,7 +7,7 @@ namespace App\Integration\Yahoo;
 use Symfony\Contracts\HttpClient\HttpClientInterface;
 use RuntimeException;
 
-class YahooApiClient
+final class YahooApiClient
 {
     private const URL = 'https://query1.finance.yahoo.com/v8/finance/chart/%s?range=1d&interval=1d';
 

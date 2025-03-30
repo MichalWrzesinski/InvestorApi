@@ -11,7 +11,7 @@ use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Validator\Exception\UnexpectedTypeException;
 use Symfony\Component\Validator\Exception\UnexpectedValueException;
 
-class EmailUniqueValidator extends ConstraintValidator
+final class EmailUniqueValidator extends ConstraintValidator
 {
     public function __construct(private EntityManagerInterface $em) {}
 

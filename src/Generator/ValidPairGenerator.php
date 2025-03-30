@@ -5,13 +5,13 @@ declare(strict_types=1);
 namespace App\Generator;
 
 use App\Entity\Symbol;
-use App\Repository\SymbolRepository;
+use App\Repository\SymbolRepositoryInterface;
 use App\Validator\SymbolPairValidatorInterface;
 
 final class ValidPairGenerator implements ValidPairGeneratorInterface
 {
     public function __construct(
-        private readonly SymbolRepository $symbolRepository,
+        private readonly SymbolRepositoryInterface $symbolRepository,
         private readonly SymbolPairValidatorInterface $symbolPairValidator,
     ) {}
 

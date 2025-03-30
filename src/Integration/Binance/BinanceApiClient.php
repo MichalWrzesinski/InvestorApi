@@ -7,7 +7,7 @@ namespace App\Integration\Binance;
 use Symfony\Contracts\HttpClient\HttpClientInterface;
 use RuntimeException;
 
-class BinanceApiClient
+final class BinanceApiClient
 {
     private const URL = 'https://api.binance.com/api/v3/ticker/price?symbol=%s';
 
