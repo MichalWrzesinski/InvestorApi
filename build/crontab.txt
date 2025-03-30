@@ -1,0 +1,1 @@
+* * * * * php /var/www/html/bin/console app:refresh-exchange-rate-view >> /var/www/html/var/log/cron.log 2>&1

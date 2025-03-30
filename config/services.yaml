@@ -15,6 +15,12 @@ services:
     App\DataFixtures\Processor\UserPasswordProcessor:
         tags: [ 'fidry_alice_data_fixtures.processor' ]
 
+    App\State\Processor\SymbolProcessor:
+        arguments:
+            $persistProcessor: '@api_platform.doctrine.orm.state.persist_processor'
+        tags:
+            - { name: 'api_platform.state_processor', uriTemplate: '/symbols', priority: 10 }
+
     App\EventSubscriber\:
         resource: '../src/EventSubscriber'
         tags: [ 'doctrine.event_subscriber' ]

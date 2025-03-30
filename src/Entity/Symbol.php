@@ -13,6 +13,7 @@ use App\Enum\SymbolType;
 use App\Repository\SymbolRepository;
 use App\Entity\Trait\SoftDeletableTrait;
 use App\Entity\Trait\TimestampableTrait;
+use App\State\Processor\SymbolProcessor;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Uid\Uuid;
@@ -26,7 +27,7 @@ use ApiPlatform\Metadata as Metadata;
     operations: [
         new Metadata\Get(security: 'is_granted("ROLE_USER")'),
         new Metadata\GetCollection(security: 'is_granted("ROLE_USER")'),
-        new Metadata\Post(security: 'is_granted("ROLE_ADMIN")'),
+        new Metadata\Post(security: 'is_granted("ROLE_ADMIN")', processor: SymbolProcessor::class),
         new Metadata\Put(security: 'is_granted("ROLE_ADMIN")'),
         new Metadata\Patch(security: 'is_granted("ROLE_ADMIN")'),
         new Metadata\Delete(security: 'is_granted("ROLE_ADMIN")'),
