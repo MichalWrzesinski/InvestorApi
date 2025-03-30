@@ -5,13 +5,14 @@ declare(strict_types=1);
 namespace App\Generator;
 
 use App\Entity\Symbol;
-use App\Enum\SymbolType;
 use App\Repository\SymbolRepository;
+use App\Validator\SymbolPairValidatorInterface;
 
-class ValidPairGenerator
+final class ValidPairGenerator implements ValidPairGeneratorInterface
 {
     public function __construct(
         private readonly SymbolRepository $symbolRepository,
+        private readonly SymbolPairValidatorInterface $symbolPairValidator,
     ) {}
 
     /**
@@ -27,19 +28,10 @@ class ValidPairGenerator
                     continue;
                 }
 
-                if (self::isValidPair($base->getType(), $quote->getType())) {
+                if ($this->symbolPairValidator->isValid($base->getType(), $quote->getType())) {
                     yield ['base' => $base, 'quote' => $quote];
                 }
             }
         }
-    }
-
-    private static function isValidPair(SymbolType $baseType, SymbolType $quoteType): bool
-    {
-        return match ($baseType) {
-            SymbolType::FIAT => in_array($quoteType, [SymbolType::FIAT, SymbolType::CRYPTO], true),
-            SymbolType::CRYPTO => in_array($quoteType, [SymbolType::FIAT, SymbolType::CRYPTO], true),
-            SymbolType::STOCK, SymbolType::ETF => $quoteType === SymbolType::FIAT,
-        };
     }
 }

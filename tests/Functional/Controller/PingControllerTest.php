@@ -8,7 +8,7 @@ use App\Tests\Functional\FunctionalTestCase;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
-class PingControllerTest extends FunctionalTestCase
+final class PingControllerTest extends FunctionalTestCase
 {
     public function testPingEndpointReturnsStatusOk(): void
     {

@@ -4,39 +4,69 @@ declare(strict_types=1);
 
 namespace App\Tests\Unit\Generator;
 
+use App\Entity\Symbol;
 use App\Enum\SymbolType;
 use App\Generator\ValidPairGenerator;
+use App\Repository\SymbolRepository;
+use App\Validator\SymbolPairValidatorInterface;
 use PHPUnit\Framework\TestCase;
-use ReflectionClass;
 
 final class ValidPairGeneratorTest extends TestCase
 {
     /**
-     * @dataProvider providePairCases
+     * @dataProvider provideSymbolPairs
      */
-    public function testIsValidPair(SymbolType $base, SymbolType $quote, bool $expected): void
+    public function testGenerateYieldsExpectedPairs(array $symbolDefs, array $expectedPairs): void
     {
-        $reflection = new ReflectionClass(ValidPairGenerator::class);
-        $method = $reflection->getMethod('isValidPair');
-        self::assertSame($expected, $method->invoke(null, $base, $quote));
+        $symbols = [];
+        foreach ($symbolDefs as [$code, $type]) {
+            $symbols[] = $this->createSymbolMock($code, $type);
+        }
+
+        $symbolRepository = $this->createMock(SymbolRepository::class);
+        $symbolRepository->method('findAll')->willReturn($symbols);
+
+        $validator = $this->createMock(SymbolPairValidatorInterface::class);
+        $validator->method('isValid')
+            ->willReturnCallback(fn(SymbolType $base, SymbolType $quote) =>
+                match ([$base, $quote]) {
+                    [SymbolType::FIAT, SymbolType::CRYPTO] => true,
+                    [SymbolType::STOCK, SymbolType::FIAT] => true,
+                    default => false,
+                });
+
+        $generator = new ValidPairGenerator($symbolRepository, $validator);
+        $actualPairs = iterator_to_array($generator->generate());
+
+        $this->assertCount(count($expectedPairs), $actualPairs);
+
+        foreach ($expectedPairs as $index => [$expectedBase, $expectedQuote]) {
+            $this->assertSame($expectedBase, $actualPairs[$index]['base']->getSymbol());
+            $this->assertSame($expectedQuote, $actualPairs[$index]['quote']->getSymbol());
+        }
     }
 
-    public static function providePairCases(): iterable
+    public static function provideSymbolPairs(): iterable
     {
-        yield [SymbolType::FIAT, SymbolType::FIAT, true];
-        yield [SymbolType::FIAT, SymbolType::CRYPTO, true];
-        yield [SymbolType::FIAT, SymbolType::STOCK, false];
+        yield [
+            [
+                ['USD', SymbolType::FIAT],
+                ['BTC', SymbolType::CRYPTO],
+                ['AAPL', SymbolType::STOCK],
+            ],
+            [
+                ['USD', 'BTC'],
+                ['AAPL', 'USD'],
+            ],
+        ];
+    }
 
-        yield [SymbolType::CRYPTO, SymbolType::FIAT, true];
-        yield [SymbolType::CRYPTO, SymbolType::CRYPTO, true];
-        yield [SymbolType::CRYPTO, SymbolType::ETF, false];
+    private function createSymbolMock(string $code, SymbolType $type): Symbol
+    {
+        $symbol = $this->createMock(Symbol::class);
+        $symbol->method('getType')->willReturn($type);
+        $symbol->method('getSymbol')->willReturn($code);
 
-        yield [SymbolType::STOCK, SymbolType::FIAT, true];
-        yield [SymbolType::STOCK, SymbolType::CRYPTO, false];
-        yield [SymbolType::STOCK, SymbolType::STOCK, false];
-
-        yield [SymbolType::ETF, SymbolType::FIAT, true];
-        yield [SymbolType::ETF, SymbolType::CRYPTO, false];
-        yield [SymbolType::ETF, SymbolType::STOCK, false];
+        return $symbol;
     }
 }

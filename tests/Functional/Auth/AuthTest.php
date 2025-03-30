@@ -6,7 +6,7 @@ namespace App\Tests\Functional\Auth;
 
 use App\Tests\Functional\FunctionalTestCase;
 
-class AuthTest extends FunctionalTestCase
+final class AuthTest extends FunctionalTestCase
 {
     public function testUserCanAuthenticateAndReceiveToken(): void
     {
