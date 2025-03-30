@@ -1,0 +1,51 @@
+{
+  "info": {
+    "name": "InvestorApi",
+    "_postman_id": "a1b2c3d4-e5f6-7890-abcd-ef1234567890",
+    "description": "Kolekcja do testowania API Symfony (JWT)",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "🔐 Login (JWT)",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "{{content_type}}"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n    \"email\": \"admin@example.com\",\n    \"password\": \"root\"\n}"
+        },
+        "url": {
+          "raw": "{{login_url}}",
+          "host": [
+            "{{login_url}}"
+          ]
+        }
+      },
+      "response": [],
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "// Pobierz JWT z odpowiedzi i ustaw w środowisku",
+              "let json = pm.response.json();",
+              "if (json.token) {",
+              "    pm.environment.set(\"jwt_token\", json.token);",
+              "    console.log(\"JWT zapisany w środowisku.\");",
+              "} else {",
+              "    console.warn(\"Brak tokenu w odpowiedzi.\");",
+              "}"
+            ],
+            "type": "text/javascript"
+          }
+        }
+      ]
+    }
+  ]
+}
