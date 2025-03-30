@@ -9,19 +9,30 @@ use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 use Symfony\Bundle\FrameworkBundle\Console\Application;
 use Symfony\Component\Console\Input\ArrayInput;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\DependencyInjection\ContainerInterface;
 
 abstract class FunctionalTestCase extends WebTestCase
 {
+    private const USER_EMAIL = 'admin@example.com';
+
+    private const USER_PASSWORD = 'root';
+
     protected static bool $fixturesLoaded = false;
 
     private ?string $token = null;
 
-    private const USER_EMAIL = 'example@example.com';
+    private KernelBrowser $client;
 
-    private const USER_PASSWORD = 'root';
-
-    protected function getJwtToken(string $email = self::USER_EMAIL, string $password = self::USER_PASSWORD): ?string
+    protected function setUp(): void
     {
+        $this->client = static::createClient();
+        $this->ensureFixturesLoaded();
+    }
+
+    protected function getJwtToken(
+        string $email = self::USER_EMAIL,
+        string $password = self::USER_PASSWORD
+    ): ?string {
         $client = $this->requestJson(Request::METHOD_POST, '/api/login', [
             'email' => $email,
             'password' => $password,
@@ -39,16 +50,16 @@ abstract class FunctionalTestCase extends WebTestCase
         array $data = [],
         ?string $token = null,
     ): KernelBrowser {
-        $client = static::createClient();
-        $this->ensureFixturesLoaded();
-
-        $headers = ['CONTENT_TYPE' => 'application/json'];
+        $headers = [
+            'CONTENT_TYPE' => 'application/ld+json',
+            'HTTP_ACCEPT' => 'application/ld+json',
+        ];
 
         if ($token) {
             $headers['HTTP_Authorization'] = sprintf('Bearer %s', $token);
         }
 
-        $client->request(
+        $this->client->request(
             $method,
             $uri,
             [],
@@ -57,7 +68,12 @@ abstract class FunctionalTestCase extends WebTestCase
             json_encode($data)
         );
 
-        return $client;
+        return $this->client;
+    }
+
+    protected function getTestContainer(): ContainerInterface
+    {
+        return $this->client->getContainer();
     }
 
     private function ensureFixturesLoaded(): void
@@ -66,7 +82,7 @@ abstract class FunctionalTestCase extends WebTestCase
             return;
         }
 
-        $application = new Application(self::$kernel);
+        $application = new Application($this->client->getKernel());
         $application->setAutoExit(false);
 
         $application->run(
