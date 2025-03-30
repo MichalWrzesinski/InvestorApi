@@ -9,7 +9,7 @@ use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use ApiPlatform\Metadata as Metadata;
 
-#[ORM\Entity(readOnly: true)]
+#[ORM\MappedSuperclass]
 #[ORM\Table(name: 'exchange_rate_latest')]
 #[ApiResource(
     operations: [

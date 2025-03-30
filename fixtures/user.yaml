@@ -12,7 +12,7 @@ App\Entity\User:
     active: true
 
   user_{2..10}:
-    email: '<userName()>@example.com'
+    email: '<email()>'
     password: 'root'
     roles: [ 'ROLE_USER' ]
     active: <boolean(90)>
