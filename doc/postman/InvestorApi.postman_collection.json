@@ -432,6 +432,161 @@
           }
         }
       ]
+    },
+    {
+      "name": "📈 User Asset Operations",
+      "item": [
+        {
+          "name": "GET UserAssetOperations",
+          "request": {
+            "method": "GET",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "Bearer {{jwt_token}}"
+                }
+              ]
+            },
+            "url": {
+              "raw": "{{base_url}}/user_asset_operations",
+              "host": ["{{base_url}}"],
+              "path": ["user_asset_operations"]
+            }
+          }
+        },
+        {
+          "name": "GET UserAssetOperation by ID",
+          "request": {
+            "method": "GET",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "Bearer {{jwt_token}}"
+                }
+              ]
+            },
+            "url": {
+              "raw": "{{base_url}}/user_asset_operations/:id",
+              "host": ["{{base_url}}"],
+              "path": ["user_asset_operations", ":id"]
+            }
+          }
+        },
+        {
+          "name": "POST UserAssetOperation",
+          "request": {
+            "method": "POST",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "Bearer {{jwt_token}}"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "{{content_type}}"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"userAsset\": \"/api/user_assets/uuid\",\n    \"amount\": 100.0,\n    \"type\": \"CREDIT\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/user_asset_operations",
+              "host": ["{{base_url}}"],
+              "path": ["user_asset_operations"]
+            }
+          }
+        },
+        {
+          "name": "PUT UserAssetOperation",
+          "request": {
+            "method": "PUT",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "Bearer {{jwt_token}}"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "{{content_type}}"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"amount\": 150.0,\n    \"type\": \"DEBIT\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/user_asset_operations/:id",
+              "host": ["{{base_url}}"],
+              "path": ["user_asset_operations", ":id"]
+            }
+          }
+        },
+        {
+          "name": "PATCH UserAssetOperation",
+          "request": {
+            "method": "PATCH",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "Bearer {{jwt_token}}"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "{{content_type}}"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"amount\": 200.0\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/user_asset_operations/:id",
+              "host": ["{{base_url}}"],
+              "path": ["user_asset_operations", ":id"]
+            }
+          }
+        },
+        {
+          "name": "DELETE UserAssetOperation",
+          "request": {
+            "method": "DELETE",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "Bearer {{jwt_token}}"
+                }
+              ]
+            },
+            "url": {
+              "raw": "{{base_url}}/user_asset_operations/:id",
+              "host": ["{{base_url}}"],
+              "path": ["user_asset_operations", ":id"]
+            }
+          }
+        }
+      ]
     }
   ]
 }
