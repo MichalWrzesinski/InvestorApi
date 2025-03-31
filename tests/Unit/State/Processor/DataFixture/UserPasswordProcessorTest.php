@@ -43,7 +43,5 @@ final class UserPasswordProcessorTest extends TestCase
 
         $this->hasher->expects($this->never())->method('hashPassword');
         $this->processor->preProcess('other_id', $object);
-
-        $this->assertTrue(true);
     }
 }

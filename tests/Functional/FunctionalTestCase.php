@@ -33,6 +33,10 @@ abstract class FunctionalTestCase extends WebTestCase
         string $email = self::USER_EMAIL,
         string $password = self::USER_PASSWORD
     ): ?string {
+        if (null !== $this->token) {
+            return $this->token;
+        }
+
         $client = $this->requestJson(Request::METHOD_POST, '/api/login', [
             'email' => $email,
             'password' => $password,

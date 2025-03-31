@@ -59,7 +59,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface, SoftDel
 
     #[ORM\Column]
     #[Groups(['user:read'])]
-    private ?bool $active = false;
+    private ?bool $active = null;
 
     public function getId(): ?int
     {

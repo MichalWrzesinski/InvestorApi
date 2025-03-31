@@ -16,7 +16,7 @@ use Symfony\Component\Messenger\MessageBusInterface;
 final class InitExchangeRateUpdateCommand extends Command
 {
     public function __construct(
-        private readonly MessageBusInterface               $bus,
+        private readonly MessageBusInterface $bus,
         private readonly ValidSymbolPairGeneratorInterface $pairGenerator,
     ) {
         parent::__construct();
@@ -37,7 +37,10 @@ final class InitExchangeRateUpdateCommand extends Command
                 continue;
             }
 
-            $grouped[$processor][] = [$base->getSymbol(), $quote->getSymbol()];
+            $grouped[$processor][] = [
+                'base' => $base->getSymbol(),
+                'quote' => $quote->getSymbol(),
+            ];
         }
 
         foreach ($grouped as $processor => $pairs) {
