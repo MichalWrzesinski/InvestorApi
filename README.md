@@ -63,7 +63,7 @@ volumes:
 1. Clone the repository:
 
 ```bash
-git clone https://github.com/YourUsername/InvestorApi.git
+git clone https://github.com/MichalWrzesinski/InvestorApi.git
 ```
 
 2. Navigate to the project directory:
