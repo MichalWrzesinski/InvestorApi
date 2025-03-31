@@ -4,16 +4,16 @@ declare(strict_types=1);
 
 namespace App\Validator;
 
-use App\Enum\SymbolType;
+use App\Enum\SymbolTypeEnum;
 
 final class SymbolPairValidator implements SymbolPairValidatorInterface
 {
-    public function isValid(SymbolType $baseType, SymbolType $quoteType): bool
+    public function isValid(SymbolTypeEnum $baseType, SymbolTypeEnum $quoteType): bool
     {
         return match ($baseType) {
-            SymbolType::FIAT => in_array($quoteType, [SymbolType::FIAT, SymbolType::CRYPTO], true),
-            SymbolType::CRYPTO => in_array($quoteType, [SymbolType::FIAT, SymbolType::CRYPTO], true),
-            SymbolType::STOCK, SymbolType::ETF => $quoteType === SymbolType::FIAT,
+            SymbolTypeEnum::FIAT => in_array($quoteType, [SymbolTypeEnum::FIAT, SymbolTypeEnum::CRYPTO], true),
+            SymbolTypeEnum::CRYPTO => in_array($quoteType, [SymbolTypeEnum::FIAT, SymbolTypeEnum::CRYPTO], true),
+            SymbolTypeEnum::STOCK, SymbolTypeEnum::ETF => $quoteType === SymbolTypeEnum::FIAT,
         };
     }
 }

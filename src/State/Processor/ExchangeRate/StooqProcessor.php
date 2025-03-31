@@ -3,7 +3,7 @@
 namespace App\State\Processor\ExchangeRate;
 
 use App\Entity\ExchangeRate;
-use App\Enum\DataProcessor;
+use App\Enum\DataProcessorEnum;
 use App\Integration\Stooq\StooqApiClientInterface;
 use App\Repository\SymbolRepositoryInterface;
 use Doctrine\ORM\EntityManagerInterface;
@@ -19,9 +19,9 @@ final class StooqProcessor implements ProcessorInterface, ExchangeRateInterface
         private readonly LoggerInterface $logger,
     ) {}
 
-    public function supports(DataProcessor $processor): bool
+    public function supports(DataProcessorEnum $processor): bool
     {
-        return $processor === DataProcessor::STOOQ;
+        return $processor === DataProcessorEnum::STOOQ;
     }
 
     /** @param array<int, array{string, string}> $pairs */

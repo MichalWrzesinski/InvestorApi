@@ -10,8 +10,8 @@ use ApiPlatform\Doctrine\Orm\Filter\OrderFilter;
 use ApiPlatform\Doctrine\Orm\Filter\SearchFilter;
 use App\Entity\Trait\SoftDeletableTraitInterface;
 use App\Entity\Trait\TimestampableTraitInterface;
-use App\Enum\DataProcessor;
-use App\Enum\SymbolType;
+use App\Enum\DataProcessorEnum;
+use App\Enum\SymbolTypeEnum;
 use App\Repository\SymbolRepository;
 use App\Entity\Trait\SoftDeletableTrait;
 use App\Entity\Trait\TimestampableTrait;
@@ -73,14 +73,14 @@ class Symbol implements SoftDeletableTraitInterface, TimestampableTraitInterface
     private string $name;
 
     #[Assert\NotBlank]
-    #[ORM\Column(enumType: SymbolType::class)]
+    #[ORM\Column(enumType: SymbolTypeEnum::class)]
     #[Groups(['symbol:read', 'symbol:write', 'exchange_rate:read'])]
-    private SymbolType $type;
+    private SymbolTypeEnum $type;
 
     #[Assert\NotBlank]
-    #[ORM\Column(enumType: DataProcessor::class)]
+    #[ORM\Column(enumType: DataProcessorEnum::class)]
     #[Groups(['symbol:read', 'symbol:write'])]
-    private DataProcessor $processor;
+    private DataProcessorEnum $processor;
 
     public function getId(): ?Uuid
     {
@@ -111,24 +111,24 @@ class Symbol implements SoftDeletableTraitInterface, TimestampableTraitInterface
         return $this;
     }
 
-    public function getType(): SymbolType
+    public function getType(): SymbolTypeEnum
     {
         return $this->type;
     }
 
-    public function setType(SymbolType $type): self
+    public function setType(SymbolTypeEnum $type): self
     {
         $this->type = $type;
 
         return $this;
     }
 
-    public function getProcessor(): DataProcessor
+    public function getProcessor(): DataProcessorEnum
     {
         return $this->processor;
     }
 
-    public function setProcessor(DataProcessor $processor): self
+    public function setProcessor(DataProcessorEnum $processor): self
     {
         $this->processor = $processor;
 

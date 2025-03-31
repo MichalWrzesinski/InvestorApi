@@ -3,7 +3,7 @@
 namespace App\State\Processor\ExchangeRate;
 
 use App\Entity\ExchangeRate;
-use App\Enum\DataProcessor;
+use App\Enum\DataProcessorEnum;
 use App\Integration\Nbp\NbpApiClientInterface;
 use App\Repository\SymbolRepositoryInterface;
 use Doctrine\ORM\EntityManagerInterface;
@@ -19,9 +19,9 @@ final class NbpProcessor implements ProcessorInterface, ExchangeRateInterface
         private readonly LoggerInterface $logger,
     ) {}
 
-    public function supports(DataProcessor $processor): bool
+    public function supports(DataProcessorEnum $processor): bool
     {
-        return $processor === DataProcessor::NBP;
+        return $processor === DataProcessorEnum::NBP;
     }
 
     /** @param array<int, array{string, string}> $pairs */

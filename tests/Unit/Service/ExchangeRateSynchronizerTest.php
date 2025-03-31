@@ -6,7 +6,7 @@ namespace App\Tests\Unit\Service;
 
 use App\Entity\ExchangeRate;
 use App\Entity\Symbol;
-use App\Enum\SymbolType;
+use App\Enum\SymbolTypeEnum;
 use App\Repository\ExchangeRateRepositoryInterface;
 use App\Service\ExchangeRateSynchronizer;
 use App\Validator\SymbolPairValidatorInterface;
@@ -40,11 +40,11 @@ final class ExchangeRateSynchronizerTest extends TestCase
     {
         $symbolA = new Symbol();
         $symbolA->setSymbol('USD');
-        $symbolA->setType(SymbolType::FIAT);
+        $symbolA->setType(SymbolTypeEnum::FIAT);
 
         $symbolB = new Symbol();
         $symbolB->setSymbol('BTC');
-        $symbolB->setType(SymbolType::CRYPTO);
+        $symbolB->setType(SymbolTypeEnum::CRYPTO);
 
         $symbolRepo = $this->createMock(EntityRepository::class);
         $symbolRepo->method('findAll')->willReturn([$symbolA, $symbolB]);
@@ -67,11 +67,11 @@ final class ExchangeRateSynchronizerTest extends TestCase
     {
         $symbolA = new Symbol();
         $symbolA->setSymbol('AAPL');
-        $symbolA->setType(SymbolType::STOCK);
+        $symbolA->setType(SymbolTypeEnum::STOCK);
 
         $symbolB = new Symbol();
         $symbolB->setSymbol('USD');
-        $symbolB->setType(SymbolType::FIAT);
+        $symbolB->setType(SymbolTypeEnum::FIAT);
 
         $symbolRepo = $this->createMock(EntityRepository::class);
         $symbolRepo->method('findAll')->willReturn([$symbolA, $symbolB]);
@@ -93,11 +93,11 @@ final class ExchangeRateSynchronizerTest extends TestCase
     {
         $symbolA = new Symbol();
         $symbolA->setSymbol('BTC');
-        $symbolA->setType(SymbolType::CRYPTO);
+        $symbolA->setType(SymbolTypeEnum::CRYPTO);
 
         $symbolB = new Symbol();
         $symbolB->setSymbol('USDT');
-        $symbolB->setType(SymbolType::CRYPTO);
+        $symbolB->setType(SymbolTypeEnum::CRYPTO);
 
         $symbolRepo = $this->createMock(EntityRepository::class);
         $symbolRepo->method('findAll')->willReturn([$symbolA, $symbolB]);
@@ -119,7 +119,7 @@ final class ExchangeRateSynchronizerTest extends TestCase
     {
         $symbol = new Symbol();
         $symbol->setSymbol('USD');
-        $symbol->setType(SymbolType::FIAT);
+        $symbol->setType(SymbolTypeEnum::FIAT);
 
         $symbolRepo = $this->createMock(EntityRepository::class);
         $symbolRepo->method('findAll')->willReturn([$symbol]);

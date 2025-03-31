@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Message;
 
-use App\Enum\DataProcessor;
+use App\Enum\DataProcessorEnum;
 
 class UpdateRatesMessage implements MessageInterface
 {
@@ -14,8 +14,8 @@ class UpdateRatesMessage implements MessageInterface
         public readonly array $pairs,
     ) {}
 
-    public function getProcessorEnum(): ?DataProcessor
+    public function getProcessorEnum(): ?DataProcessorEnum
     {
-        return DataProcessor::tryFrom($this->processor);
+        return DataProcessorEnum::tryFrom($this->processor);
     }
 }

@@ -2,8 +2,8 @@
 
 namespace App\Command;
 
-use App\Enum\DataProcessor;
-use App\Enum\SymbolType;
+use App\Enum\DataProcessorEnum;
+use App\Enum\SymbolTypeEnum;
 use App\Generator\ValidSymbolPairGeneratorInterface;
 use App\Message\UpdateRatesMessage;
 use Symfony\Component\Console\Attribute\AsCommand;
@@ -55,9 +55,9 @@ final class InitExchangeRateUpdateCommand extends Command
     private function resolveProcessor(string $baseType, string $quoteType): ?string
     {
         return match (true) {
-            $quoteType === 'PLN' && $baseType === SymbolType::FIAT->value => DataProcessor::NBP->value,
-            $baseType === SymbolType::CRYPTO->value || $quoteType === SymbolType::CRYPTO->value => DataProcessor::BINANCE->value,
-            $baseType === SymbolType::STOCK->value || $baseType === SymbolType::ETF->value => DataProcessor::YAHOO->value,
+            $quoteType === 'PLN' && $baseType === SymbolTypeEnum::FIAT->value => DataProcessorEnum::NBP->value,
+            $baseType === SymbolTypeEnum::CRYPTO->value || $quoteType === SymbolTypeEnum::CRYPTO->value => DataProcessorEnum::BINANCE->value,
+            $baseType === SymbolTypeEnum::STOCK->value || $baseType === SymbolTypeEnum::ETF->value => DataProcessorEnum::YAHOO->value,
             default => null,
         };
     }

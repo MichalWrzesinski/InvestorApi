@@ -6,7 +6,7 @@ namespace App\Tests\Unit\State\Processor\ExchangeRate;
 
 use App\Entity\ExchangeRate;
 use App\Entity\Symbol;
-use App\Enum\DataProcessor;
+use App\Enum\DataProcessorEnum;
 use App\Integration\Binance\BinanceApiClientInterface;
 use App\Repository\SymbolRepositoryInterface;
 use App\State\Processor\ExchangeRate\BinanceProcessor;
@@ -42,12 +42,12 @@ final class BinanceProcessorTest extends TestCase
 
     public function testSupportsReturnsTrueForBinance(): void
     {
-        $this->assertTrue($this->processor->supports(DataProcessor::BINANCE));
+        $this->assertTrue($this->processor->supports(DataProcessorEnum::BINANCE));
     }
 
     public function testSupportsReturnsFalseForOtherProcessors(): void
     {
-        $this->assertFalse($this->processor->supports(DataProcessor::NBP));
+        $this->assertFalse($this->processor->supports(DataProcessorEnum::NBP));
     }
 
     public function testUpdatePersistsExchangeRateWhenSymbolsExist(): void

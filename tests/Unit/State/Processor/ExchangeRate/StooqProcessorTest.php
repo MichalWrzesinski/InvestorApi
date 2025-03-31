@@ -6,7 +6,7 @@ namespace App\Tests\Unit\State\Processor\ExchangeRate;
 
 use App\Entity\ExchangeRate;
 use App\Entity\Symbol;
-use App\Enum\DataProcessor;
+use App\Enum\DataProcessorEnum;
 use App\Integration\Stooq\StooqApiClientInterface;
 use App\Repository\SymbolRepositoryInterface;
 use App\State\Processor\ExchangeRate\StooqProcessor;
@@ -42,12 +42,12 @@ final class StooqProcessorTest extends TestCase
 
     public function testSupportsReturnsTrueForStooq(): void
     {
-        $this->assertTrue($this->processor->supports(DataProcessor::STOOQ));
+        $this->assertTrue($this->processor->supports(DataProcessorEnum::STOOQ));
     }
 
     public function testSupportsReturnsFalseForOtherProcessors(): void
     {
-        $this->assertFalse($this->processor->supports(DataProcessor::NBP));
+        $this->assertFalse($this->processor->supports(DataProcessorEnum::NBP));
     }
 
     public function testUpdatePersistsExchangeRateWhenSymbolsExist(): void

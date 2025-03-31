@@ -6,7 +6,7 @@ namespace App\Tests\Unit\State\Processor\ExchangeRate;
 
 use App\Entity\ExchangeRate;
 use App\Entity\Symbol;
-use App\Enum\DataProcessor;
+use App\Enum\DataProcessorEnum;
 use App\Integration\Nbp\NbpApiClientInterface;
 use App\Repository\SymbolRepositoryInterface;
 use App\State\Processor\ExchangeRate\NbpProcessor;
@@ -42,12 +42,12 @@ final class NbpProcessorTest extends TestCase
 
     public function testSupportsReturnsTrueForNbp(): void
     {
-        $this->assertTrue($this->processor->supports(DataProcessor::NBP));
+        $this->assertTrue($this->processor->supports(DataProcessorEnum::NBP));
     }
 
     public function testSupportsReturnsFalseForOtherProcessors(): void
     {
-        $this->assertFalse($this->processor->supports(DataProcessor::BINANCE));
+        $this->assertFalse($this->processor->supports(DataProcessorEnum::BINANCE));
     }
 
     public function testUpdatePersistsExchangeRateWhenSymbolsExist(): void

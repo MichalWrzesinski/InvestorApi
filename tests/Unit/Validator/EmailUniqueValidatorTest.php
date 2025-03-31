@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace App\Tests\Unit\Validator;
 
 use App\Entity\User;
-use App\Enum\SymbolType;
+use App\Enum\SymbolTypeEnum;
 use App\Validator\EmailUnique;
 use App\Validator\EmailUniqueValidator;
 use Doctrine\ORM\EntityManagerInterface;

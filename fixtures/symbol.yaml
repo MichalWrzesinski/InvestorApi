@@ -2,173 +2,173 @@ App\Entity\Symbol:
   symbol_pln:
     symbol: 'PLN'
     name: 'Polski Złoty'
-    type: '<(App\Enum\SymbolType::FIAT)>'
-    processor: '<(App\Enum\DataProcessor::NBP)>'
+    type: '<(App\Enum\SymbolTypeEnum::FIAT)>'
+    processor: '<(App\Enum\DataProcessorEnum::NBP)>'
 
   symbol_usd:
     symbol: 'USD'
     name: 'Dolar amerykański'
-    type: '<(App\Enum\SymbolType::FIAT)>'
-    processor: '<(App\Enum\DataProcessor::NBP)>'
+    type: '<(App\Enum\SymbolTypeEnum::FIAT)>'
+    processor: '<(App\Enum\DataProcessorEnum::NBP)>'
 
   symbol_eur:
     symbol: 'EUR'
     name: 'Euro'
-    type: '<(App\Enum\SymbolType::FIAT)>'
-    processor: '<(App\Enum\DataProcessor::NBP)>'
+    type: '<(App\Enum\SymbolTypeEnum::FIAT)>'
+    processor: '<(App\Enum\DataProcessorEnum::NBP)>'
 
   symbol_gbp:
     symbol: 'GBP'
     name: 'Funt szterling'
-    type: '<(App\Enum\SymbolType::FIAT)>'
-    processor: '<(App\Enum\DataProcessor::NBP)>'
+    type: '<(App\Enum\SymbolTypeEnum::FIAT)>'
+    processor: '<(App\Enum\DataProcessorEnum::NBP)>'
 
   symbol_chf:
     symbol: 'CHF'
     name: 'Frank szwajcarski'
-    type: '<(App\Enum\SymbolType::FIAT)>'
-    processor: '<(App\Enum\DataProcessor::NBP)>'
+    type: '<(App\Enum\SymbolTypeEnum::FIAT)>'
+    processor: '<(App\Enum\DataProcessorEnum::NBP)>'
 
   symbol_jpy:
     symbol: 'JPY'
     name: 'Jen japoński'
-    type: '<(App\Enum\SymbolType::FIAT)>'
-    processor: '<(App\Enum\DataProcessor::NBP)>'
+    type: '<(App\Enum\SymbolTypeEnum::FIAT)>'
+    processor: '<(App\Enum\DataProcessorEnum::NBP)>'
 
   symbol_usdc:
     symbol: 'USDC'
     name: 'USD coin'
-    type: '<(App\Enum\SymbolType::CRYPTO)>'
-    processor: '<(App\Enum\DataProcessor::BINANCE)>'
+    type: '<(App\Enum\SymbolTypeEnum::CRYPTO)>'
+    processor: '<(App\Enum\DataProcessorEnum::BINANCE)>'
 
   symbol_btc:
     symbol: 'BTC'
     name: 'Bitcoin'
-    type: '<(App\Enum\SymbolType::CRYPTO)>'
-    processor: '<(App\Enum\DataProcessor::BINANCE)>'
+    type: '<(App\Enum\SymbolTypeEnum::CRYPTO)>'
+    processor: '<(App\Enum\DataProcessorEnum::BINANCE)>'
 
   symbol_eth:
     symbol: 'ETH'
     name: 'Ethereum'
-    type: '<(App\Enum\SymbolType::CRYPTO)>'
-    processor: '<(App\Enum\DataProcessor::BINANCE)>'
+    type: '<(App\Enum\SymbolTypeEnum::CRYPTO)>'
+    processor: '<(App\Enum\DataProcessorEnum::BINANCE)>'
 
   symbol_bnb:
     symbol: 'BNB'
     name: 'Binance coin'
-    type: '<(App\Enum\SymbolType::CRYPTO)>'
-    processor: '<(App\Enum\DataProcessor::BINANCE)>'
+    type: '<(App\Enum\SymbolTypeEnum::CRYPTO)>'
+    processor: '<(App\Enum\DataProcessorEnum::BINANCE)>'
 
   symbol_sol:
     symbol: 'SOL'
     name: 'Solana'
-    type: '<(App\Enum\SymbolType::CRYPTO)>'
-    processor: '<(App\Enum\DataProcessor::BINANCE)>'
+    type: '<(App\Enum\SymbolTypeEnum::CRYPTO)>'
+    processor: '<(App\Enum\DataProcessorEnum::BINANCE)>'
 
   symbol_xrp:
     symbol: 'XRP'
     name: 'Ripple'
-    type: '<(App\Enum\SymbolType::CRYPTO)>'
-    processor: '<(App\Enum\DataProcessor::BINANCE)>'
+    type: '<(App\Enum\SymbolTypeEnum::CRYPTO)>'
+    processor: '<(App\Enum\DataProcessorEnum::BINANCE)>'
 
   symbol_atom:
     symbol: 'ATOM'
     name: 'Cosmos'
-    type: '<(App\Enum\SymbolType::CRYPTO)>'
-    processor: '<(App\Enum\DataProcessor::BINANCE)>'
+    type: '<(App\Enum\SymbolTypeEnum::CRYPTO)>'
+    processor: '<(App\Enum\DataProcessorEnum::BINANCE)>'
 
   symbol_sui:
     symbol: 'SUI'
     name: 'Sui'
-    type: '<(App\Enum\SymbolType::CRYPTO)>'
-    processor: '<(App\Enum\DataProcessor::BINANCE)>'
+    type: '<(App\Enum\SymbolTypeEnum::CRYPTO)>'
+    processor: '<(App\Enum\DataProcessorEnum::BINANCE)>'
 
   symbol_ada:
     symbol: 'ADA'
     name: 'Cardano'
-    type: '<(App\Enum\SymbolType::CRYPTO)>'
-    processor: '<(App\Enum\DataProcessor::BINANCE)>'
+    type: '<(App\Enum\SymbolTypeEnum::CRYPTO)>'
+    processor: '<(App\Enum\DataProcessorEnum::BINANCE)>'
 
   symbol_ltc:
     symbol: 'LTC'
     name: 'Litecoin'
-    type: '<(App\Enum\SymbolType::CRYPTO)>'
-    processor: '<(App\Enum\DataProcessor::BINANCE)>'
+    type: '<(App\Enum\SymbolTypeEnum::CRYPTO)>'
+    processor: '<(App\Enum\DataProcessorEnum::BINANCE)>'
 
   symbol_ale:
     symbol: 'ALE'
     name: 'Allegro S.A.'
-    type: '<(App\Enum\SymbolType::STOCK)>'
-    processor: '<(App\Enum\DataProcessor::STOOQ)>'
+    type: '<(App\Enum\SymbolTypeEnum::STOCK)>'
+    processor: '<(App\Enum\DataProcessorEnum::STOOQ)>'
 
   symbol_pkn:
     symbol: 'PKN'
     name: 'PKN Orlen S.A.'
-    type: '<(App\Enum\SymbolType::STOCK)>'
-    processor: '<(App\Enum\DataProcessor::STOOQ)>'
+    type: '<(App\Enum\SymbolTypeEnum::STOCK)>'
+    processor: '<(App\Enum\DataProcessorEnum::STOOQ)>'
 
   symbol_inpt:
     symbol: 'INPSTA.XD'
     name: 'Inpost S.A.'
-    type: '<(App\Enum\SymbolType::STOCK)>'
-    processor: '<(App\Enum\DataProcessor::STOOQ)>'
+    type: '<(App\Enum\SymbolTypeEnum::STOCK)>'
+    processor: '<(App\Enum\DataProcessorEnum::STOOQ)>'
 
   symbol_aapl:
     symbol: 'AAPL'
     name: 'Apple Inc.'
-    type: '<(App\Enum\SymbolType::STOCK)>'
-    processor: '<(App\Enum\DataProcessor::STOOQ)>'
+    type: '<(App\Enum\SymbolTypeEnum::STOCK)>'
+    processor: '<(App\Enum\DataProcessorEnum::STOOQ)>'
 
   symbol_msft:
     symbol: 'MSFT'
     name: 'Microsoft Corp.'
-    type: '<(App\Enum\SymbolType::STOCK)>'
-    processor: '<(App\Enum\DataProcessor::STOOQ)>'
+    type: '<(App\Enum\SymbolTypeEnum::STOCK)>'
+    processor: '<(App\Enum\DataProcessorEnum::STOOQ)>'
 
   symbol_mcd:
     symbol: 'MCD'
     name: 'Macdonalds Corporation'
-    type: '<(App\Enum\SymbolType::STOCK)>'
-    processor: '<(App\Enum\DataProcessor::STOOQ)>'
+    type: '<(App\Enum\SymbolTypeEnum::STOCK)>'
+    processor: '<(App\Enum\DataProcessorEnum::STOOQ)>'
 
   symbol_ko:
     symbol: 'KO'
     name: 'Coca-Cola Co.'
-    type: '<(App\Enum\SymbolType::STOCK)>'
-    processor: '<(App\Enum\DataProcessor::STOOQ)>'
+    type: '<(App\Enum\SymbolTypeEnum::STOCK)>'
+    processor: '<(App\Enum\DataProcessorEnum::STOOQ)>'
 
   symbol_jnj:
     symbol: 'JNJ'
     name: 'Johnson & Johnson'
-    type: '<(App\Enum\SymbolType::STOCK)>'
-    processor: '<(App\Enum\DataProcessor::STOOQ)>'
+    type: '<(App\Enum\SymbolTypeEnum::STOCK)>'
+    processor: '<(App\Enum\DataProcessorEnum::STOOQ)>'
 
   symbol_pg:
     symbol: 'PG'
     name: 'Procter & Gamble'
-    type: '<(App\Enum\SymbolType::STOCK)>'
-    processor: '<(App\Enum\DataProcessor::STOOQ)>'
+    type: '<(App\Enum\SymbolTypeEnum::STOCK)>'
+    processor: '<(App\Enum\DataProcessorEnum::STOOQ)>'
 
   symbol_tm:
     symbol: 'TM'
     name: 'Toyota Motor Corporation'
-    type: '<(App\Enum\SymbolType::STOCK)>'
-    processor: '<(App\Enum\DataProcessor::STOOQ)>'
+    type: '<(App\Enum\SymbolTypeEnum::STOCK)>'
+    processor: '<(App\Enum\DataProcessorEnum::STOOQ)>'
 
   symbol_ubs:
     symbol: 'UBS'
     name: 'UBS Group AG'
-    type: '<(App\Enum\SymbolType::STOCK)>'
-    processor: '<(App\Enum\DataProcessor::STOOQ)>'
+    type: '<(App\Enum\SymbolTypeEnum::STOCK)>'
+    processor: '<(App\Enum\DataProcessorEnum::STOOQ)>'
 
   symbol_ibe:
     symbol: 'IBE1.DE'
     name: 'Iberdrola S.A.'
-    type: '<(App\Enum\SymbolType::STOCK)>'
-    processor: '<(App\Enum\DataProcessor::STOOQ)>'
+    type: '<(App\Enum\SymbolTypeEnum::STOCK)>'
+    processor: '<(App\Enum\DataProcessorEnum::STOOQ)>'
 
   symbol_bayn:
     symbol: 'BAYN.DE'
     name: 'Bayer Aktiengesellschaft'
-    type: '<(App\Enum\SymbolType::STOCK)>'
-    processor: '<(App\Enum\DataProcessor::STOOQ)>'
+    type: '<(App\Enum\SymbolTypeEnum::STOCK)>'
+    processor: '<(App\Enum\DataProcessorEnum::STOOQ)>'

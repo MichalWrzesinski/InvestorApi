@@ -6,7 +6,7 @@ namespace App\Tests\Unit\State\Processor\ExchangeRate;
 
 use App\Entity\ExchangeRate;
 use App\Entity\Symbol;
-use App\Enum\DataProcessor;
+use App\Enum\DataProcessorEnum;
 use App\Integration\Yahoo\YahooApiClientInterface;
 use App\Repository\SymbolRepositoryInterface;
 use App\State\Processor\ExchangeRate\YahooProcessor;
@@ -42,12 +42,12 @@ final class YahooProcessorTest extends TestCase
 
     public function testSupportsReturnsTrueForYahoo(): void
     {
-        $this->assertTrue($this->processor->supports(DataProcessor::YAHOO));
+        $this->assertTrue($this->processor->supports(DataProcessorEnum::YAHOO));
     }
 
     public function testSupportsReturnsFalseForOtherProcessors(): void
     {
-        $this->assertFalse($this->processor->supports(DataProcessor::NBP));
+        $this->assertFalse($this->processor->supports(DataProcessorEnum::NBP));
     }
 
     public function testUpdatePersistsExchangeRateWhenSymbolsExist(): void

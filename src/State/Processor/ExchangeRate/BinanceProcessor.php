@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace App\State\Processor\ExchangeRate;
 
 use App\Entity\ExchangeRate;
-use App\Enum\DataProcessor;
+use App\Enum\DataProcessorEnum;
 use App\Integration\Binance\BinanceApiClientInterface;
 use App\Repository\SymbolRepositoryInterface;
 use Doctrine\ORM\EntityManagerInterface;
@@ -21,9 +21,9 @@ final class BinanceProcessor implements ProcessorInterface, ExchangeRateInterfac
         private readonly LoggerInterface $logger,
     ) {}
 
-    public function supports(DataProcessor $processor): bool
+    public function supports(DataProcessorEnum $processor): bool
     {
-        return $processor === DataProcessor::BINANCE;
+        return $processor === DataProcessorEnum::BINANCE;
     }
 
     /** @param array<int, array{string, string}> $pairs */

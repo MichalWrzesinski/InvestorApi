@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace App\Tests\Unit\Generator;
 
 use App\Entity\Symbol;
-use App\Enum\SymbolType;
+use App\Enum\SymbolTypeEnum;
 use App\Generator\ValidSymbolPairGenerator;
 use App\Repository\SymbolRepositoryInterface;
 use App\Validator\SymbolPairValidatorInterface;
@@ -14,7 +14,7 @@ use PHPUnit\Framework\TestCase;
 final class ValidSymbolPairGeneratorTest extends TestCase
 {
     /**
-     * @param array<array{0: string, 1: SymbolType}> $symbolDefs
+     * @param array<array{0: string, 1: SymbolTypeEnum}> $symbolDefs
      * @param array<array{0: string, 1: string}> $expectedPairs
      *
      * @dataProvider provideSymbolPairs
@@ -31,10 +31,10 @@ final class ValidSymbolPairGeneratorTest extends TestCase
 
         $validator = $this->createMock(SymbolPairValidatorInterface::class);
         $validator->method('isValid')
-            ->willReturnCallback(fn(SymbolType $base, SymbolType $quote) =>
+            ->willReturnCallback(fn(SymbolTypeEnum $base, SymbolTypeEnum $quote) =>
                 match ([$base, $quote]) {
-                    [SymbolType::FIAT, SymbolType::CRYPTO] => true,
-                    [SymbolType::STOCK, SymbolType::FIAT] => true,
+                    [SymbolTypeEnum::FIAT, SymbolTypeEnum::CRYPTO] => true,
+                    [SymbolTypeEnum::STOCK, SymbolTypeEnum::FIAT] => true,
                     default => false,
                 });
 
@@ -51,7 +51,7 @@ final class ValidSymbolPairGeneratorTest extends TestCase
 
     /**
      * @return iterable<array{
-     *     0: array<array{0: string, 1: SymbolType}>,
+     *     0: array<array{0: string, 1: SymbolTypeEnum}>,
      *     1: array<array{0: string, 1: string}>
      * }>
      */
@@ -59,9 +59,9 @@ final class ValidSymbolPairGeneratorTest extends TestCase
     {
         yield [
             [
-                ['USD', SymbolType::FIAT],
-                ['BTC', SymbolType::CRYPTO],
-                ['AAPL', SymbolType::STOCK],
+                ['USD', SymbolTypeEnum::FIAT],
+                ['BTC', SymbolTypeEnum::CRYPTO],
+                ['AAPL', SymbolTypeEnum::STOCK],
             ],
             [
                 ['USD', 'BTC'],
@@ -70,7 +70,7 @@ final class ValidSymbolPairGeneratorTest extends TestCase
         ];
     }
 
-    private function createSymbolMock(string $code, SymbolType $type): Symbol
+    private function createSymbolMock(string $code, SymbolTypeEnum $type): Symbol
     {
         $symbol = $this->createMock(Symbol::class);
         $symbol->method('getType')->willReturn($type);
