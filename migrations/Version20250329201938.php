@@ -11,7 +11,7 @@ final class Version20250329201938 extends AbstractMigration
 {
     public function getDescription(): string
     {
-        return '';
+        return 'Create symbol table';
     }
 
     public function up(Schema $schema): void
