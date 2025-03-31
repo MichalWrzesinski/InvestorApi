@@ -10,6 +10,7 @@ use App\Entity\Trait\SoftDeletableTraitInterface;
 use App\Entity\Trait\TimestampableTrait;
 use App\Entity\Trait\TimestampableTraitInterface;
 use App\Repository\UserAssetRepository;
+use App\State\Provider\UserAssetProvider;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Uid\Uuid;
@@ -23,11 +24,14 @@ use ApiPlatform\Metadata as Metadata;
 #[ApiResource(
     operations: [
         new Metadata\Get(security: 'is_granted("ROLE_USER")'),
-        new Metadata\GetCollection(security: 'is_granted("ROLE_USER")'),
+        new Metadata\GetCollection(
+            security: 'is_granted("ROLE_USER")',
+            provider: UserAssetProvider::class
+        ),
         new Metadata\Post(security: 'is_granted("ROLE_USER")'),
-        new Metadata\Put(security: 'is_granted("ROLE_USER")'),
-        new Metadata\Patch(security: 'is_granted("ROLE_USER")'),
-        new Metadata\Delete(security: 'is_granted("ROLE_USER")'),
+        new Metadata\Put(security: 'is_granted("ROLE_USER") and object.getUser() === user'),
+        new Metadata\Patch(security: 'is_granted("ROLE_USER") and object.getUser() === user'),
+        new Metadata\Delete(security: 'is_granted("ROLE_USER") and object.getUser() === user'),
     ],
     normalizationContext: ['groups' => ['user_asset:read']],
     denormalizationContext: ['groups' => ['user_asset:write']]
