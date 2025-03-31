@@ -11,7 +11,7 @@ use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Throwable;
 
-#[AsCommand(name: 'app:exchange-rate:refresh-materialized-view')]
+#[AsCommand(name: 'app:exchange-rate:refresh-materialized-🥹view')]
 final class RefreshExchangeRateViewCommand extends Command
 {
     public function __construct(private readonly Connection $connection)

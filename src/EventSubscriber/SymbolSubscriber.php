@@ -10,7 +10,6 @@ use Doctrine\Common\EventSubscriber;
 use Doctrine\Persistence\Event\LifecycleEventArgs;
 use Doctrine\ORM\Event\PostFlushEventArgs;
 use Doctrine\ORM\Events;
-use Psr\Log\LoggerInterface;
 
 final class SymbolSubscriber implements EventSubscriber
 {
@@ -18,7 +17,6 @@ final class SymbolSubscriber implements EventSubscriber
 
     public function __construct(
         private readonly ExchangeRateSynchronizer $synchronizer,
-        private readonly LoggerInterface $logger,
     ) {}
 
     public function getSubscribedEvents(): array
@@ -34,7 +32,6 @@ final class SymbolSubscriber implements EventSubscriber
         $entity = $args->getObject();
 
         if ($entity instanceof Symbol) {
-            $this->logger->info('postPersist działa dla symbolu: ' . $entity->getSymbol());
             $this->newSymbols[] = $entity;
         }
     }
@@ -47,8 +44,6 @@ final class SymbolSubscriber implements EventSubscriber
 
         $symbolsToProcess = $this->newSymbols;
         $this->newSymbols = [];
-
-        $this->logger->info('postFlush działa, synchronizacja symboli');
 
         foreach ($symbolsToProcess as $symbol) {
             $this->synchronizer->synchronizeFor($symbol);
