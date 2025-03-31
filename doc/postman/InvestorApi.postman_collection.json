@@ -7,7 +7,7 @@
   },
   "item": [
     {
-      "name": "🔐 Login (JWT)",
+      "name": "\ud83d\udd10 Login (JWT)",
       "request": {
         "method": "POST",
         "header": [
@@ -22,91 +22,413 @@
         },
         "url": {
           "raw": "{{login_url}}",
-          "host": ["{{login_url}}"]
+          "host": [
+            "{{login_url}}"
+          ]
         }
       }
     },
     {
-      "name": "✅ Ping",
+      "name": "\u2705 Ping",
       "request": {
         "method": "GET",
         "url": {
           "raw": "{{base_url}}/ping",
-          "host": ["{{base_url}}"],
-          "path": ["ping"]
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "ping"
+          ]
         }
       }
     },
     {
-      "name": "👤 Users",
+      "name": "\ud83d\udc64 Users",
       "item": [
         {
           "name": "GET Users",
           "request": {
             "method": "GET",
-            "auth": {"type": "bearer", "bearer": [{"key": "token", "value": "{{Authorization}}"}]},
-            "url": {"raw": "{{base_url}}/users", "host": ["{{base_url}}"], "path": ["users"]}
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "Bearer {{jwt_token}}"
+                }
+              ]
+            },
+            "url": {
+              "raw": "{{base_url}}/users",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "users"
+              ]
+            }
           }
         },
         {
           "name": "GET User by ID",
           "request": {
             "method": "GET",
-            "auth": {"type": "bearer", "bearer": [{"key": "token", "value": "{{Authorization}}"}]},
-            "url": {"raw": "{{base_url}}/users/:id", "host": ["{{base_url}}"], "path": ["users", ":id"]}
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "Bearer {{jwt_token}}"
+                }
+              ]
+            },
+            "url": {
+              "raw": "{{base_url}}/users/:id",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "users",
+                ":id"
+              ]
+            }
           }
         },
         {
           "name": "POST User",
           "request": {
             "method": "POST",
-            "auth": {"type": "bearer", "bearer": [{"key": "token", "value": "{{Authorization}}"}]},
-            "url": {"raw": "{{base_url}}/users", "host": ["{{base_url}}"], "path": ["users"]}
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "Bearer {{jwt_token}}"
+                }
+              ]
+            },
+            "url": {
+              "raw": "{{base_url}}/users",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "users"
+              ]
+            }
           }
         },
         {
           "name": "PUT User",
           "request": {
             "method": "PUT",
-            "auth": {"type": "bearer", "bearer": [{"key": "token", "value": "{{Authorization}}"}]},
-            "url": {"raw": "{{base_url}}/users/:id", "host": ["{{base_url}}"], "path": ["users", ":id"]}
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "Bearer {{jwt_token}}"
+                }
+              ]
+            },
+            "url": {
+              "raw": "{{base_url}}/users/:id",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "users",
+                ":id"
+              ]
+            }
           }
         },
         {
           "name": "PATCH User",
           "request": {
             "method": "PATCH",
-            "auth": {"type": "bearer", "bearer": [{"key": "token", "value": "{{Authorization}}"}]},
-            "url": {"raw": "{{base_url}}/users/:id", "host": ["{{base_url}}"], "path": ["users", ":id"]}
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "Bearer {{jwt_token}}"
+                }
+              ]
+            },
+            "url": {
+              "raw": "{{base_url}}/users/:id",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "users",
+                ":id"
+              ]
+            }
           }
         },
         {
           "name": "DELETE User",
           "request": {
             "method": "DELETE",
-            "auth": {"type": "bearer", "bearer": [{"key": "token", "value": "{{Authorization}}"}]},
-            "url": {"raw": "{{base_url}}/users/:id", "host": ["{{base_url}}"], "path": ["users", ":id"]}
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "Bearer {{jwt_token}}"
+                }
+              ]
+            },
+            "url": {
+              "raw": "{{base_url}}/users/:id",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "users",
+                ":id"
+              ]
+            }
           }
         }
       ]
     },
     {
-      "name": "💰 Symbols",
+      "name": "\ud83d\udcb0 Symbols",
       "item": [
         {
           "name": "GET Symbols",
           "request": {
             "method": "GET",
-            "auth": {"type": "bearer", "bearer": [{"key": "token", "value": "{{Authorization}}"}]},
-            "url": {"raw": "{{base_url}}/symbols", "host": ["{{base_url}}"], "path": ["symbols"]}
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "Bearer {{jwt_token}}"
+                }
+              ]
+            },
+            "url": {
+              "raw": "{{base_url}}/symbols",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "symbols"
+              ]
+            }
           }
         },
         {
           "name": "GET Symbol by ID",
           "request": {
             "method": "GET",
-            "auth": {"type": "bearer", "bearer": [{"key": "token", "value": "{{Authorization}}"}]},
-            "url": {"raw": "{{base_url}}/symbols/:id", "host": ["{{base_url}}"], "path": ["symbols", ":id"]}
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "Bearer {{jwt_token}}"
+                }
+              ]
+            },
+            "url": {
+              "raw": "{{base_url}}/symbols/:id",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "symbols",
+                ":id"
+              ]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "\ud83d\udce6 User Assets",
+      "item": [
+        {
+          "name": "GET UserAssets",
+          "request": {
+            "method": "GET",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "Bearer {{jwt_token}}"
+                }
+              ]
+            },
+            "url": {
+              "raw": "{{base_url}}/user_assets",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "user_assets"
+              ]
+            }
+          }
+        },
+        {
+          "name": "GET UserAsset by ID",
+          "request": {
+            "method": "GET",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "Bearer {{jwt_token}}"
+                }
+              ]
+            },
+            "url": {
+              "raw": "{{base_url}}/user_assets/:id",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "user_assets",
+                ":id"
+              ]
+            }
+          }
+        },
+        {
+          "name": "POST UserAsset",
+          "request": {
+            "method": "POST",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "Bearer {{jwt_token}}"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "{{content_type}}"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"symbol\": \"/api/symbols/uuid\",\n    \"balance\": 123.45,\n    \"name\": \"Example Asset\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/user_assets",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "user_assets"
+              ]
+            }
+          }
+        },
+        {
+          "name": "PUT UserAsset",
+          "request": {
+            "method": "PUT",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "Bearer {{jwt_token}}"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "{{content_type}}"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"balance\": 456.78,\n    \"name\": \"Updated Asset\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/user_assets/:id",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "user_assets",
+                ":id"
+              ]
+            }
+          }
+        },
+        {
+          "name": "PATCH UserAsset",
+          "request": {
+            "method": "PATCH",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "Bearer {{jwt_token}}"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "{{content_type}}"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"balance\": 789.0\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/user_assets/:id",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "user_assets",
+                ":id"
+              ]
+            }
+          }
+        },
+        {
+          "name": "DELETE UserAsset",
+          "request": {
+            "method": "DELETE",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "Bearer {{jwt_token}}"
+                }
+              ]
+            },
+            "url": {
+              "raw": "{{base_url}}/user_assets/:id",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "user_assets",
+                ":id"
+              ]
+            }
           }
         }
       ]

@@ -10,6 +10,7 @@ This directory contains Postman configuration files to help you test the Investo
     - `✅ Ping` – Simple health-check endpoint
     - `👤 Users` – Manage user resources (list, get by ID, create, update, delete)
     - `💰 Symbols` – Manage symbol resources (list, get by ID, create, update, delete)
+    - `📦 UserAssets` – Manage user asset resources (list, get by ID, create, update, delete)
 
 ## 🚀 How to Use
 
@@ -27,3 +28,4 @@ This directory contains Postman configuration files to help you test the Investo
   "email": "admin@example.com",
   "password": "root"
 }
+```
