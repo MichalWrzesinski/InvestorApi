@@ -24,7 +24,7 @@ final class InitExchangeRateUpdateCommand extends Command
 
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
-        /** @var array<string, array<array{0: string, 1: string}>> $grouped */
+        /** @var array<string, array<array{base: string, quote: string}>> $grouped */
         $grouped = [];
 
         foreach ($this->pairGenerator->generate() as $pair) {

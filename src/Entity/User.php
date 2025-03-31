@@ -17,6 +17,7 @@ use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Doctrine\ORM\Mapping as ORM;
 use ApiPlatform\Metadata as Metadata;
 use Symfony\Component\Validator\Constraints as Assert;
+use LogicException;
 
 #[ORM\Entity(repositoryClass: UserRepository::class)]
 #[ORM\Table(name: '`user`')]
@@ -122,9 +123,17 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface, SoftDel
         return $this;
     }
 
+    /** @return non-empty-string */
     public function getUserIdentifier(): string
     {
-        return $this->email;
+        if ('' === trim($this->email)) {
+            throw new LogicException('User email must not be empty.');
+        }
+
+        /** @var non-empty-string $email */
+        $email = $this->email;
+
+        return $email;
     }
 
     public function eraseCredentials(): void

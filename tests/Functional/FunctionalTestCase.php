@@ -43,9 +43,17 @@ abstract class FunctionalTestCase extends WebTestCase
         ]);
 
         $response = $client->getResponse();
-        $data = json_decode($response->getContent(), true);
 
-        return $this->token = $data['token'] ?? null;
+        $content = $response->getContent();
+        self::assertIsString($content);
+
+        /** @var array<string, mixed> $data */
+        $data = json_decode($content, true);
+
+        $token = isset($data['token']) && is_string($data['token']) ? $data['token'] : null;
+        $this->token = $token;
+
+        return $token;
     }
 
     /** @param array<string, mixed> $data */
@@ -70,7 +78,7 @@ abstract class FunctionalTestCase extends WebTestCase
             [],
             [],
             $headers,
-            json_encode($data)
+            json_encode($data, JSON_THROW_ON_ERROR)
         );
 
         return $this->client;

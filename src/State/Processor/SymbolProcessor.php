@@ -20,14 +20,15 @@ final class SymbolProcessor implements ProcessorInterface
 
     public function process(mixed $data, Operation $operation, array $uriVariables = [], array $context = []): mixed
     {
-        if (!$data instanceof Symbol) {
-            return $this->persistProcessor->process($data, $operation, $uriVariables, $context);
+        if ($data instanceof Symbol) {
+            $result = $this->persistProcessor->process($data, $operation, $uriVariables, $context);
+            $this->synchronizer->synchronizeFor($data);
+            return $result;
         }
 
-        $result = $this->persistProcessor->process($data, $operation, $uriVariables, $context);
+        /** @var ProcessorInterface<object, object> $fallback */
+        $fallback = $this->persistProcessor;
 
-        $this->synchronizer->synchronizeFor($data);
-
-        return $result;
+        return $fallback->process($data, $operation, $uriVariables, $context);
     }
 }

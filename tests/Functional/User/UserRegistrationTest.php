@@ -63,7 +63,9 @@ final class UserRegistrationTest extends FunctionalTestCase
         $this->assertResponseStatusCodeSame(Response::HTTP_UNPROCESSABLE_ENTITY);
 
         $expectedCheck = $expectedField === 'email_duplicate' ? 'email' : $expectedField;
-        $this->assertStringContainsString($expectedCheck, $response->getContent());
+        $content = $response->getContent();
+        $this->assertIsString($content);
+        $this->assertStringContainsString($expectedCheck, $content);
     }
 
     /** @return Generator<string, array{0: array<string, string>, 1: string}> */
