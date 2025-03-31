@@ -2,7 +2,7 @@
   "info": {
     "name": "InvestorApi",
     "_postman_id": "a1b2c3d4-e5f6-7890-abcd-ef1234567890",
-    "description": "Kolekcja do testowania API Symfony (JWT)",
+    "description": "Symfony API Testing Collection (JWT)",
     "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
   },
   "item": [
@@ -22,27 +22,91 @@
         },
         "url": {
           "raw": "{{login_url}}",
-          "host": [
-            "{{login_url}}"
-          ]
+          "host": ["{{login_url}}"]
         }
-      },
-      "response": [],
-      "event": [
+      }
+    },
+    {
+      "name": "✅ Ping",
+      "request": {
+        "method": "GET",
+        "url": {
+          "raw": "{{base_url}}/ping",
+          "host": ["{{base_url}}"],
+          "path": ["ping"]
+        }
+      }
+    },
+    {
+      "name": "👤 Users",
+      "item": [
         {
-          "listen": "test",
-          "script": {
-            "exec": [
-              "// Pobierz JWT z odpowiedzi i ustaw w środowisku",
-              "let json = pm.response.json();",
-              "if (json.token) {",
-              "    pm.environment.set(\"jwt_token\", json.token);",
-              "    console.log(\"JWT zapisany w środowisku.\");",
-              "} else {",
-              "    console.warn(\"Brak tokenu w odpowiedzi.\");",
-              "}"
-            ],
-            "type": "text/javascript"
+          "name": "GET Users",
+          "request": {
+            "method": "GET",
+            "auth": {"type": "bearer", "bearer": [{"key": "token", "value": "{{Authorization}}"}]},
+            "url": {"raw": "{{base_url}}/users", "host": ["{{base_url}}"], "path": ["users"]}
+          }
+        },
+        {
+          "name": "GET User by ID",
+          "request": {
+            "method": "GET",
+            "auth": {"type": "bearer", "bearer": [{"key": "token", "value": "{{Authorization}}"}]},
+            "url": {"raw": "{{base_url}}/users/:id", "host": ["{{base_url}}"], "path": ["users", ":id"]}
+          }
+        },
+        {
+          "name": "POST User",
+          "request": {
+            "method": "POST",
+            "auth": {"type": "bearer", "bearer": [{"key": "token", "value": "{{Authorization}}"}]},
+            "url": {"raw": "{{base_url}}/users", "host": ["{{base_url}}"], "path": ["users"]}
+          }
+        },
+        {
+          "name": "PUT User",
+          "request": {
+            "method": "PUT",
+            "auth": {"type": "bearer", "bearer": [{"key": "token", "value": "{{Authorization}}"}]},
+            "url": {"raw": "{{base_url}}/users/:id", "host": ["{{base_url}}"], "path": ["users", ":id"]}
+          }
+        },
+        {
+          "name": "PATCH User",
+          "request": {
+            "method": "PATCH",
+            "auth": {"type": "bearer", "bearer": [{"key": "token", "value": "{{Authorization}}"}]},
+            "url": {"raw": "{{base_url}}/users/:id", "host": ["{{base_url}}"], "path": ["users", ":id"]}
+          }
+        },
+        {
+          "name": "DELETE User",
+          "request": {
+            "method": "DELETE",
+            "auth": {"type": "bearer", "bearer": [{"key": "token", "value": "{{Authorization}}"}]},
+            "url": {"raw": "{{base_url}}/users/:id", "host": ["{{base_url}}"], "path": ["users", ":id"]}
+          }
+        }
+      ]
+    },
+    {
+      "name": "💰 Symbols",
+      "item": [
+        {
+          "name": "GET Symbols",
+          "request": {
+            "method": "GET",
+            "auth": {"type": "bearer", "bearer": [{"key": "token", "value": "{{Authorization}}"}]},
+            "url": {"raw": "{{base_url}}/symbols", "host": ["{{base_url}}"], "path": ["symbols"]}
+          }
+        },
+        {
+          "name": "GET Symbol by ID",
+          "request": {
+            "method": "GET",
+            "auth": {"type": "bearer", "bearer": [{"key": "token", "value": "{{Authorization}}"}]},
+            "url": {"raw": "{{base_url}}/symbols/:id", "host": ["{{base_url}}"], "path": ["symbols", ":id"]}
           }
         }
       ]
