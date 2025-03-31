@@ -29,6 +29,31 @@
       }
     },
     {
+      "name": "🙂 Register",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "{{content_type}}"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n    \"email\": \"admin@example.com\",\n    \"password\": \"root\"\n}"
+        },
+        "url": {
+          "raw": "{{base_url}}/register",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "register"
+          ]
+        }
+      }
+    },
+    {
       "name": "\u2705 Ping",
       "request": {
         "method": "GET",
@@ -108,6 +133,10 @@
                 }
               ]
             },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"email\": \"admin@example.com\",\n    \"password\": \"root\"\n}"
+            },
             "url": {
               "raw": "{{base_url}}/users",
               "host": [
@@ -131,6 +160,10 @@
                   "value": "Bearer {{jwt_token}}"
                 }
               ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"email\": \"admin@example.com\",\n    \"password\": \"root\"\n}"
             },
             "url": {
               "raw": "{{base_url}}/users/:id",
@@ -156,6 +189,10 @@
                   "value": "Bearer {{jwt_token}}"
                 }
               ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"email\": \"admin@example.com\"\n}"
             },
             "url": {
               "raw": "{{base_url}}/users/:id",
@@ -227,6 +264,117 @@
           "name": "GET Symbol by ID",
           "request": {
             "method": "GET",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "Bearer {{jwt_token}}"
+                }
+              ]
+            },
+            "url": {
+              "raw": "{{base_url}}/symbols/:id",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "symbols",
+                ":id"
+              ]
+            }
+          }
+        },
+        {
+          "name": "POST Symbol",
+          "request": {
+            "method": "POST",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "Bearer {{jwt_token}}"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"symbol\": \"PLN\",\n    \"type\": \"FIAT\"    \"processor\": \"NBP\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/symbols",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "symbols"
+              ]
+            }
+          }
+        },
+        {
+          "name": "PUT Symbol",
+          "request": {
+            "method": "PUT",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "Bearer {{jwt_token}}"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"symbol\": \"PLN\",\n    \"type\": \"FIAT\"    \"processor\": \"NBP\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/symbols/:id",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "symbols",
+                ":id"
+              ]
+            }
+          }
+        },
+        {
+          "name": "PATCH Symbols",
+          "request": {
+            "method": "PATCH",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "Bearer {{jwt_token}}"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"processor\": \"YAHOO\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/symbols/:id",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "symbols",
+                ":id"
+              ]
+            }
+          }
+        },
+        {
+          "name": "DELETE Symbol",
+          "request": {
+            "method": "DELETE",
             "auth": {
               "type": "bearer",
               "bearer": [
@@ -323,7 +471,7 @@
             ],
             "body": {
               "mode": "raw",
-              "raw": "{\n    \"symbol\": \"/api/symbols/uuid\",\n    \"balance\": 123.45,\n    \"name\": \"Example Asset\"\n}"
+              "raw": "{\n    \"user\": \"/users/1\",\n    \"symbol\": \"/symbols/0195e6b0-2f87-7f3b-9e02-4880573b9566\",\n    \"balance\": 100.00\n,\n    \"name\": \"New car\"\n}"
             },
             "url": {
               "raw": "{{base_url}}/user_assets",
@@ -357,7 +505,7 @@
             ],
             "body": {
               "mode": "raw",
-              "raw": "{\n    \"balance\": 456.78,\n    \"name\": \"Updated Asset\"\n}"
+              "raw": "{\n    \"user\": \"/users/1\",\n    \"symbol\": \"/symbols/0195e6b0-2f87-7f3b-9e02-4880573b9566\",\n    \"balance\": 500.00\n,\n    \"name\": \"New car\"\n}"
             },
             "url": {
               "raw": "{{base_url}}/user_assets/:id",
@@ -392,7 +540,7 @@
             ],
             "body": {
               "mode": "raw",
-              "raw": "{\n    \"balance\": 789.0\n}"
+              "raw": "{\n    \"balance\": 500.00\n}"
             },
             "url": {
               "raw": "{{base_url}}/user_assets/:id",
@@ -497,7 +645,7 @@
             ],
             "body": {
               "mode": "raw",
-              "raw": "{\n    \"userAsset\": \"/api/user_assets/uuid\",\n    \"amount\": 100.0,\n    \"type\": \"CREDIT\"\n}"
+              "raw": "{\n    \"userAsset\": \"/user_assets/0195e6b0-2f87-7f3b-9e02-4880573b9566\",\n    \"amount\": 100.0,\n    \"type\": \"CREDIT\"\n}"
             },
             "url": {
               "raw": "{{base_url}}/user_asset_operations",
@@ -527,7 +675,7 @@
             ],
             "body": {
               "mode": "raw",
-              "raw": "{\n    \"amount\": 150.0,\n    \"type\": \"DEBIT\"\n}"
+              "raw": "{\n    \"amount\": 150.00,\n    \"type\": \"DEBIT\"\n}"
             },
             "url": {
               "raw": "{{base_url}}/user_asset_operations/:id",
