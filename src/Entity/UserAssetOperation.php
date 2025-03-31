@@ -11,11 +11,13 @@ use App\Entity\Trait\TimestampableTrait;
 use App\Entity\Trait\TimestampableTraitInterface;
 use App\Enum\AssetOperationTypeEnum;
 use App\Repository\UserAssetOperationRepository;
+use App\Security\OwnedByUserInterface;
 use App\State\Processor\CurrentUserProcessor;
 use App\State\Provider\CurrentUserCollectionProvider;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Uid\Uuid;
+use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\Component\Validator\Constraints as Assert;
 use ApiPlatform\Metadata as Metadata;
 
@@ -40,7 +42,7 @@ use ApiPlatform\Metadata as Metadata;
     normalizationContext: ['groups' => ['user_asset_operation:read']],
     denormalizationContext: ['groups' => ['user_asset_operation:write']]
 )]
-class UserAssetOperation implements SoftDeletableTraitInterface, TimestampableTraitInterface
+class UserAssetOperation implements SoftDeletableTraitInterface, TimestampableTraitInterface, OwnedByUserInterface
 {
     use SoftDeletableTrait;
     use TimestampableTrait;
@@ -49,18 +51,22 @@ class UserAssetOperation implements SoftDeletableTraitInterface, TimestampableTr
     #[ORM\Column(type: 'uuid')]
     #[ORM\GeneratedValue(strategy: 'CUSTOM')]
     #[ORM\CustomIdGenerator(class: 'doctrine.uuid_generator')]
+    #[Groups(['user_asset_operation:read'])]
     private ?Uuid $id = null;
 
     #[ORM\ManyToOne(targetEntity: UserAsset::class)]
     #[ORM\JoinColumn(nullable: false, onDelete: 'CASCADE')]
+    #[Groups(['user_asset_operation:read', 'user_asset_operation:write'])]
     private UserAsset $userAsset;
 
-    #[ORM\Column(type: Types::FLOAT)]
     #[Assert\NotNull]
+    #[ORM\Column(type: Types::FLOAT)]
+    #[Groups(['user_asset_operation:read', 'user_asset_operation:write'])]
     private float $amount;
 
-    #[ORM\Column(type: Types::STRING, enumType: AssetOperationTypeEnum::class)]
     #[Assert\NotNull]
+    #[ORM\Column(type: Types::STRING, enumType: AssetOperationTypeEnum::class)]
+    #[Groups(['user_asset_operation:read', 'user_asset_operation:write'])]
     private AssetOperationTypeEnum $type;
 
     public function getId(): ?Uuid
@@ -102,5 +108,16 @@ class UserAssetOperation implements SoftDeletableTraitInterface, TimestampableTr
         $this->type = $type;
 
         return $this;
+    }
+
+    public static function getUserFieldPath(): string
+    {
+        return 'userAsset.user';
+    }
+
+    #[Groups(['user_asset_operation:read'])]
+    public function getUser(): User
+    {
+        return $this->getUserAsset()->getUser();
     }
 }

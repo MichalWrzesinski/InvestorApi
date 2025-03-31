@@ -9,6 +9,7 @@ use ApiPlatform\State\ProviderInterface;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\SecurityBundle\Security;
 use Symfony\Component\Security\Core\User\UserInterface;
+use App\Security\OwnedByUserInterface;
 
 /** @implements ProviderInterface<object> */
 final class CurrentUserCollectionProvider implements ProviderInterface
@@ -26,12 +27,32 @@ final class CurrentUserCollectionProvider implements ProviderInterface
         /** @var class-string<object> $resourceClass */
         $resourceClass = $operation->getClass();
 
-        if (!$user instanceof UserInterface || !$resourceClass) {
+        if (!$user instanceof UserInterface
+            || !$resourceClass
+            || !is_subclass_of($resourceClass, OwnedByUserInterface::class)
+        ) {
             return [];
         }
 
-        $repository = $this->entityManager->getRepository($resourceClass);
+        $fieldPath = $resourceClass::getUserFieldPath();
+        $parts = explode('.', $fieldPath);
 
-        return $repository->findBy(['user' => $user]);
+        $queryBuilder = $this->entityManager->createQueryBuilder();
+        $queryBuilder->select('o')->from($resourceClass, 'o');
+
+        $lastAlias = 'o';
+        foreach ($parts as $i => $part) {
+            $nextAlias = 'a' . $i;
+            $queryBuilder->join("$lastAlias.$part", $nextAlias);
+            $lastAlias = $nextAlias;
+        }
+
+        $queryBuilder->where("$lastAlias = :user")
+            ->setParameter('user', $user);
+
+        /** @var array<int, object> */
+        $result = $queryBuilder->getQuery()->getResult();
+
+        return $result;
     }
 }

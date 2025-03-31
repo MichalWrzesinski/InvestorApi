@@ -40,7 +40,7 @@
         ],
         "body": {
           "mode": "raw",
-          "raw": "{\n    \"email\": \"admin@example.com\",\n    \"password\": \"root\"\n}"
+          "raw": "{\n    \"email\": \"new@example.com\",\n    \"password\": \"12345678\"\n}"
         },
         "url": {
           "raw": "{{base_url}}/register",
@@ -80,7 +80,7 @@
               "bearer": [
                 {
                   "key": "token",
-                  "value": "Bearer {{jwt_token}}"
+                  "value": "{{jwt_token}}"
                 }
               ]
             },
@@ -104,7 +104,7 @@
               "bearer": [
                 {
                   "key": "token",
-                  "value": "Bearer {{jwt_token}}"
+                  "value": "{{jwt_token}}"
                 }
               ]
             },
@@ -129,7 +129,7 @@
               "bearer": [
                 {
                   "key": "token",
-                  "value": "Bearer {{jwt_token}}"
+                  "value": "{{jwt_token}}"
                 }
               ]
             },
@@ -157,7 +157,7 @@
               "bearer": [
                 {
                   "key": "token",
-                  "value": "Bearer {{jwt_token}}"
+                  "value": "{{jwt_token}}"
                 }
               ]
             },
@@ -186,7 +186,7 @@
               "bearer": [
                 {
                   "key": "token",
-                  "value": "Bearer {{jwt_token}}"
+                  "value": "{{jwt_token}}"
                 }
               ]
             },
@@ -215,7 +215,7 @@
               "bearer": [
                 {
                   "key": "token",
-                  "value": "Bearer {{jwt_token}}"
+                  "value": "{{jwt_token}}"
                 }
               ]
             },
@@ -245,7 +245,7 @@
               "bearer": [
                 {
                   "key": "token",
-                  "value": "Bearer {{jwt_token}}"
+                  "value": "{{jwt_token}}"
                 }
               ]
             },
@@ -269,7 +269,7 @@
               "bearer": [
                 {
                   "key": "token",
-                  "value": "Bearer {{jwt_token}}"
+                  "value": "{{jwt_token}}"
                 }
               ]
             },
@@ -294,13 +294,13 @@
               "bearer": [
                 {
                   "key": "token",
-                  "value": "Bearer {{jwt_token}}"
+                  "value": "{{jwt_token}}"
                 }
               ]
             },
             "body": {
               "mode": "raw",
-              "raw": "{\n    \"symbol\": \"PLN\",\n    \"type\": \"FIAT\"    \"processor\": \"NBP\"\n}"
+              "raw": "{\n    \"symbol\": \"PLN\",\n    \"type\": \"FIAT\",\n    \"processor\": \"NBP\"\n}"
             },
             "url": {
               "raw": "{{base_url}}/symbols",
@@ -322,13 +322,13 @@
               "bearer": [
                 {
                   "key": "token",
-                  "value": "Bearer {{jwt_token}}"
+                  "value": "{{jwt_token}}"
                 }
               ]
             },
             "body": {
               "mode": "raw",
-              "raw": "{\n    \"symbol\": \"PLN\",\n    \"type\": \"FIAT\"    \"processor\": \"NBP\"\n}"
+              "raw": "{\n    \"symbol\": \"PLN\",\n    \"type\": \"FIAT\",\n    \"processor\": \"NBP\"\n}"
             },
             "url": {
               "raw": "{{base_url}}/symbols/:id",
@@ -351,7 +351,7 @@
               "bearer": [
                 {
                   "key": "token",
-                  "value": "Bearer {{jwt_token}}"
+                  "value": "{{jwt_token}}"
                 }
               ]
             },
@@ -380,7 +380,7 @@
               "bearer": [
                 {
                   "key": "token",
-                  "value": "Bearer {{jwt_token}}"
+                  "value": "{{jwt_token}}"
                 }
               ]
             },
@@ -410,7 +410,7 @@
               "bearer": [
                 {
                   "key": "token",
-                  "value": "Bearer {{jwt_token}}"
+                  "value": "{{jwt_token}}"
                 }
               ]
             },
@@ -434,7 +434,7 @@
               "bearer": [
                 {
                   "key": "token",
-                  "value": "Bearer {{jwt_token}}"
+                  "value": "{{jwt_token}}"
                 }
               ]
             },
@@ -459,7 +459,7 @@
               "bearer": [
                 {
                   "key": "token",
-                  "value": "Bearer {{jwt_token}}"
+                  "value": "{{jwt_token}}"
                 }
               ]
             },
@@ -471,7 +471,7 @@
             ],
             "body": {
               "mode": "raw",
-              "raw": "{\n    \"user\": \"/users/1\",\n    \"symbol\": \"/symbols/0195e6b0-2f87-7f3b-9e02-4880573b9566\",\n    \"balance\": 100.00\n,\n    \"name\": \"New car\"\n}"
+              "raw": "{\n    \"symbol\": \"/api/symbols/0195e6b0-2f87-7f3b-9e02-4880573b9566\",\n    \"balance\": 100.00\n,\n    \"name\": \"New car\"\n}"
             },
             "url": {
               "raw": "{{base_url}}/user_assets",
@@ -493,7 +493,7 @@
               "bearer": [
                 {
                   "key": "token",
-                  "value": "Bearer {{jwt_token}}"
+                  "value": "{{jwt_token}}"
                 }
               ]
             },
@@ -505,7 +505,7 @@
             ],
             "body": {
               "mode": "raw",
-              "raw": "{\n    \"user\": \"/users/1\",\n    \"symbol\": \"/symbols/0195e6b0-2f87-7f3b-9e02-4880573b9566\",\n    \"balance\": 500.00\n,\n    \"name\": \"New car\"\n}"
+              "raw": "{\n    \"symbol\": \"/api/symbols/0195e6b0-2f87-7f3b-9e02-4880573b9566\",\n    \"balance\": 500.00\n,\n    \"name\": \"New car\"\n}"
             },
             "url": {
               "raw": "{{base_url}}/user_assets/:id",
@@ -528,7 +528,7 @@
               "bearer": [
                 {
                   "key": "token",
-                  "value": "Bearer {{jwt_token}}"
+                  "value": "{{jwt_token}}"
                 }
               ]
             },
@@ -563,7 +563,7 @@
               "bearer": [
                 {
                   "key": "token",
-                  "value": "Bearer {{jwt_token}}"
+                  "value": "{{jwt_token}}"
                 }
               ]
             },
@@ -593,7 +593,7 @@
               "bearer": [
                 {
                   "key": "token",
-                  "value": "Bearer {{jwt_token}}"
+                  "value": "{{jwt_token}}"
                 }
               ]
             },
@@ -613,7 +613,7 @@
               "bearer": [
                 {
                   "key": "token",
-                  "value": "Bearer {{jwt_token}}"
+                  "value": "{{jwt_token}}"
                 }
               ]
             },
@@ -633,7 +633,7 @@
               "bearer": [
                 {
                   "key": "token",
-                  "value": "Bearer {{jwt_token}}"
+                  "value": "{{jwt_token}}"
                 }
               ]
             },
@@ -645,7 +645,7 @@
             ],
             "body": {
               "mode": "raw",
-              "raw": "{\n    \"userAsset\": \"/user_assets/0195e6b0-2f87-7f3b-9e02-4880573b9566\",\n    \"amount\": 100.0,\n    \"type\": \"CREDIT\"\n}"
+              "raw": "{\n    \"userAsset\": \"/api/user_assets/0195e6b0-2f87-7f3b-9e02-4880573b9566\",\n    \"amount\": 100.0,\n    \"type\": \"CREDIT\"\n}"
             },
             "url": {
               "raw": "{{base_url}}/user_asset_operations",
@@ -663,7 +663,7 @@
               "bearer": [
                 {
                   "key": "token",
-                  "value": "Bearer {{jwt_token}}"
+                  "value": "{{jwt_token}}"
                 }
               ]
             },
@@ -693,7 +693,7 @@
               "bearer": [
                 {
                   "key": "token",
-                  "value": "Bearer {{jwt_token}}"
+                  "value": "{{jwt_token}}"
                 }
               ]
             },
@@ -705,7 +705,7 @@
             ],
             "body": {
               "mode": "raw",
-              "raw": "{\n    \"amount\": 200.0\n}"
+              "raw": "{\n    \"amount\": 200.00\n}"
             },
             "url": {
               "raw": "{{base_url}}/user_asset_operations/:id",
@@ -723,7 +723,7 @@
               "bearer": [
                 {
                   "key": "token",
-                  "value": "Bearer {{jwt_token}}"
+                  "value": "{{jwt_token}}"
                 }
               ]
             },

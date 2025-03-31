@@ -10,6 +10,7 @@ use App\Entity\Trait\SoftDeletableTraitInterface;
 use App\Entity\Trait\TimestampableTrait;
 use App\Entity\Trait\TimestampableTraitInterface;
 use App\Repository\UserAssetRepository;
+use App\Security\OwnedByUserInterface;
 use App\State\Processor\CurrentUserProcessor;
 use App\State\Provider\CurrentUserCollectionProvider;
 use Doctrine\DBAL\Types\Types;
@@ -40,7 +41,7 @@ use ApiPlatform\Metadata as Metadata;
     normalizationContext: ['groups' => ['user_asset:read']],
     denormalizationContext: ['groups' => ['user_asset:write']]
 )]
-class UserAsset implements SoftDeletableTraitInterface, TimestampableTraitInterface
+class UserAsset implements SoftDeletableTraitInterface, TimestampableTraitInterface, OwnedByUserInterface
 {
     use SoftDeletableTrait;
     use TimestampableTrait;
@@ -123,5 +124,10 @@ class UserAsset implements SoftDeletableTraitInterface, TimestampableTraitInterf
         $this->name = $name;
 
         return $this;
+    }
+
+    public static function getUserFieldPath(): string
+    {
+        return 'user';
     }
 }
