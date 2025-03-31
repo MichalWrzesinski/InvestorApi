@@ -24,6 +24,7 @@ final class NbpProcessor implements ProcessorInterface, ExchangeRateInterface
         return $processor === DataProcessor::NBP;
     }
 
+    /** @param array<int, array{string, string}> $pairs */
     public function update(array $pairs): void
     {
         foreach ($pairs as [$base, $quote]) {

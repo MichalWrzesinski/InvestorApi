@@ -10,5 +10,6 @@ interface ProcessorInterface
 {
     public function supports(DataProcessor $processor): bool;
 
+    /** @param array<int, array{string, string}> $pairs */
     public function update(array $pairs): void;
 }

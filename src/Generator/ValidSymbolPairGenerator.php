@@ -15,11 +15,10 @@ final class ValidSymbolPairGenerator implements ValidSymbolPairGeneratorInterfac
         private readonly SymbolPairValidatorInterface $symbolPairValidator,
     ) {}
 
-    /**
-     * @return iterable<array{base: Symbol, quote: Symbol}>
-     */
+    /** @return iterable<array{base: Symbol, quote: Symbol}> */
     public function generate(): iterable
     {
+        /** @var Symbol[] $symbols */
         $symbols = $this->symbolRepository->findAll();
 
         foreach ($symbols as $base) {

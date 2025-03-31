@@ -22,6 +22,7 @@ final class SymbolPairValidatorTest extends TestCase
         );
     }
 
+    /** @return iterable<string, array{SymbolType, SymbolType, bool}> */
     public static function providePairCases(): iterable
     {
         yield 'FIAT vs FIAT' => [SymbolType::FIAT, SymbolType::FIAT, true];

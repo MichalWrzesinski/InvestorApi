@@ -14,6 +14,9 @@ use PHPUnit\Framework\TestCase;
 final class ValidSymbolPairGeneratorTest extends TestCase
 {
     /**
+     * @param array<array{0: string, 1: SymbolType}> $symbolDefs
+     * @param array<array{0: string, 1: string}> $expectedPairs
+     *
      * @dataProvider provideSymbolPairs
      */
     public function testGenerateYieldsExpectedPairs(array $symbolDefs, array $expectedPairs): void
@@ -46,6 +49,12 @@ final class ValidSymbolPairGeneratorTest extends TestCase
         }
     }
 
+    /**
+     * @return iterable<array{
+     *     0: array<array{0: string, 1: SymbolType}>,
+     *     1: array<array{0: string, 1: string}>
+     * }>
+     */
     public static function provideSymbolPairs(): iterable
     {
         yield [

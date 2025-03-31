@@ -48,6 +48,7 @@ abstract class FunctionalTestCase extends WebTestCase
         return $this->token = $data['token'] ?? null;
     }
 
+    /** @param array<string, mixed> $data */
     protected function requestJson(
         string $method,
         string $uri,

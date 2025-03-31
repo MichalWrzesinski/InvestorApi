@@ -7,12 +7,14 @@ namespace App\EventSubscriber;
 use App\Entity\Symbol;
 use App\Service\ExchangeRateSynchronizer;
 use Doctrine\Common\EventSubscriber;
+use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\Persistence\Event\LifecycleEventArgs;
 use Doctrine\ORM\Event\PostFlushEventArgs;
 use Doctrine\ORM\Events;
 
 final class SymbolSubscriber implements EventSubscriber
 {
+    /** @var Symbol[] */
     private array $newSymbols = [];
 
     public function __construct(
@@ -27,6 +29,7 @@ final class SymbolSubscriber implements EventSubscriber
         ];
     }
 
+    /** @param LifecycleEventArgs<EntityManagerInterface> $args */
     public function postPersist(LifecycleEventArgs $args): void
     {
         $entity = $args->getObject();

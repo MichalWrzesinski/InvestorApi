@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Tests\Unit\Validator;
 
 use App\Entity\User;
+use App\Enum\SymbolType;
 use App\Validator\EmailUnique;
 use App\Validator\EmailUniqueValidator;
 use Doctrine\ORM\EntityManagerInterface;
@@ -18,8 +19,14 @@ use stdClass;
 class EmailUniqueValidatorTest extends TestCase
 {
     private EmailUniqueValidator $validator;
+
+    /** @var EntityManagerInterface&MockObject */
     private EntityManagerInterface&MockObject $entityManager;
+
+    /** @var EntityRepository<User>&MockObject */
     private EntityRepository&MockObject $repository;
+
+    /** @var ExecutionContextInterface&MockObject */
     private ExecutionContextInterface&MockObject $context;
 
     protected function setUp(): void
@@ -84,6 +91,14 @@ class EmailUniqueValidatorTest extends TestCase
         $this->validator->validate($value, new EmailUnique());
     }
 
+    /**
+     * @return iterable<string, array{
+     *     value: mixed,
+     *     existingUser: ?User,
+     *     currentObject: mixed,
+     *     expectViolation: bool
+     * }>
+     */
     public static function provideEmails(): iterable
     {
         $existingUser = new User();

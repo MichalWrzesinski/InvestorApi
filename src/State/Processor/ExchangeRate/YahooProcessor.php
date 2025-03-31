@@ -26,6 +26,7 @@ final class YahooProcessor implements ProcessorInterface, ExchangeRateInterface
         return $processor === DataProcessor::YAHOO;
     }
 
+    /** @param array<int, array{string, string}> $pairs */
     public function update(array $pairs): void
     {
         foreach ($pairs as [$base, $quote]) {

@@ -26,6 +26,7 @@ final class BinanceProcessor implements ProcessorInterface, ExchangeRateInterfac
         return $processor === DataProcessor::BINANCE;
     }
 
+    /** @param array<int, array{string, string}> $pairs */
     public function update(array $pairs): void
     {
         foreach ($pairs as [$base, $quote]) {

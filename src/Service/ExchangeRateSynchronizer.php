@@ -40,6 +40,7 @@ final class ExchangeRateSynchronizer implements ExchangeRateSynchronizerInterfac
         $this->entityManager->flush();
     }
 
+    /** @return array<int, array{base: Symbol, quote: Symbol}> */
     private function getSymmetricSymbolPairs(Symbol $symbolA, Symbol $symbolB): array
     {
         if ($symbolA === $symbolB) {

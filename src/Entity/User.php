@@ -54,6 +54,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface, SoftDel
     #[ORM\Column]
     private string $password;
 
+    /** @var string[] */
     #[ORM\Column]
     private array $roles = [];
 
@@ -101,6 +102,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface, SoftDel
         return array_unique($roles);
     }
 
+    /** @param string[] $roles */
     public function setRoles(array $roles): self
     {
         $this->roles = $roles;

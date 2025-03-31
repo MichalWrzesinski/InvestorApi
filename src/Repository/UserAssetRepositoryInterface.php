@@ -8,9 +8,9 @@ use App\Entity\UserAsset;
 
 /**
  * @method UserAsset|null find($id, $lockMode = null, $lockVersion = null)
- * @method UserAsset|null findOneBy(array $criteria, array $orderBy = null)
+ * @method UserAsset|null findOneBy(array<string, mixed> $criteria, array<string, string>|null $orderBy = null)
  * @method UserAsset[]    findAll()
- * @method UserAsset[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
+ * @method UserAsset[]    findBy(array<string, mixed> $criteria, array<string, string>|null $orderBy = null, $limit = null, $offset = null)
  */
 interface UserAssetRepositoryInterface
 {}

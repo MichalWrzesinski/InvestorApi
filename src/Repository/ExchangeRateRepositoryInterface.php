@@ -9,9 +9,9 @@ use App\Entity\Symbol;
 
 /**
  * @method ExchangeRate|null find($id, $lockMode = null, $lockVersion = null)
- * @method ExchangeRate|null findOneBy(array $criteria, array $orderBy = null)
+ * @method ExchangeRate|null findOneBy(array<string, mixed> $criteria, array<string, string>|null $orderBy = null)
  * @method ExchangeRate[]    findAll()
- * @method ExchangeRate[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
+ * @method ExchangeRate[]    findBy(array<string, mixed> $criteria, array<string, string>|null $orderBy = null, $limit = null, $offset = null)
  */
 interface ExchangeRateRepositoryInterface
 {

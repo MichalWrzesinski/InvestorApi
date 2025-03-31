@@ -24,6 +24,7 @@ final class StooqProcessor implements ProcessorInterface, ExchangeRateInterface
         return $processor === DataProcessor::STOOQ;
     }
 
+    /** @param array<int, array{string, string}> $pairs */
     public function update(array $pairs): void
     {
         foreach ($pairs as [$base, $quote]) {

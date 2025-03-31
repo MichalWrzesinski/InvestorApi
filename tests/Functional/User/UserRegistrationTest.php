@@ -8,6 +8,7 @@ use App\Entity\User;
 use App\Tests\Functional\FunctionalTestCase;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Response;
+use Generator;
 
 final class UserRegistrationTest extends FunctionalTestCase
 {
@@ -42,6 +43,9 @@ final class UserRegistrationTest extends FunctionalTestCase
     }
 
     /**
+     * @param array<string, string> $payload
+     * @param string $expectedField
+     *
      * @dataProvider provideInvalidRegistrationData
      */
     public function testRegistrationValidationErrors(array $payload, string $expectedField): void
@@ -62,7 +66,8 @@ final class UserRegistrationTest extends FunctionalTestCase
         $this->assertStringContainsString($expectedCheck, $response->getContent());
     }
 
-    public static function provideInvalidRegistrationData(): \Generator
+    /** @return Generator<string, array{0: array<string, string>, 1: string}> */
+    public static function provideInvalidRegistrationData(): Generator
     {
         yield 'missing password' => [
             ['email' => 'user1@example.com'],

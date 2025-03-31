@@ -8,9 +8,7 @@ use App\Entity\Symbol;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
-/**
- * @extends ServiceEntityRepository<Symbol>
- */
+/** @extends ServiceEntityRepository<Symbol> */
 final class SymbolRepository extends ServiceEntityRepository implements SymbolRepositoryInterface
 {
     public function __construct(ManagerRegistry $registry)

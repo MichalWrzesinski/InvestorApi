@@ -11,6 +11,7 @@ use Symfony\Bundle\SecurityBundle\Security;
 use Symfony\Component\Security\Core\User\UserInterface;
 use LogicException;
 
+/** @implements ProcessorInterface<object, object> */
 final class CurrentUserProcessor implements ProcessorInterface
 {
     public function __construct(

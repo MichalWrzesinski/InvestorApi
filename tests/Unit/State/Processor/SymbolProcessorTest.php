@@ -15,8 +15,11 @@ use stdClass;
 
 final class SymbolProcessorTest extends TestCase
 {
+    /** @var ProcessorInterface<object, object>&MockObject */
     private ProcessorInterface&MockObject $persistProcessor;
+
     private ExchangeRateSynchronizerInterface&MockObject $synchronizer;
+
     private SymbolProcessor $processor;
 
     protected function setUp(): void

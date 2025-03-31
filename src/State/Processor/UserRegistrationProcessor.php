@@ -11,6 +11,7 @@ use App\Dto\UserRegistrationInput;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 
+/** @implements ProcessorInterface<UserRegistrationInput, User> */
 final class UserRegistrationProcessor implements ProcessorInterface
 {
     public function __construct(
@@ -18,6 +19,7 @@ final class UserRegistrationProcessor implements ProcessorInterface
         private UserPasswordHasherInterface $hasher,
     ) {}
 
+    /** @param UserRegistrationInput $data */
     public function process(mixed $data, Operation $operation, array $uriVariables = [], array $context = []): User
     {
         /** @var UserRegistrationInput $data */

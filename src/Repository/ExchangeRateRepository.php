@@ -9,9 +9,7 @@ use App\Entity\Symbol;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
-/**
- * @extends ServiceEntityRepository<ExchangeRate>
- */
+/** @extends ServiceEntityRepository<ExchangeRate> */
 final class ExchangeRateRepository extends ServiceEntityRepository implements ExchangeRateRepositoryInterface
 {
     public function __construct(ManagerRegistry $registry)

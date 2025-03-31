@@ -9,8 +9,10 @@ use ApiPlatform\State\ProcessorInterface;
 use App\Entity\Symbol;
 use App\Service\ExchangeRateSynchronizerInterface;
 
+/** @implements ProcessorInterface<object, object> */
 final class SymbolProcessor implements ProcessorInterface
 {
+    /** @param ProcessorInterface<Symbol, Symbol> $persistProcessor */
     public function __construct(
         private readonly ProcessorInterface $persistProcessor,
         private readonly ExchangeRateSynchronizerInterface $synchronizer,

@@ -16,7 +16,7 @@ final class EmailUniqueValidator extends ConstraintValidator
     public function __construct(private EntityManagerInterface $entityManager)
     {}
 
-    public function validate($value, Constraint $constraint): void
+    public function validate(mixed $value, Constraint $constraint): void
     {
         if (!$constraint instanceof EmailUnique) {
             throw new UnexpectedTypeException($constraint, EmailUnique::class);

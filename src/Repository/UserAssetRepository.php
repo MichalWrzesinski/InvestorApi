@@ -8,10 +8,8 @@ use App\Entity\UserAsset;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
-/**
- * @extends ServiceEntityRepository<UserAsset>
- */
-final class UserAssetRepository extends ServiceEntityRepository implements UserRepositoryInterface
+/** @extends ServiceEntityRepository<UserAsset> */
+final class UserAssetRepository extends ServiceEntityRepository implements UserAssetRepositoryInterface
 {
     public function __construct(ManagerRegistry $registry)
     {
