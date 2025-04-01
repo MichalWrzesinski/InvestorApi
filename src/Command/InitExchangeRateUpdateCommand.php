@@ -6,7 +6,7 @@ namespace App\Command;
 
 use App\Generator\ValidSymbolPairGeneratorInterface;
 use App\Message\UpdateRatesMessage;
-use App\Resolver\ProcessorResolver;
+use App\Resolver\ProcessorResolverInterface;
 use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
@@ -19,7 +19,7 @@ final class InitExchangeRateUpdateCommand extends Command
     public function __construct(
         private readonly MessageBusInterface $bus,
         private readonly ValidSymbolPairGeneratorInterface $pairGenerator,
-        private readonly ProcessorResolver $processorResolver,
+        private readonly ProcessorResolverInterface $processorResolver,
     ) {
         parent::__construct();
     }

@@ -7,7 +7,7 @@ namespace App\Resolver;
 use App\Enum\DataProcessorEnum;
 use App\Enum\SymbolTypeEnum;
 
-class ProcessorResolver
+final readonly class ProcessorResolver implements ProcessorResolverInterface
 {
     public function resolve(string $type): ?string
     {
