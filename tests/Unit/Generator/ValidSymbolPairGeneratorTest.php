@@ -31,10 +31,20 @@ final class ValidSymbolPairGeneratorTest extends TestCase
 
         $validator = $this->createMock(SymbolPairValidatorInterface::class);
         $validator->method('isValid')
-            ->willReturnCallback(fn (SymbolTypeEnum $base, SymbolTypeEnum $quote) => match ([$base, $quote]) {
-                [SymbolTypeEnum::FIAT, SymbolTypeEnum::CRYPTO] => true,
-                [SymbolTypeEnum::STOCK, SymbolTypeEnum::FIAT] => true,
-                default => false,
+            ->willReturnCallback(function (Symbol $base, Symbol $quote): bool {
+                $baseType = $base->getType();
+                $quoteType = $quote->getType();
+                $quoteSymbol = $quote->getSymbol();
+
+                if (SymbolTypeEnum::FIAT === $baseType && SymbolTypeEnum::CRYPTO === $quoteType) {
+                    return true;
+                }
+
+                if (SymbolTypeEnum::STOCK === $baseType && SymbolTypeEnum::FIAT === $quoteType && 'USD' === $quoteSymbol) {
+                    return true;
+                }
+
+                return false;
             });
 
         $generator = new ValidSymbolPairGenerator($symbolRepository, $validator);

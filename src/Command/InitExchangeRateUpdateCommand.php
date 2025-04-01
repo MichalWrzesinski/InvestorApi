@@ -1,11 +1,12 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Command;
 
-use App\Enum\DataProcessorEnum;
-use App\Enum\SymbolTypeEnum;
 use App\Generator\ValidSymbolPairGeneratorInterface;
 use App\Message\UpdateRatesMessage;
+use App\Resolver\ProcessorResolver;
 use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
@@ -18,6 +19,7 @@ final class InitExchangeRateUpdateCommand extends Command
     public function __construct(
         private readonly MessageBusInterface $bus,
         private readonly ValidSymbolPairGeneratorInterface $pairGenerator,
+        private readonly ProcessorResolver $processorResolver,
     ) {
         parent::__construct();
     }
@@ -31,7 +33,7 @@ final class InitExchangeRateUpdateCommand extends Command
             $base = $pair['base'];
             $quote = $pair['quote'];
 
-            $processor = $this->resolveProcessor($base->getType()->value, $quote->getType()->value);
+            $processor = $this->processorResolver->resolve($base->getType()->value);
 
             if (!$processor) {
                 continue;
@@ -50,15 +52,5 @@ final class InitExchangeRateUpdateCommand extends Command
         $output->writeln('Rate update tasks were initiated from data in the database.');
 
         return Command::SUCCESS;
-    }
-
-    private function resolveProcessor(string $baseType, string $quoteType): ?string
-    {
-        return match (true) {
-            'PLN' === $quoteType && $baseType === SymbolTypeEnum::FIAT->value => DataProcessorEnum::NBP->value,
-            $baseType === SymbolTypeEnum::CRYPTO->value || $quoteType === SymbolTypeEnum::CRYPTO->value => DataProcessorEnum::BINANCE->value,
-            $baseType === SymbolTypeEnum::STOCK->value || $baseType === SymbolTypeEnum::ETF->value => DataProcessorEnum::YAHOO->value,
-            default => null,
-        };
     }
 }

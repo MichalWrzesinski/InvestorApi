@@ -57,6 +57,6 @@ final readonly class ExchangeRateSynchronizer implements ExchangeRateSynchronize
     private function shouldInsertExchangeRate(Symbol $base, Symbol $quote): bool
     {
         return !$this->exchangeRateRepository->exists($base, $quote)
-            && $this->symbolPairValidator->isValid($base->getType(), $quote->getType());
+            && $this->symbolPairValidator->isValid($base, $quote);
     }
 }

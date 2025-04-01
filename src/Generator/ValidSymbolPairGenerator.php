@@ -28,7 +28,7 @@ final class ValidSymbolPairGenerator implements ValidSymbolPairGeneratorInterfac
                     continue;
                 }
 
-                if ($this->symbolPairValidator->isValid($base->getType(), $quote->getType())) {
+                if ($this->symbolPairValidator->isValid($base, $quote)) {
                     yield ['base' => $base, 'quote' => $quote];
                 }
             }

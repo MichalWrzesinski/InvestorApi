@@ -2,9 +2,9 @@
 
 namespace App\Validator;
 
-use App\Enum\SymbolTypeEnum;
+use App\Entity\Symbol;
 
 interface SymbolPairValidatorInterface
 {
-    public function isValid(SymbolTypeEnum $baseType, SymbolTypeEnum $quoteType): bool;
+    public function isValid(Symbol $base, Symbol $quote): bool;
 }
