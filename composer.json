@@ -109,6 +109,7 @@
         "dama/doctrine-test-bundle": "^8.2",
         "doctrine/doctrine-fixtures-bundle": "^4.1",
         "fakerphp/faker": "^1.24",
+        "friendsofphp/php-cs-fixer": "^3.75",
         "hautelook/alice-bundle": "^2.15",
         "nelmio/alice": "^3.14",
         "phpstan/extension-installer": "^1.4",

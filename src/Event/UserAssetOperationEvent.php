@@ -10,7 +10,8 @@ final class UserAssetOperationEvent implements EventInterface
 {
     public function __construct(
         public readonly UserAssetOperation $operation,
-    ) {}
+    ) {
+    }
 
     public function getName(): string
     {

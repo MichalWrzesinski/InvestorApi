@@ -8,7 +8,6 @@ use App\Integration\Stooq\StooqApiClientInterface;
 use App\Repository\SymbolRepositoryInterface;
 use Doctrine\ORM\EntityManagerInterface;
 use Psr\Log\LoggerInterface;
-use Throwable;
 
 final class StooqProcessor implements ProcessorInterface, ExchangeRateInterface
 {
@@ -17,11 +16,12 @@ final class StooqProcessor implements ProcessorInterface, ExchangeRateInterface
         private readonly SymbolRepositoryInterface $symbolRepository,
         private readonly EntityManagerInterface $entityManager,
         private readonly LoggerInterface $logger,
-    ) {}
+    ) {
+    }
 
     public function supports(DataProcessorEnum $processor): bool
     {
-        return $processor === DataProcessorEnum::STOOQ;
+        return DataProcessorEnum::STOOQ === $processor;
     }
 
     /** @param array<int, array{string, string}> $pairs */
@@ -29,7 +29,7 @@ final class StooqProcessor implements ProcessorInterface, ExchangeRateInterface
     {
         foreach ($pairs as [$base, $quote]) {
             try {
-                $symbolCode = strtolower($base . $quote);
+                $symbolCode = strtolower($base.$quote);
                 $price = $this->client->getPriceForSymbol($symbolCode);
 
                 $baseSymbol = $this->symbolRepository->findOneBy(['symbol' => strtoupper($base)]);
@@ -45,8 +45,7 @@ final class StooqProcessor implements ProcessorInterface, ExchangeRateInterface
                 $exchangeRate->setPrice($price);
 
                 $this->entityManager->persist($exchangeRate);
-
-            } catch (Throwable $e) {
+            } catch (\Throwable $e) {
                 $this->logger->error('Error while updating the exchange rate from Stooq', [
                     'exception' => $e,
                     'base' => $base,

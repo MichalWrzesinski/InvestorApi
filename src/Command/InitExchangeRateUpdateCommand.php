@@ -55,7 +55,7 @@ final class InitExchangeRateUpdateCommand extends Command
     private function resolveProcessor(string $baseType, string $quoteType): ?string
     {
         return match (true) {
-            $quoteType === 'PLN' && $baseType === SymbolTypeEnum::FIAT->value => DataProcessorEnum::NBP->value,
+            'PLN' === $quoteType && $baseType === SymbolTypeEnum::FIAT->value => DataProcessorEnum::NBP->value,
             $baseType === SymbolTypeEnum::CRYPTO->value || $quoteType === SymbolTypeEnum::CRYPTO->value => DataProcessorEnum::BINANCE->value,
             $baseType === SymbolTypeEnum::STOCK->value || $baseType === SymbolTypeEnum::ETF->value => DataProcessorEnum::YAHOO->value,
             default => null,

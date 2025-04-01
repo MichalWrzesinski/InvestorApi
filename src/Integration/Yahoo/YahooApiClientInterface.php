@@ -8,4 +8,3 @@ interface YahooApiClientInterface
 {
     public function getPriceForSymbol(string $symbol): float;
 }
-

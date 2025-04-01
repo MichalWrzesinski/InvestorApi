@@ -9,9 +9,8 @@ use ApiPlatform\State\ProcessorInterface;
 use App\Entity\Symbol;
 use App\Service\ExchangeRateSynchronizerInterface;
 use App\State\Processor\SymbolProcessor;
-use PHPUnit\Framework\TestCase;
 use PHPUnit\Framework\MockObject\MockObject;
-use stdClass;
+use PHPUnit\Framework\TestCase;
 
 final class SymbolProcessorTest extends TestCase
 {
@@ -57,9 +56,9 @@ final class SymbolProcessorTest extends TestCase
 
     public function testProcessWithNonSymbolDelegatesOnly(): void
     {
-        $nonSymbol = new stdClass();
+        $nonSymbol = new \stdClass();
         $operation = $this->createMock(Operation::class);
-        $expectedResult = new stdClass();
+        $expectedResult = new \stdClass();
 
         $this->persistProcessor
             ->expects($this->once())

@@ -4,12 +4,12 @@ declare(strict_types=1);
 
 namespace App\Tests\Functional;
 
+use Symfony\Bundle\FrameworkBundle\Console\Application;
 use Symfony\Bundle\FrameworkBundle\KernelBrowser;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
-use Symfony\Bundle\FrameworkBundle\Console\Application;
 use Symfony\Component\Console\Input\ArrayInput;
-use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\DependencyInjection\ContainerInterface;
+use Symfony\Component\HttpFoundation\Request;
 
 abstract class FunctionalTestCase extends WebTestCase
 {
@@ -31,7 +31,7 @@ abstract class FunctionalTestCase extends WebTestCase
 
     protected function getJwtToken(
         string $email = self::USER_EMAIL,
-        string $password = self::USER_PASSWORD
+        string $password = self::USER_PASSWORD,
     ): ?string {
         if (null !== $this->token) {
             return $this->token;

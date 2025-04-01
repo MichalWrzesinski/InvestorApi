@@ -6,7 +6,6 @@ namespace App\Integration\Yahoo;
 
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Contracts\HttpClient\HttpClientInterface;
-use RuntimeException;
 
 final class YahooApiClient implements YahooApiClientInterface
 {
@@ -15,7 +14,8 @@ final class YahooApiClient implements YahooApiClientInterface
 
     public function __construct(
         private readonly HttpClientInterface $httpClient,
-    ) {}
+    ) {
+    }
 
     public function getPriceForSymbol(string $symbol): float
     {
@@ -24,26 +24,18 @@ final class YahooApiClient implements YahooApiClientInterface
         $response = $this->httpClient->request('GET', $url, [
             'headers' => [
                 'User-Agent' => self::HEADERS,
-            ]
+            ],
         ]);
 
-        if ($response->getStatusCode() !== Response::HTTP_OK) {
-            throw new RuntimeException(
-                sprintf(
-                    'Yahoo API error (%d) for symbol %s',
-                    $response->getStatusCode(),
-                    $symbol
-                )
-            );
+        if (Response::HTTP_OK !== $response->getStatusCode()) {
+            throw new \RuntimeException(sprintf('Yahoo API error (%d) for symbol %s', $response->getStatusCode(), $symbol));
         }
 
         $data = $response->toArray(false);
         $price = $data['chart']['result'][0]['meta']['regularMarketPrice'] ?? null;
 
         if (!is_numeric($price)) {
-            throw new RuntimeException(
-                sprintf('No exchange rate data for %s currency', $symbol)
-            );
+            throw new \RuntimeException(sprintf('No exchange rate data for %s currency', $symbol));
         }
 
         return (float) $price;

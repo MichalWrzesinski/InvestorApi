@@ -16,4 +16,3 @@ final class UserAssetOperationRepository extends ServiceEntityRepository impleme
         parent::__construct($registry, UserAssetOperation::class);
     }
 }
-

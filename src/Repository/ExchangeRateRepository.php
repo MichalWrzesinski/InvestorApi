@@ -19,7 +19,7 @@ final class ExchangeRateRepository extends ServiceEntityRepository implements Ex
 
     public function exists(Symbol $base, Symbol $quote): bool
     {
-        return $this->createQueryBuilder('er')
+        return null !== $this->createQueryBuilder('er')
                 ->select('1')
                 ->where('er.base = :base')
                 ->andWhere('er.quote = :quote')
@@ -27,6 +27,6 @@ final class ExchangeRateRepository extends ServiceEntityRepository implements Ex
                 ->setParameter('quote', $quote)
                 ->setMaxResults(1)
                 ->getQuery()
-                ->getOneOrNullResult() !== null;
+                ->getOneOrNullResult();
     }
 }

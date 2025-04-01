@@ -9,7 +9,6 @@ use App\State\Processor\DataFixture\UserPasswordProcessor;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
-use stdClass;
 
 final class UserPasswordProcessorTest extends TestCase
 {
@@ -39,7 +38,7 @@ final class UserPasswordProcessorTest extends TestCase
 
     public function testPreProcessSkipsNonUserObjects(): void
     {
-        $object = new stdClass();
+        $object = new \stdClass();
 
         $this->hasher->expects($this->never())->method('hashPassword');
         $this->processor->preProcess('other_id', $object);

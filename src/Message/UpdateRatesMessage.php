@@ -12,7 +12,8 @@ class UpdateRatesMessage implements MessageInterface
         public readonly string $processor,
         /** @var array<array{base: string, quote: string}> */
         public readonly array $pairs,
-    ) {}
+    ) {
+    }
 
     public function getProcessorEnum(): ?DataProcessorEnum
     {

@@ -10,8 +10,6 @@ use Psr\Log\LoggerInterface;
 use Symfony\Component\Messenger\Attribute\AsMessageHandler;
 use Symfony\Component\Messenger\MessageBusInterface;
 use Symfony\Component\Messenger\Stamp\DelayStamp;
-use RuntimeException;
-use Throwable;
 
 #[AsMessageHandler]
 class UpdateRatesHandler
@@ -21,7 +19,8 @@ class UpdateRatesHandler
         private iterable $processors,
         private MessageBusInterface $bus,
         private LoggerInterface $logger,
-    ) {}
+    ) {
+    }
 
     public function __invoke(UpdateRatesMessage $message): void
     {
@@ -32,11 +31,11 @@ class UpdateRatesHandler
                 try {
                     $processor->update(
                         array_map(
-                            fn(array $pair) => [$pair['base'], $pair['quote']],
+                            fn (array $pair) => [$pair['base'], $pair['quote']],
                             $message->pairs
                         )
                     );
-                } catch (Throwable $throwable) {
+                } catch (\Throwable $throwable) {
                     $this->logger->error('Error processing currency rate processor', [
                         'exception' => $throwable,
                         'processor' => $message->processor,
@@ -53,8 +52,6 @@ class UpdateRatesHandler
             }
         }
 
-        throw new RuntimeException(
-            sprintf('No processor support: %s', $message->processor)
-        );
+        throw new \RuntimeException(sprintf('No processor support: %s', $message->processor));
     }
 }

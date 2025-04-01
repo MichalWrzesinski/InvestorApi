@@ -4,20 +4,19 @@ declare(strict_types=1);
 
 namespace App\Entity;
 
+use ApiPlatform\Metadata;
 use ApiPlatform\Metadata\ApiResource;
+use App\Entity\Trait\SoftDeletableTrait;
 use App\Entity\Trait\SoftDeletableTraitInterface;
+use App\Entity\Trait\TimestampableTrait;
 use App\Entity\Trait\TimestampableTraitInterface;
 use App\Repository\UserRepository;
-use App\Entity\Trait\SoftDeletableTrait;
-use App\Entity\Trait\TimestampableTrait;
 use App\Validator\EmailUnique;
-use Symfony\Component\Serializer\Annotation\Groups;
-use Symfony\Component\Security\Core\User\UserInterface;
-use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Doctrine\ORM\Mapping as ORM;
-use ApiPlatform\Metadata as Metadata;
+use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
+use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\Component\Validator\Constraints as Assert;
-use LogicException;
 
 #[ORM\Entity(repositoryClass: UserRepository::class)]
 #[ORM\Table(name: '`user`')]
@@ -127,7 +126,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface, SoftDel
     public function getUserIdentifier(): string
     {
         if ('' === trim($this->email)) {
-            throw new LogicException('User email must not be empty.');
+            throw new \LogicException('User email must not be empty.');
         }
 
         /** @var non-empty-string $email */
@@ -137,5 +136,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface, SoftDel
     }
 
     public function eraseCredentials(): void
-    {}
+    {
+    }
 }

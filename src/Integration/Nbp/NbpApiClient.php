@@ -6,7 +6,6 @@ namespace App\Integration\Nbp;
 
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Contracts\HttpClient\HttpClientInterface;
-use RuntimeException;
 
 final class NbpApiClient implements NbpApiClientInterface
 {
@@ -14,29 +13,22 @@ final class NbpApiClient implements NbpApiClientInterface
 
     public function __construct(
         private readonly HttpClientInterface $httpClient,
-    ) {}
+    ) {
+    }
 
     public function getMidRate(string $symbol): float
     {
         $url = sprintf(self::URL, strtolower($symbol));
         $response = $this->httpClient->request('GET', $url);
 
-        if ($response->getStatusCode() !== Response::HTTP_OK) {
-            throw new RuntimeException(
-                sprintf(
-                    'NBP API error (%d) for symbol %s',
-                    $response->getStatusCode(),
-                    $symbol
-                )
-            );
+        if (Response::HTTP_OK !== $response->getStatusCode()) {
+            throw new \RuntimeException(sprintf('NBP API error (%d) for symbol %s', $response->getStatusCode(), $symbol));
         }
 
         $data = $response->toArray(false);
 
         if (!isset($data['rates'][0]['mid'])) {
-            throw new RuntimeException(
-                sprintf('No exchange rate data for %s currency', $symbol)
-            );
+            throw new \RuntimeException(sprintf('No exchange rate data for %s currency', $symbol));
         }
 
         return (float) $data['rates'][0]['mid'];

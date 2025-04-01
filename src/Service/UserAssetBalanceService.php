@@ -11,7 +11,8 @@ final readonly class UserAssetBalanceService implements UserAssetBalanceServiceI
 {
     public function __construct(
         private EntityManagerInterface $entityManager,
-    ) {}
+    ) {
+    }
 
     public function apply(UserAssetOperation $operation, float $diff): void
     {

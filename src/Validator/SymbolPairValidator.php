@@ -13,7 +13,7 @@ final class SymbolPairValidator implements SymbolPairValidatorInterface
         return match ($baseType) {
             SymbolTypeEnum::FIAT => in_array($quoteType, [SymbolTypeEnum::FIAT, SymbolTypeEnum::CRYPTO], true),
             SymbolTypeEnum::CRYPTO => in_array($quoteType, [SymbolTypeEnum::FIAT, SymbolTypeEnum::CRYPTO], true),
-            SymbolTypeEnum::STOCK, SymbolTypeEnum::ETF => $quoteType === SymbolTypeEnum::FIAT,
+            SymbolTypeEnum::STOCK, SymbolTypeEnum::ETF => SymbolTypeEnum::FIAT === $quoteType,
         };
     }
 }

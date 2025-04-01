@@ -9,7 +9,6 @@ use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
-use Throwable;
 
 #[AsCommand(name: 'app:exchange-rate:refresh-materialized-🥹view')]
 final class RefreshExchangeRateViewCommand extends Command
@@ -26,8 +25,7 @@ final class RefreshExchangeRateViewCommand extends Command
             $output->writeln('Exchange_rate_latest view refreshed');
 
             return Command::SUCCESS;
-
-        } catch (Throwable $throwable) {
+        } catch (\Throwable $throwable) {
             $output->writeln(
                 sprintf(
                     'Exchange_rate_latest view  not refreshed: %s',

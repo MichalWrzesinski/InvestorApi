@@ -7,10 +7,10 @@ namespace App\EventSubscriber;
 use App\Entity\UserAssetOperation;
 use App\Service\UserAssetBalanceService;
 use Doctrine\Bundle\DoctrineBundle\Attribute\AsEntityListener;
-use Doctrine\ORM\Events;
-use Doctrine\ORM\Event\PostRemoveEventArgs;
-use Doctrine\Persistence\Event\LifecycleEventArgs;
 use Doctrine\ORM\EntityManagerInterface;
+use Doctrine\ORM\Event\PostRemoveEventArgs;
+use Doctrine\ORM\Events;
+use Doctrine\Persistence\Event\LifecycleEventArgs;
 
 #[AsEntityListener(event: Events::postPersist, method: 'onPostPersist', entity: UserAssetOperation::class)]
 #[AsEntityListener(event: Events::postUpdate, method: 'onPostUpdate', entity: UserAssetOperation::class)]
@@ -19,7 +19,8 @@ final class UserAssetOperationSubscriber implements EventSubscriberInterface
 {
     public function __construct(
         private readonly UserAssetBalanceService $balanceService,
-    ) {}
+    ) {
+    }
 
     /** @param LifecycleEventArgs<EntityManagerInterface> $args  */
     public function onPostPersist(UserAssetOperation $operation, LifecycleEventArgs $args): void
@@ -43,8 +44,8 @@ final class UserAssetOperationSubscriber implements EventSubscriberInterface
         }
 
         if (isset($changeSet['deletedAt'])
-            && $changeSet['deletedAt'][0] === null
-            && $changeSet['deletedAt'][1] !== null
+            && null === $changeSet['deletedAt'][0]
+            && null !== $changeSet['deletedAt'][1]
         ) {
             $this->balanceService->apply($operation, -$operation->getAmount());
         }

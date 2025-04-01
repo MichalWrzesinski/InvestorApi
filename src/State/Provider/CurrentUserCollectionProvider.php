@@ -6,18 +6,19 @@ namespace App\State\Provider;
 
 use ApiPlatform\Metadata\Operation;
 use ApiPlatform\State\ProviderInterface;
+use App\Security\OwnedByUserInterface;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\SecurityBundle\Security;
 use Symfony\Component\Security\Core\User\UserInterface;
-use App\Security\OwnedByUserInterface;
 
 /** @implements ProviderInterface<object> */
 final class CurrentUserCollectionProvider implements ProviderInterface
 {
     public function __construct(
         private EntityManagerInterface $entityManager,
-        private Security $security
-    ) {}
+        private Security $security,
+    ) {
+    }
 
     /** @return array<int, object> */
     public function provide(Operation $operation, array $uriVariables = [], array $context = []): array
@@ -42,7 +43,7 @@ final class CurrentUserCollectionProvider implements ProviderInterface
 
         $lastAlias = 'o';
         foreach ($parts as $i => $part) {
-            $nextAlias = 'a' . $i;
+            $nextAlias = 'a'.$i;
             $queryBuilder->join("$lastAlias.$part", $nextAlias);
             $lastAlias = $nextAlias;
         }

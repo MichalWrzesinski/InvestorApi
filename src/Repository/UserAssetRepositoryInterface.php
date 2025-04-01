@@ -13,4 +13,5 @@ use App\Entity\UserAsset;
  * @method UserAsset[]    findBy(array<string, mixed> $criteria, array<string, string>|null $orderBy = null, $limit = null, $offset = null)
  */
 interface UserAssetRepositoryInterface
-{}
+{
+}

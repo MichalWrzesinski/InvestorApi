@@ -8,7 +8,6 @@ use App\Integration\Nbp\NbpApiClientInterface;
 use App\Repository\SymbolRepositoryInterface;
 use Doctrine\ORM\EntityManagerInterface;
 use Psr\Log\LoggerInterface;
-use Throwable;
 
 final class NbpProcessor implements ProcessorInterface, ExchangeRateInterface
 {
@@ -17,18 +16,19 @@ final class NbpProcessor implements ProcessorInterface, ExchangeRateInterface
         private readonly SymbolRepositoryInterface $symbolRepository,
         private readonly EntityManagerInterface $entityManager,
         private readonly LoggerInterface $logger,
-    ) {}
+    ) {
+    }
 
     public function supports(DataProcessorEnum $processor): bool
     {
-        return $processor === DataProcessorEnum::NBP;
+        return DataProcessorEnum::NBP === $processor;
     }
 
     /** @param array<int, array{string, string}> $pairs */
     public function update(array $pairs): void
     {
         foreach ($pairs as [$base, $quote]) {
-            if (strtoupper($quote) !== 'PLN') {
+            if ('PLN' !== strtoupper($quote)) {
                 continue;
             }
 
@@ -48,8 +48,7 @@ final class NbpProcessor implements ProcessorInterface, ExchangeRateInterface
                 $exchangeRate->setPrice($price);
 
                 $this->entityManager->persist($exchangeRate);
-
-            } catch (Throwable $e) {
+            } catch (\Throwable $e) {
                 $this->logger->error('Error while updating the exchange rate from NBP', [
                     'exception' => $e,
                     'base' => $base,

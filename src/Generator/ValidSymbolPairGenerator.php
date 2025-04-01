@@ -13,7 +13,8 @@ final class ValidSymbolPairGenerator implements ValidSymbolPairGeneratorInterfac
     public function __construct(
         private readonly SymbolRepositoryInterface $symbolRepository,
         private readonly SymbolPairValidatorInterface $symbolPairValidator,
-    ) {}
+    ) {
+    }
 
     /** @return iterable<array{base: Symbol, quote: Symbol}> */
     public function generate(): iterable

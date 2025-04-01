@@ -11,7 +11,6 @@ use App\State\Processor\CurrentUserProcessor;
 use Doctrine\ORM\EntityManagerInterface;
 use PHPUnit\Framework\TestCase;
 use Symfony\Bundle\SecurityBundle\Security;
-use LogicException;
 
 final class CurrentUserProcessorTest extends TestCase
 {
@@ -41,7 +40,7 @@ final class CurrentUserProcessorTest extends TestCase
 
     public function testThrowsExceptionIfUserNotLoggedIn(): void
     {
-        $this->expectException(LogicException::class);
+        $this->expectException(\LogicException::class);
 
         $security = $this->createMock(Security::class);
         $security->method('getUser')->willReturn(null);

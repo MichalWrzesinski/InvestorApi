@@ -15,7 +15,6 @@ final class SymbolPairValidatorTest extends TestCase
      */
     public function testIsValid(SymbolTypeEnum $base, SymbolTypeEnum $quote, bool $expected): void
     {
-
         self::assertSame(
             $expected,
             (new SymbolPairValidator())->isValid($base, $quote)

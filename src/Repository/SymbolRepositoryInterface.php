@@ -18,8 +18,9 @@ interface SymbolRepositoryInterface
     public function findAll(): array;
 
     /**
-     * @param array<string, mixed> $criteria
+     * @param array<string, mixed>       $criteria
      * @param array<string, string>|null $orderBy
+     *
      * @return Symbol|null
      */
     public function findOneBy(array $criteria, ?array $orderBy = null): ?object;

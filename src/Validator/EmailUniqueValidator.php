@@ -5,16 +5,17 @@ declare(strict_types=1);
 namespace App\Validator;
 
 use App\Entity\User;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\ConstraintValidator;
-use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Validator\Exception\UnexpectedTypeException;
 use Symfony\Component\Validator\Exception\UnexpectedValueException;
 
 final class EmailUniqueValidator extends ConstraintValidator
 {
     public function __construct(private EntityManagerInterface $entityManager)
-    {}
+    {
+    }
 
     public function validate(mixed $value, Constraint $constraint): void
     {

@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace App\Tests\Unit\Validator;
 
 use App\Entity\User;
-use App\Enum\SymbolTypeEnum;
 use App\Validator\EmailUnique;
 use App\Validator\EmailUniqueValidator;
 use Doctrine\ORM\EntityManagerInterface;
@@ -14,19 +13,16 @@ use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Validator\Context\ExecutionContextInterface;
 use Symfony\Component\Validator\Violation\ConstraintViolationBuilderInterface;
-use stdClass;
 
 class EmailUniqueValidatorTest extends TestCase
 {
     private EmailUniqueValidator $validator;
 
-    /** @var EntityManagerInterface&MockObject */
     private EntityManagerInterface&MockObject $entityManager;
 
     /** @var EntityRepository<User>&MockObject */
     private EntityRepository&MockObject $repository;
 
-    /** @var ExecutionContextInterface&MockObject */
     private ExecutionContextInterface&MockObject $context;
 
     protected function setUp(): void
@@ -52,9 +48,9 @@ class EmailUniqueValidatorTest extends TestCase
         mixed $value,
         ?User $existingUser,
         mixed $currentObject,
-        bool $expectViolation
+        bool $expectViolation,
     ): void {
-        if ($existingUser !== null) {
+        if (null !== $existingUser) {
             $this->repository
                 ->expects($this->once())
                 ->method('findOneBy')
@@ -62,7 +58,7 @@ class EmailUniqueValidatorTest extends TestCase
                 ->willReturn($existingUser);
         } else {
             $this->repository
-                ->expects($value === null || $value === '' ? $this->never() : $this->once())
+                ->expects(null === $value || '' === $value ? $this->never() : $this->once())
                 ->method('findOneBy')
                 ->with(['email' => $value])
                 ->willReturn(null);
@@ -127,7 +123,7 @@ class EmailUniqueValidatorTest extends TestCase
         yield 'duplicate email (different object)' => [
             'value' => 'istnieje@user.pl',
             'existingUser' => $existingUser,
-            'currentObject' => new stdClass(),
+            'currentObject' => new \stdClass(),
             'expectViolation' => true,
         ];
 

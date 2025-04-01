@@ -8,4 +8,3 @@ interface StooqApiClientInterface
 {
     public function getPriceForSymbol(string $symbol): float;
 }
-

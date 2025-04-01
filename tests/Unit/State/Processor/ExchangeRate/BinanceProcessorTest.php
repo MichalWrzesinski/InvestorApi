@@ -14,7 +14,6 @@ use Doctrine\ORM\EntityManagerInterface;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use Psr\Log\LoggerInterface;
-use RuntimeException;
 
 final class BinanceProcessorTest extends TestCase
 {
@@ -76,9 +75,9 @@ final class BinanceProcessorTest extends TestCase
         $this->entityManager->expects($this->once())
             ->method('persist')
             ->with($this->callback(function (ExchangeRate $rate) use ($baseSymbol, $quoteSymbol, $price) {
-                return $rate->getBase() === $baseSymbol &&
-                    $rate->getQuote() === $quoteSymbol &&
-                    $rate->getPrice() === $price;
+                return $rate->getBase() === $baseSymbol
+                    && $rate->getQuote() === $quoteSymbol
+                    && $rate->getPrice() === $price;
             }));
 
         $this->entityManager->expects($this->once())->method('flush');
@@ -99,7 +98,7 @@ final class BinanceProcessorTest extends TestCase
     public function testUpdateLogsErrorOnException(): void
     {
         $this->client->method('getPriceForPair')
-            ->willThrowException(new RuntimeException('API error'));
+            ->willThrowException(new \RuntimeException('API error'));
 
         $this->logger->expects($this->once())
             ->method('error')

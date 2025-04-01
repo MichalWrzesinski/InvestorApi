@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Entity;
 
+use ApiPlatform\Metadata;
 use ApiPlatform\Metadata\ApiResource;
 use App\Entity\Trait\SoftDeletableTrait;
 use App\Entity\Trait\SoftDeletableTraitInterface;
@@ -16,10 +17,9 @@ use App\State\Processor\CurrentUserProcessor;
 use App\State\Provider\CurrentUserCollectionProvider;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
-use Symfony\Component\Uid\Uuid;
 use Symfony\Component\Serializer\Annotation\Groups;
+use Symfony\Component\Uid\Uuid;
 use Symfony\Component\Validator\Constraints as Assert;
-use ApiPlatform\Metadata as Metadata;
 
 #[ORM\Entity(repositoryClass: UserAssetOperationRepository::class)]
 #[ORM\Table(name: 'user_asset_operation')]

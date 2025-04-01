@@ -10,7 +10,6 @@ use App\Integration\Yahoo\YahooApiClientInterface;
 use App\Repository\SymbolRepositoryInterface;
 use Doctrine\ORM\EntityManagerInterface;
 use Psr\Log\LoggerInterface;
-use Throwable;
 
 final class YahooProcessor implements ProcessorInterface, ExchangeRateInterface
 {
@@ -19,11 +18,12 @@ final class YahooProcessor implements ProcessorInterface, ExchangeRateInterface
         private readonly SymbolRepositoryInterface $symbolRepository,
         private readonly EntityManagerInterface $entityManager,
         private readonly LoggerInterface $logger,
-    ) {}
+    ) {
+    }
 
     public function supports(DataProcessorEnum $processor): bool
     {
-        return $processor === DataProcessorEnum::YAHOO;
+        return DataProcessorEnum::YAHOO === $processor;
     }
 
     /** @param array<int, array{string, string}> $pairs */
@@ -31,7 +31,7 @@ final class YahooProcessor implements ProcessorInterface, ExchangeRateInterface
     {
         foreach ($pairs as [$base, $quote]) {
             try {
-                $symbolCode = strtolower($base . $quote);
+                $symbolCode = strtolower($base.$quote);
                 $price = $this->client->getPriceForSymbol($symbolCode);
 
                 $baseSymbol = $this->symbolRepository->findOneBy(['symbol' => strtoupper($base)]);
@@ -47,8 +47,7 @@ final class YahooProcessor implements ProcessorInterface, ExchangeRateInterface
                 $exchangeRate->setPrice($price);
 
                 $this->entityManager->persist($exchangeRate);
-
-            } catch (Throwable $e) {
+            } catch (\Throwable $e) {
                 $this->logger->error('Error while updating the exchange rate from Yahoo', [
                     'exception' => $e,
                     'base' => $base,

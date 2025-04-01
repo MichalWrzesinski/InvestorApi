@@ -16,13 +16,15 @@ final class SymbolProcessor implements ProcessorInterface
     public function __construct(
         private readonly ProcessorInterface $persistProcessor,
         private readonly ExchangeRateSynchronizerInterface $synchronizer,
-    ) {}
+    ) {
+    }
 
     public function process(mixed $data, Operation $operation, array $uriVariables = [], array $context = []): mixed
     {
         if ($data instanceof Symbol) {
             $result = $this->persistProcessor->process($data, $operation, $uriVariables, $context);
             $this->synchronizer->synchronizeFor($data);
+
             return $result;
         }
 

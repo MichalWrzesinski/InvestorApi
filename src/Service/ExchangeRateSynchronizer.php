@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace App\Service;
 
-use App\Entity\Symbol;
 use App\Entity\ExchangeRate;
+use App\Entity\Symbol;
 use App\Repository\ExchangeRateRepositoryInterface;
 use App\Validator\SymbolPairValidatorInterface;
 use Doctrine\ORM\EntityManagerInterface;
@@ -16,7 +16,8 @@ final readonly class ExchangeRateSynchronizer implements ExchangeRateSynchronize
         private SymbolPairValidatorInterface $symbolPairValidator,
         private ExchangeRateRepositoryInterface $exchangeRateRepository,
         private EntityManagerInterface $entityManager,
-    ) {}
+    ) {
+    }
 
     public function synchronizeFor(Symbol $symbol): void
     {

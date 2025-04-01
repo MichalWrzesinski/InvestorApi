@@ -15,7 +15,7 @@ final class ValidSymbolPairGeneratorTest extends TestCase
 {
     /**
      * @param array<array{0: string, 1: SymbolTypeEnum}> $symbolDefs
-     * @param array<array{0: string, 1: string}> $expectedPairs
+     * @param array<array{0: string, 1: string}>         $expectedPairs
      *
      * @dataProvider provideSymbolPairs
      */
@@ -31,12 +31,11 @@ final class ValidSymbolPairGeneratorTest extends TestCase
 
         $validator = $this->createMock(SymbolPairValidatorInterface::class);
         $validator->method('isValid')
-            ->willReturnCallback(fn(SymbolTypeEnum $base, SymbolTypeEnum $quote) =>
-                match ([$base, $quote]) {
-                    [SymbolTypeEnum::FIAT, SymbolTypeEnum::CRYPTO] => true,
-                    [SymbolTypeEnum::STOCK, SymbolTypeEnum::FIAT] => true,
-                    default => false,
-                });
+            ->willReturnCallback(fn (SymbolTypeEnum $base, SymbolTypeEnum $quote) => match ([$base, $quote]) {
+                [SymbolTypeEnum::FIAT, SymbolTypeEnum::CRYPTO] => true,
+                [SymbolTypeEnum::STOCK, SymbolTypeEnum::FIAT] => true,
+                default => false,
+            });
 
         $generator = new ValidSymbolPairGenerator($symbolRepository, $validator);
         $actualPairs = iterator_to_array($generator->generate());

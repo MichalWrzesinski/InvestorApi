@@ -5,8 +5,8 @@ declare(strict_types=1);
 namespace App\Command;
 
 use App\Entity\ExchangeRate;
-use App\Repository\ExchangeRateRepository;
 use App\Generator\ValidSymbolPairGenerator;
+use App\Repository\ExchangeRateRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;
@@ -18,8 +18,8 @@ final class SynchronizeExchangeRatesCommand extends Command
 {
     public function __construct(
         private readonly ValidSymbolPairGenerator $pairGenerator,
-        private readonly ExchangeRateRepository   $exchangeRateRepository,
-        private readonly EntityManagerInterface   $entityManager,
+        private readonly ExchangeRateRepository $exchangeRateRepository,
+        private readonly EntityManagerInterface $entityManager,
     ) {
         parent::__construct();
     }
@@ -36,7 +36,7 @@ final class SynchronizeExchangeRatesCommand extends Command
                     ->setPrice(0.0);
 
                 $this->entityManager->persist($exchangeRate);
-                $createdCount++;
+                ++$createdCount;
             }
         }
 

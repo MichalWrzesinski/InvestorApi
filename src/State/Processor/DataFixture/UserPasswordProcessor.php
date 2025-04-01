@@ -11,8 +11,9 @@ use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 class UserPasswordProcessor implements ProcessorInterface
 {
     public function __construct(
-        private readonly UserPasswordHasherInterface $passwordHasher
-    ) {}
+        private readonly UserPasswordHasherInterface $passwordHasher,
+    ) {
+    }
 
     public function preProcess(string $id, object $object): void
     {
@@ -27,5 +28,6 @@ class UserPasswordProcessor implements ProcessorInterface
     }
 
     public function postProcess(string $id, object $object): void
-    {}
+    {
+    }
 }

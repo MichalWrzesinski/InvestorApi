@@ -6,8 +6,8 @@ namespace App\State\Processor;
 
 use ApiPlatform\Metadata\Operation;
 use ApiPlatform\State\ProcessorInterface;
-use App\Entity\User;
 use App\Dto\UserRegistrationInput;
+use App\Entity\User;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 
@@ -17,7 +17,8 @@ final class UserRegistrationProcessor implements ProcessorInterface
     public function __construct(
         private EntityManagerInterface $entityManager,
         private UserPasswordHasherInterface $hasher,
-    ) {}
+    ) {
+    }
 
     /** @param UserRegistrationInput $data */
     public function process(mixed $data, Operation $operation, array $uriVariables = [], array $context = []): User

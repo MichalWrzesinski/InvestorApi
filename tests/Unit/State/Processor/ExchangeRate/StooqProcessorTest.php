@@ -14,7 +14,6 @@ use Doctrine\ORM\EntityManagerInterface;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use Psr\Log\LoggerInterface;
-use RuntimeException;
 
 final class StooqProcessorTest extends TestCase
 {
@@ -55,7 +54,7 @@ final class StooqProcessorTest extends TestCase
         $base = 'AAPL';
         $quote = 'USD';
         $price = 181.32;
-        $symbolCode = strtolower($base . $quote);
+        $symbolCode = strtolower($base.$quote);
 
         $baseSymbol = new Symbol();
         $baseSymbol->setSymbol($base);
@@ -69,7 +68,7 @@ final class StooqProcessorTest extends TestCase
             ->willReturn($price);
 
         $this->symbolRepository->method('findOneBy')
-            ->willReturnCallback(fn(array $criteria) => match ($criteria['symbol']) {
+            ->willReturnCallback(fn (array $criteria) => match ($criteria['symbol']) {
                 $base => $baseSymbol,
                 $quote => $quoteSymbol,
                 default => null,
@@ -78,9 +77,9 @@ final class StooqProcessorTest extends TestCase
         $this->entityManager->expects($this->once())
             ->method('persist')
             ->with($this->callback(function (ExchangeRate $rate) use ($baseSymbol, $quoteSymbol, $price) {
-                return $rate->getBase() === $baseSymbol &&
-                    $rate->getQuote() === $quoteSymbol &&
-                    $rate->getPrice() === $price;
+                return $rate->getBase() === $baseSymbol
+                    && $rate->getQuote() === $quoteSymbol
+                    && $rate->getPrice() === $price;
             }));
 
         $this->entityManager->expects($this->once())->method('flush');
@@ -101,7 +100,7 @@ final class StooqProcessorTest extends TestCase
     public function testUpdateLogsErrorOnException(): void
     {
         $this->client->method('getPriceForSymbol')
-            ->willThrowException(new RuntimeException('API error'));
+            ->willThrowException(new \RuntimeException('API error'));
 
         $this->logger->expects($this->once())
             ->method('error')

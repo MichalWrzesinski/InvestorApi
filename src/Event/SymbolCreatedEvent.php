@@ -10,7 +10,8 @@ final class SymbolCreatedEvent implements EventInterface
 {
     public function __construct(
         public readonly Symbol $symbol,
-    ) {}
+    ) {
+    }
 
     public function getName(): string
     {

@@ -4,23 +4,23 @@ declare(strict_types=1);
 
 namespace App\Entity;
 
-use ApiPlatform\Metadata\ApiResource;
-use ApiPlatform\Metadata\ApiFilter;
 use ApiPlatform\Doctrine\Orm\Filter\OrderFilter;
 use ApiPlatform\Doctrine\Orm\Filter\SearchFilter;
+use ApiPlatform\Metadata;
+use ApiPlatform\Metadata\ApiFilter;
+use ApiPlatform\Metadata\ApiResource;
+use App\Entity\Trait\SoftDeletableTrait;
 use App\Entity\Trait\SoftDeletableTraitInterface;
+use App\Entity\Trait\TimestampableTrait;
 use App\Entity\Trait\TimestampableTraitInterface;
 use App\Enum\DataProcessorEnum;
 use App\Enum\SymbolTypeEnum;
 use App\Repository\SymbolRepository;
-use App\Entity\Trait\SoftDeletableTrait;
-use App\Entity\Trait\TimestampableTrait;
 use App\State\Processor\SymbolProcessor;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
-use Symfony\Component\Uid\Uuid;
 use Symfony\Component\Serializer\Annotation\Groups;
-use ApiPlatform\Metadata as Metadata;
+use Symfony\Component\Uid\Uuid;
 use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: SymbolRepository::class)]
@@ -42,12 +42,12 @@ use Symfony\Component\Validator\Constraints as Assert;
 #[ApiFilter(SearchFilter::class, properties: [
     'symbol' => 'partial',
     'name' => 'partial',
-    'type' => 'exact'
+    'type' => 'exact',
 ])]
 #[ApiFilter(OrderFilter::class, properties: [
     'symbol',
     'name',
-    'type'
+    'type',
 ])]
 class Symbol implements SoftDeletableTraitInterface, TimestampableTraitInterface
 {

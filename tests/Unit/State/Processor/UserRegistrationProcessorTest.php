@@ -48,10 +48,10 @@ final class UserRegistrationProcessorTest extends TestCase
             ->method('persist')
             ->with($this->callback(function (User $user) use ($input) {
                 return
-                    $user->getEmail() === $input->email &&
-                    $user->getPassword() === 'hashedPassword' &&
-                    $user->isActive() === true &&
-                    $user->getRoles() === ['ROLE_USER'];
+                    $user->getEmail() === $input->email
+                    && 'hashedPassword' === $user->getPassword()
+                    && true === $user->isActive()
+                    && $user->getRoles() === ['ROLE_USER'];
             }));
 
         $this->entityManager->expects($this->once())->method('flush');

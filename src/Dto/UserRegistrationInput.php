@@ -6,10 +6,10 @@ namespace App\Dto;
 
 use ApiPlatform\Metadata\ApiResource;
 use ApiPlatform\Metadata\Post;
-use App\Validator\EmailUnique;
-use Symfony\Component\Validator\Constraints as Assert;
 use App\State\Processor\UserRegistrationProcessor;
+use App\Validator\EmailUnique;
 use Symfony\Component\Serializer\Annotation\Groups;
+use Symfony\Component\Validator\Constraints as Assert;
 
 #[ApiResource(
     operations: [
@@ -19,7 +19,7 @@ use Symfony\Component\Serializer\Annotation\Groups;
             input: UserRegistrationInput::class,
             output: false,
             processor: UserRegistrationProcessor::class
-        )
+        ),
     ],
     normalizationContext: ['groups' => ['registration:read']],
     denormalizationContext: ['groups' => ['registration:write']]

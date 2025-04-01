@@ -10,7 +10,6 @@ use App\Integration\Binance\BinanceApiClientInterface;
 use App\Repository\SymbolRepositoryInterface;
 use Doctrine\ORM\EntityManagerInterface;
 use Psr\Log\LoggerInterface;
-use Throwable;
 
 final class BinanceProcessor implements ProcessorInterface, ExchangeRateInterface
 {
@@ -19,11 +18,12 @@ final class BinanceProcessor implements ProcessorInterface, ExchangeRateInterfac
         private readonly SymbolRepositoryInterface $symbolRepository,
         private readonly EntityManagerInterface $entityManager,
         private readonly LoggerInterface $logger,
-    ) {}
+    ) {
+    }
 
     public function supports(DataProcessorEnum $processor): bool
     {
-        return $processor === DataProcessorEnum::BINANCE;
+        return DataProcessorEnum::BINANCE === $processor;
     }
 
     /** @param array<int, array{string, string}> $pairs */
@@ -46,8 +46,7 @@ final class BinanceProcessor implements ProcessorInterface, ExchangeRateInterfac
                 $exchangeRate->setPrice($price);
 
                 $this->entityManager->persist($exchangeRate);
-
-            } catch (Throwable $e) {
+            } catch (\Throwable $e) {
                 $this->logger->error('Error while updating the exchange rate from Binance', [
                     'exception' => $e,
                     'base' => $base,
