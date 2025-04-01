@@ -1,0 +1,5 @@
+dev_activation_token:
+  resource: ../../src/Controller/Dev/
+  type: attribute
+  prefix: /api/dev
+  condition: "'%kernel.environment%' == 'dev'"

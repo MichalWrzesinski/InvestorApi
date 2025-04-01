@@ -1,0 +1,6 @@
+App\Entity\UserAsset:
+  user_asset_{1..50}:
+    user: '@user_<numberBetween(2,10)>'
+    symbol: '@symbol_<randomElement(["pln", "usd", "btc", "eth", "aapl", "msft", "bnb", "sol", "ko", "jnj", "pg", "tm", "ubs", "ada", "ltc"])>'
+    name: '<company()> Wallet'
+    balance: <numberBetween(10, 10000)>

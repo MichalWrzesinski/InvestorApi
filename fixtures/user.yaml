@@ -15,4 +15,4 @@ App\Entity\User:
     email: '<email()>'
     password: 'root'
     roles: [ 'ROLE_USER' ]
-    active: <boolean(90)>
+    active: <boolean(95)>

@@ -1,0 +1,5 @@
+App\Entity\UserAssetOperation:
+  user_asset_operation_{1..150}:
+    userAsset: '@user_asset_<numberBetween(1,50)>'
+    amount: <randomFloat(2, 1, 1000)>
+    type: '<randomElement(["CREDIT", "DEBIT", "INTEREST", "DIVIDEND", "FEE", "TRANSFER", "CORRECTION"])>'

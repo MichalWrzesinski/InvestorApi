@@ -9,7 +9,8 @@ use App\Entity\User;
 use App\Entity\UserAsset;
 use App\State\Provider\CurrentUserCollectionProvider;
 use Doctrine\ORM\EntityManagerInterface;
-use Doctrine\ORM\EntityRepository;
+use Doctrine\ORM\Query;
+use Doctrine\ORM\QueryBuilder;
 use PHPUnit\Framework\TestCase;
 use Symfony\Bundle\SecurityBundle\Security;
 
@@ -22,16 +23,21 @@ final class CurrentUserCollectionProviderTest extends TestCase
         $security = $this->createMock(Security::class);
         $security->method('getUser')->willReturn($user);
 
-        $repository = $this->createMock(EntityRepository::class);
-        $repository->expects(self::once())
-            ->method('findBy')
-            ->with(['user' => $user])
+        $query = $this->createMock(Query::class);
+        $query->expects(self::once())
+            ->method('getResult')
             ->willReturn(['filtered-entity']);
 
+        $queryBuilder = $this->createMock(QueryBuilder::class);
+        $queryBuilder->method('select')->willReturnSelf();
+        $queryBuilder->method('from')->willReturnSelf();
+        $queryBuilder->method('join')->willReturnSelf();
+        $queryBuilder->method('where')->willReturnSelf();
+        $queryBuilder->method('setParameter')->willReturnSelf();
+        $queryBuilder->method('getQuery')->willReturn($query);
+
         $entityManager = $this->createMock(EntityManagerInterface::class);
-        $entityManager->method('getRepository')
-            ->with(UserAsset::class)
-            ->willReturn($repository);
+        $entityManager->method('createQueryBuilder')->willReturn($queryBuilder);
 
         $operation = new GetCollection(
             uriTemplate: '/api/user_assets',
@@ -41,7 +47,7 @@ final class CurrentUserCollectionProviderTest extends TestCase
         $provider = new CurrentUserCollectionProvider($entityManager, $security);
         $result = $provider->provide($operation);
 
-        $this->assertSame(['filtered-entity'], $result);
+        self::assertSame(['filtered-entity'], $result);
     }
 
     public function testReturnsEmptyArrayIfNotLoggedIn(): void

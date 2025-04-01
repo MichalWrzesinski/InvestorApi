@@ -18,6 +18,7 @@ security:
             pattern: ^/api/login
             stateless: true
             provider: app_user_provider
+            user_checker: App\Security\UserChecker
             json_login:
                 check_path: /api/login
                 username_path: email
@@ -40,4 +41,6 @@ security:
         - { path: ^/api/ping, roles: PUBLIC_ACCESS }
         - { path: ^/api/login, roles: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/api/register, roles: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/api/account/activate, roles: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/api/dev/activation-token, roles: PUBLIC_ACCESS }
         - { path: ^/api, roles: IS_AUTHENTICATED_FULLY }

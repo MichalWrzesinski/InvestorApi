@@ -16,6 +16,11 @@ services:
             - '../src/Entity/'
             - '../src/Kernel.php'
 
+    App\Controller\:
+        resource: '../src/Controller/'
+        tags: [ 'controller.service_arguments' ]
+        public: true
+
     App\State\Processor\ExchangeRate\:
         resource: '../src/State/Processor/ExchangeRate'
         tags: ['app.exchange_rate_processor']
@@ -42,3 +47,10 @@ services:
     App\EventSubscriber\:
         resource: '../src/EventSubscriber'
         tags: [ 'doctrine.event_subscriber' ]
+
+    App\Security\ActivationTokenGenerator:
+        arguments:
+            $appSecret: '%env(APP_SECRET)%'
+        public: true
+
+    Fidry\AliceDataFixtures\LoaderInterface: '@fidry_alice_data_fixtures.doctrine.persister_loader'
