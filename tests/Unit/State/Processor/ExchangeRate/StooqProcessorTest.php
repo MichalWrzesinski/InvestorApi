@@ -46,7 +46,7 @@ final class StooqProcessorTest extends TestCase
 
     public function testSupportsReturnsFalseForOtherProcessors(): void
     {
-        $this->assertFalse($this->processor->supports(DataProcessorEnum::NBP));
+        $this->assertFalse($this->processor->supports(DataProcessorEnum::YAHOO));
     }
 
     public function testUpdatePersistsExchangeRateWhenSymbolsExist(): void

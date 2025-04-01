@@ -3,37 +3,37 @@ App\Entity\Symbol:
     symbol: 'PLN'
     name: 'Polski Złoty'
     type: '<(App\Enum\SymbolTypeEnum::FIAT)>'
-    processor: '<(App\Enum\DataProcessorEnum::NBP)>'
+    processor: '<(App\Enum\DataProcessorEnum::YAHOO)>'
 
   symbol_usd:
     symbol: 'USD'
     name: 'Dolar amerykański'
     type: '<(App\Enum\SymbolTypeEnum::FIAT)>'
-    processor: '<(App\Enum\DataProcessorEnum::NBP)>'
+    processor: '<(App\Enum\DataProcessorEnum::YAHOO)>'
 
   symbol_eur:
     symbol: 'EUR'
     name: 'Euro'
     type: '<(App\Enum\SymbolTypeEnum::FIAT)>'
-    processor: '<(App\Enum\DataProcessorEnum::NBP)>'
+    processor: '<(App\Enum\DataProcessorEnum::YAHOO)>'
 
   symbol_gbp:
     symbol: 'GBP'
     name: 'Funt szterling'
     type: '<(App\Enum\SymbolTypeEnum::FIAT)>'
-    processor: '<(App\Enum\DataProcessorEnum::NBP)>'
+    processor: '<(App\Enum\DataProcessorEnum::YAHOO)>'
 
   symbol_chf:
     symbol: 'CHF'
     name: 'Frank szwajcarski'
     type: '<(App\Enum\SymbolTypeEnum::FIAT)>'
-    processor: '<(App\Enum\DataProcessorEnum::NBP)>'
+    processor: '<(App\Enum\DataProcessorEnum::YAHOO)>'
 
   symbol_jpy:
     symbol: 'JPY'
     name: 'Jen japoński'
     type: '<(App\Enum\SymbolTypeEnum::FIAT)>'
-    processor: '<(App\Enum\DataProcessorEnum::NBP)>'
+    processor: '<(App\Enum\DataProcessorEnum::YAHOO)>'
 
   symbol_usdc:
     symbol: 'USDC'

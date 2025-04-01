@@ -46,7 +46,7 @@ final class YahooProcessorTest extends TestCase
 
     public function testSupportsReturnsFalseForOtherProcessors(): void
     {
-        $this->assertFalse($this->processor->supports(DataProcessorEnum::NBP));
+        $this->assertFalse($this->processor->supports(DataProcessorEnum::BINANCE));
     }
 
     public function testUpdatePersistsExchangeRateWhenSymbolsExist(): void
