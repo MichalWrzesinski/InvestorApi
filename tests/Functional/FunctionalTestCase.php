@@ -15,7 +15,7 @@ abstract class FunctionalTestCase extends WebTestCase
 {
     private const USER_EMAIL = 'admin@example.com';
 
-    private const USER_PASSWORD = 'root';
+    private const USER_PASSWORD = 'abcdefgh';
 
     protected static bool $fixturesLoaded = false;
 

@@ -15,6 +15,7 @@ use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\SecurityBundle\Security;
 use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
 
+/** @implements ProviderInterface<MeDtoOutput> */
 final readonly class MeProvider implements ProviderInterface
 {
     public function __construct(
@@ -25,7 +26,7 @@ final readonly class MeProvider implements ProviderInterface
     ) {
     }
 
-    public function provide(Operation $operation, array $uriVariables = [], array $context = []): ?MeDtoOutput
+    public function provide(Operation $operation, array $uriVariables = [], array $context = []): MeDtoOutput
     {
         /** @var User $user */
         $user = $this->security->getUser();
@@ -41,7 +42,7 @@ final readonly class MeProvider implements ProviderInterface
         foreach ($assets as $asset) {
             $normalized = $this->userAssetNormalizer->normalize($asset, null, $context);
 
-            $value = $asset->getValueInDefaultCurrency()?->value ?? 0.0;
+            $value = $asset->getValueInDefaultCurrency()->value ?? 0.0;
             $total += $value;
 
             $normalizedAssets[] = $normalized;
@@ -49,11 +50,15 @@ final readonly class MeProvider implements ProviderInterface
 
         $normalizedQuoteSymbol = null;
         if (null !== $user->getDefaultQuoteSymbol()) {
-            $normalizedQuoteSymbol = $this->normalizer->normalize(
+            $normalized = $this->normalizer->normalize(
                 $user->getDefaultQuoteSymbol(),
                 null,
                 $context
             );
+
+            if (is_array($normalized)) {
+                $normalizedQuoteSymbol = $normalized;
+            }
         }
 
         return new MeDtoOutput(

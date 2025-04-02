@@ -22,6 +22,10 @@ use Symfony\Component\Serializer\Annotation\Groups;
 )]
 final class MeDtoOutput
 {
+    /**
+     * @param array<string, mixed>|null        $defaultQuoteSymbol
+     * @param array<int, array<string, mixed>> $assets
+     */
     public function __construct(
         #[Groups(['me:read'])]
         public string $email,
