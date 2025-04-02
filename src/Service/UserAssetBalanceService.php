@@ -17,9 +17,7 @@ final readonly class UserAssetBalanceService implements UserAssetBalanceServiceI
     public function apply(UserAssetOperation $operation, float $diff): void
     {
         $userAsset = $operation->getUserAsset();
-        $userAsset->setBalance(
-            $userAsset->getBalance() + $diff
-        );
+        $userAsset->setBalance($userAsset->getBalance() + $diff);
 
         $this->entityManager->persist($userAsset);
         $this->entityManager->flush();

@@ -6,15 +6,15 @@ namespace App\Event;
 
 use App\Entity\UserAssetOperation;
 
-final class UserAssetOperationEvent implements EventInterface
+final readonly class UserAssetOperationEvent implements EventInterface
 {
     public function __construct(
-        public readonly UserAssetOperation $operation,
+        public UserAssetOperation $operation,
     ) {
     }
 
     public function getName(): string
     {
-        return 'user_asset_operation.created';
+        return 'user_asset_operation';
     }
 }

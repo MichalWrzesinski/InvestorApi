@@ -10,7 +10,7 @@ use App\Dto\MeDtoOutput;
 use App\Dto\ValueInDefaultCurrencyDtoOutput;
 use App\Entity\User;
 use App\Entity\UserAsset;
-use App\Normalizer\UserAssetNormalizer;
+use App\Normalizer\UserAssetNormalizerInterface;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\SecurityBundle\Security;
 use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
@@ -20,7 +20,7 @@ final readonly class MeProvider implements ProviderInterface
 {
     public function __construct(
         private EntityManagerInterface $entityManager,
-        private UserAssetNormalizer $userAssetNormalizer,
+        private UserAssetNormalizerInterface $userAssetNormalizer,
         private Security $security,
         private NormalizerInterface $normalizer,
     ) {

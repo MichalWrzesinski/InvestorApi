@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace App\EventSubscriber;
 
 use App\Entity\Symbol;
-use App\Service\ExchangeRateSynchronizer;
+use App\Service\ExchangeRateSynchronizerInterface;
 use Doctrine\Bundle\DoctrineBundle\Attribute\AsEntityListener;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\Event\PostFlushEventArgs;
@@ -20,7 +20,7 @@ final class SymbolSubscriber implements EventSubscriberInterface
     private array $newSymbols = [];
 
     public function __construct(
-        private readonly ExchangeRateSynchronizer $synchronizer,
+        private readonly ExchangeRateSynchronizerInterface $synchronizer,
     ) {
     }
 

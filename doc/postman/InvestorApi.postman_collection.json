@@ -29,7 +29,7 @@
       }
     },
     {
-      "name": "🙂 Register",
+      "name": "\ud83d\ude42 Register",
       "request": {
         "method": "POST",
         "header": [
@@ -582,7 +582,7 @@
       ]
     },
     {
-      "name": "📈 User Asset Operations",
+      "name": "\ud83d\udcc8 User Asset Operations",
       "item": [
         {
           "name": "GET UserAssetOperations",
@@ -599,8 +599,12 @@
             },
             "url": {
               "raw": "{{base_url}}/user_asset_operations",
-              "host": ["{{base_url}}"],
-              "path": ["user_asset_operations"]
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "user_asset_operations"
+              ]
             }
           }
         },
@@ -619,8 +623,13 @@
             },
             "url": {
               "raw": "{{base_url}}/user_asset_operations/:id",
-              "host": ["{{base_url}}"],
-              "path": ["user_asset_operations", ":id"]
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "user_asset_operations",
+                ":id"
+              ]
             }
           }
         },
@@ -649,8 +658,12 @@
             },
             "url": {
               "raw": "{{base_url}}/user_asset_operations",
-              "host": ["{{base_url}}"],
-              "path": ["user_asset_operations"]
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "user_asset_operations"
+              ]
             }
           }
         },
@@ -679,8 +692,13 @@
             },
             "url": {
               "raw": "{{base_url}}/user_asset_operations/:id",
-              "host": ["{{base_url}}"],
-              "path": ["user_asset_operations", ":id"]
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "user_asset_operations",
+                ":id"
+              ]
             }
           }
         },
@@ -709,8 +727,13 @@
             },
             "url": {
               "raw": "{{base_url}}/user_asset_operations/:id",
-              "host": ["{{base_url}}"],
-              "path": ["user_asset_operations", ":id"]
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "user_asset_operations",
+                ":id"
+              ]
             }
           }
         },
@@ -729,8 +752,121 @@
             },
             "url": {
               "raw": "{{base_url}}/user_asset_operations/:id",
-              "host": ["{{base_url}}"],
-              "path": ["user_asset_operations", ":id"]
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "user_asset_operations",
+                ":id"
+              ]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "\ud83d\udcca ExchangeRates",
+      "item": [
+        {
+          "name": "GET ExchangeRates",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{base_url}}/exchange_rates",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "exchange_rates"
+              ]
+            },
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{jwt_token}}"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "GET ExchangeRate by ID",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{base_url}}/exchange_rates/:id",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "exchange_rates",
+                ":id"
+              ]
+            },
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{jwt_token}}"
+                }
+              ]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "\ud83e\uddee ExchangeRateLatest",
+      "item": [
+        {
+          "name": "GET ExchangeRateLatest",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{base_url}}/exchange_rate_latests",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "exchange_rate_latests"
+              ]
+            },
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{jwt_token}}"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "GET ExchangeRateLatest by ID",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{base_url}}/exchange_rate_latests/:id",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "exchange_rate_latests",
+                ":id"
+              ]
+            },
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{jwt_token}}"
+                }
+              ]
             }
           }
         }

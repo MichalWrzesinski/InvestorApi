@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace App\Controller;
 
-use App\Repository\UserRepository;
-use App\Security\ActivationTokenGenerator;
+use App\Repository\UserRepositoryInterface;
+use App\Security\ActivationTokenGeneratorInterface;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -15,9 +15,9 @@ use Symfony\Component\Routing\Annotation\Route;
 final readonly class ActivateAccountController
 {
     public function __construct(
-        private UserRepository $userRepository,
+        private UserRepositoryInterface $userRepository,
         private EntityManagerInterface $entityManager,
-        private ActivationTokenGenerator $tokenGenerator,
+        private ActivationTokenGeneratorInterface $tokenGenerator,
     ) {
     }
 

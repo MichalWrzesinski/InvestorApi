@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace App\EventSubscriber;
 
 use App\Entity\UserAssetOperation;
-use App\Service\UserAssetBalanceService;
+use App\Service\UserAssetBalanceServiceInterface;
 use Doctrine\Bundle\DoctrineBundle\Attribute\AsEntityListener;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\Event\PostRemoveEventArgs;
@@ -15,10 +15,10 @@ use Doctrine\Persistence\Event\LifecycleEventArgs;
 #[AsEntityListener(event: Events::postPersist, method: 'onPostPersist', entity: UserAssetOperation::class)]
 #[AsEntityListener(event: Events::postUpdate, method: 'onPostUpdate', entity: UserAssetOperation::class)]
 #[AsEntityListener(event: Events::postRemove, method: 'onPostRemove', entity: UserAssetOperation::class)]
-final class UserAssetOperationSubscriber implements EventSubscriberInterface
+final readonly class UserAssetOperationSubscriber implements EventSubscriberInterface
 {
     public function __construct(
-        private readonly UserAssetBalanceService $balanceService,
+        private UserAssetBalanceServiceInterface $balanceService,
     ) {
     }
 

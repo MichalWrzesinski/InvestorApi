@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace App\Controller\Dev;
 
-use App\Repository\UserRepository;
-use App\Security\ActivationTokenGenerator;
+use App\Repository\UserRepositoryInterface;
+use App\Security\ActivationTokenGeneratorInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
@@ -13,8 +13,8 @@ use Symfony\Component\Routing\Annotation\Route;
 final readonly class ActivationTokenPreviewController
 {
     public function __construct(
-        private UserRepository $userRepository,
-        private ActivationTokenGenerator $tokenGenerator,
+        private UserRepositoryInterface $userRepository,
+        private ActivationTokenGeneratorInterface $tokenGenerator,
     ) {
     }
 

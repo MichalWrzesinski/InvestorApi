@@ -6,7 +6,7 @@ namespace App\Event;
 
 use App\Entity\Symbol;
 
-final readonly class SymbolCreatedEvent implements EventInterface
+final readonly class SymbolEvent implements EventInterface
 {
     public function __construct(
         public Symbol $symbol,
@@ -15,6 +15,6 @@ final readonly class SymbolCreatedEvent implements EventInterface
 
     public function getName(): string
     {
-        return 'symbol.created';
+        return 'symbol';
     }
 }

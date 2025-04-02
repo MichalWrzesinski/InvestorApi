@@ -24,11 +24,7 @@ final readonly class YahooApiClient implements YahooApiClientInterface
         $symbol = $this->symbolBuilder->build($type, $base, $quote);
         $url = sprintf(self::URL, $symbol);
 
-        $response = $this->httpClient->request('GET', $url, [
-            'headers' => [
-                'User-Agent' => self::HEADERS,
-            ],
-        ]);
+        $response = $this->httpClient->request('GET', $url, ['headers' => self::HEADERS]);
 
         if (Response::HTTP_OK !== $response->getStatusCode()) {
             throw new \RuntimeException(sprintf('Yahoo API error (%d) for symbol %s', $response->getStatusCode(), $symbol));

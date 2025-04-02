@@ -13,7 +13,7 @@ use Symfony\Bundle\SecurityBundle\Security;
 use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
 use Symfony\Component\Serializer\Normalizer\ObjectNormalizer;
 
-final readonly class UserAssetOperationNormalizer implements NormalizerInterface
+final readonly class UserAssetOperationNormalizer implements NormalizerInterface, UserAssetNormalizerInterface
 {
     public function __construct(
         private ObjectNormalizer $normalizer,
