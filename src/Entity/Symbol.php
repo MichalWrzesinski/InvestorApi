@@ -9,6 +9,7 @@ use ApiPlatform\Doctrine\Orm\Filter\SearchFilter;
 use ApiPlatform\Metadata;
 use ApiPlatform\Metadata\ApiFilter;
 use ApiPlatform\Metadata\ApiResource;
+use App\Dto\LatestPriceDtoOutput;
 use App\Entity\Trait\SoftDeletableTrait;
 use App\Entity\Trait\SoftDeletableTraitInterface;
 use App\Entity\Trait\TimestampableTrait;
@@ -82,6 +83,9 @@ class Symbol implements SoftDeletableTraitInterface, TimestampableTraitInterface
     #[Groups(['symbol:read', 'symbol:write'])]
     private DataProcessorEnum $processor;
 
+    #[Groups(['symbol:read'])]
+    private ?LatestPriceDtoOutput $latestPrice = null;
+
     public function getId(): ?Uuid
     {
         return $this->id;
@@ -133,5 +137,15 @@ class Symbol implements SoftDeletableTraitInterface, TimestampableTraitInterface
         $this->processor = $processor;
 
         return $this;
+    }
+
+    public function getLatestPrice(): ?LatestPriceDtoOutput
+    {
+        return $this->latestPrice;
+    }
+
+    public function setLatestPrice(?LatestPriceDtoOutput $latestPrice): void
+    {
+        $this->latestPrice = $latestPrice;
     }
 }

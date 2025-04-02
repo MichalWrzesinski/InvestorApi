@@ -53,4 +53,9 @@ services:
             $appSecret: '%env(APP_SECRET)%'
         public: true
 
+    App\Normalizer\SymbolNormalizer:
+        arguments:
+            $normalizer: '@serializer.normalizer.object'
+        tags: [ 'serializer.normalizer' ]
+
     Fidry\AliceDataFixtures\LoaderInterface: '@fidry_alice_data_fixtures.doctrine.persister_loader'
