@@ -10,7 +10,6 @@ interface UserAssetNormalizerInterface
 {
     /**
      * @param array<string, mixed> $context
-     *
      * @return array<string, mixed>
      */
     public function normalize(UserAsset $asset, ?string $format = null, array $context = []): array;

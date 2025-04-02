@@ -8,10 +8,10 @@ use App\Entity\User;
 use Fidry\AliceDataFixtures\ProcessorInterface;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 
-class UserPasswordProcessor implements ProcessorInterface
+final readonly class UserPasswordProcessor implements ProcessorInterface
 {
     public function __construct(
-        private readonly UserPasswordHasherInterface $passwordHasher,
+        private UserPasswordHasherInterface $passwordHasher,
     ) {
     }
 

@@ -12,7 +12,7 @@ use Symfony\Bundle\SecurityBundle\Security;
 use Symfony\Component\Security\Core\User\UserInterface;
 
 /** @implements ProviderInterface<object> */
-final class CurrentUserCollectionProvider implements ProviderInterface
+final readonly class CurrentUserCollectionProvider implements ProviderInterface
 {
     public function __construct(
         private EntityManagerInterface $entityManager,

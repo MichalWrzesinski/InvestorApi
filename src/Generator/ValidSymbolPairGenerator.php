@@ -35,8 +35,8 @@ final readonly class ValidSymbolPairGenerator implements ValidSymbolPairGenerato
         }
     }
 
-    private function isSameSymbol(Symbol $a, Symbol $b): bool
+    private function isSameSymbol(Symbol $base, Symbol $quote): bool
     {
-        return $a === $b;
+        return $base === $quote;
     }
 }
