@@ -6,6 +6,7 @@ namespace App\Entity;
 
 use ApiPlatform\Metadata;
 use ApiPlatform\Metadata\ApiResource;
+use App\Dto\ValueInDefaultCurrencyDtoOutput;
 use App\Entity\Trait\SoftDeletableTrait;
 use App\Entity\Trait\SoftDeletableTraitInterface;
 use App\Entity\Trait\TimestampableTrait;
@@ -60,7 +61,7 @@ class UserAsset implements SoftDeletableTraitInterface, TimestampableTraitInterf
 
     #[ORM\ManyToOne(targetEntity: Symbol::class)]
     #[ORM\JoinColumn(nullable: false, onDelete: 'CASCADE')]
-    #[Groups(['user_asset:read', 'user_asset:write'])]
+    #[Groups(['user_asset:read', 'user_asset:write', 'user_asset_operation:read'])]
     private Symbol $symbol;
 
     #[ORM\Column(type: Types::FLOAT)]
@@ -72,6 +73,9 @@ class UserAsset implements SoftDeletableTraitInterface, TimestampableTraitInterf
     #[Assert\NotBlank]
     #[Groups(['user_asset:read', 'user_asset:write'])]
     private string $name;
+
+    #[Groups(['user_asset:read'])]
+    private ?ValueInDefaultCurrencyDtoOutput $valueInDefaultCurrency = null;
 
     public function getId(): ?Uuid
     {
@@ -129,5 +133,15 @@ class UserAsset implements SoftDeletableTraitInterface, TimestampableTraitInterf
     public static function getUserFieldPath(): string
     {
         return 'user';
+    }
+
+    public function getValueInDefaultCurrency(): ?ValueInDefaultCurrencyDtoOutput
+    {
+        return $this->valueInDefaultCurrency;
+    }
+
+    public function setValueInDefaultCurrency(?ValueInDefaultCurrencyDtoOutput $dto): void
+    {
+        $this->valueInDefaultCurrency = $dto;
     }
 }

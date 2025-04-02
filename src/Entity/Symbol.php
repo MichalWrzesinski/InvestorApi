@@ -65,17 +65,35 @@ class Symbol implements SoftDeletableTraitInterface, TimestampableTraitInterface
     #[Assert\NotBlank]
     #[Assert\Length(max: 15)]
     #[ORM\Column(type: Types::STRING, length: 15, unique: true)]
-    #[Groups(['symbol:read', 'symbol:write', 'exchange_rate:read'])]
+    #[Groups([
+        'symbol:read',
+        'symbol:write',
+        'exchange_rate:read',
+        'user_asset:read',
+        'user_asset_operation:read',
+    ])]
     private string $symbol;
 
     #[Assert\NotBlank]
     #[ORM\Column(type: Types::STRING, length: 50)]
-    #[Groups(['symbol:read', 'symbol:write', 'exchange_rate:read'])]
+    #[Groups([
+        'symbol:read',
+        'symbol:write',
+        'exchange_rate:read',
+        'user_asset:read',
+        'user_asset_operation:read',
+    ])]
     private string $name;
 
     #[Assert\NotBlank]
     #[ORM\Column(enumType: SymbolTypeEnum::class)]
-    #[Groups(['symbol:read', 'symbol:write', 'exchange_rate:read'])]
+    #[Groups([
+        'symbol:read',
+        'symbol:write',
+        'exchange_rate:read',
+        'user_asset:read',
+        'user_asset_operation:read',
+    ])]
     private SymbolTypeEnum $type;
 
     #[Assert\NotBlank]

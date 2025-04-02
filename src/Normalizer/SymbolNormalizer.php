@@ -7,14 +7,18 @@ namespace App\Normalizer;
 use App\Dto\LatestPriceDtoOutput;
 use App\Entity\ExchangeRateLatest;
 use App\Entity\Symbol;
+use App\Entity\User;
 use Doctrine\ORM\EntityManagerInterface;
+use Symfony\Bundle\SecurityBundle\Security;
 use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
+use Symfony\Component\Serializer\Normalizer\ObjectNormalizer;
 
 final readonly class SymbolNormalizer implements NormalizerInterface
 {
     public function __construct(
-        private NormalizerInterface $normalizer,
+        private ObjectNormalizer $normalizer,
         private EntityManagerInterface $entityManager,
+        private Security $security,
     ) {
     }
 
@@ -29,32 +33,56 @@ final readonly class SymbolNormalizer implements NormalizerInterface
         /** @var Symbol $symbol */
         $symbol = $object;
 
-        $rate = $this->entityManager->getRepository(ExchangeRateLatest::class)->findOneBy([
-            'baseSymbol' => $symbol->getSymbol(),
-            'quoteSymbol' => 'USD',
-        ]);
+        $user = $this->security->getUser();
 
-        if (null !== $rate) {
-            $symbol->setLatestPrice(new LatestPriceDtoOutput(
-                value: $rate->getPrice(),
-                quote: 'USD'
-            ));
-        } elseif ('USD' === $symbol->getSymbol()) {
-            $symbol->setLatestPrice(new LatestPriceDtoOutput(
-                value: 1.0,
-                quote: 'USD'
-            ));
+        $quoteSymbolCode = 'USD';
+        if ($user instanceof User && null !== $user->getDefaultQuoteSymbol()) {
+            $quoteSymbolCode = $user->getDefaultQuoteSymbol()->getSymbol();
         }
 
-        $data = $this->normalizer->normalize($symbol, $format, $context);
+        $rateRepo = $this->entityManager->getRepository(ExchangeRateLatest::class);
+        $baseCode = $symbol->getSymbol();
 
-        return (array) $data;
+        if ($baseCode === $quoteSymbolCode) {
+            $symbol->setLatestPrice(new LatestPriceDtoOutput(1.0, $quoteSymbolCode));
+        } else {
+            $directRate = $rateRepo->findOneBy([
+                'baseSymbol' => $baseCode,
+                'quoteSymbol' => $quoteSymbolCode,
+            ]);
+
+            if (null !== $directRate) {
+                $symbol->setLatestPrice(new LatestPriceDtoOutput(
+                    value: $directRate->getPrice(),
+                    quote: $quoteSymbolCode
+                ));
+            } else {
+                $toUsd = $rateRepo->findOneBy([
+                    'baseSymbol' => $baseCode,
+                    'quoteSymbol' => 'USD',
+                ]);
+
+                $usdToTarget = $rateRepo->findOneBy([
+                    'baseSymbol' => 'USD',
+                    'quoteSymbol' => $quoteSymbolCode,
+                ]);
+
+                if ($toUsd && $usdToTarget) {
+                    $convertedPrice = $toUsd->getPrice() * $usdToTarget->getPrice();
+
+                    $symbol->setLatestPrice(new LatestPriceDtoOutput(
+                        value: $convertedPrice,
+                        quote: $quoteSymbolCode
+                    ));
+                }
+            }
+        }
+
+        return (array) $this->normalizer->normalize($symbol, $format, $context);
     }
 
     public function getSupportedTypes(?string $format): array
     {
-        return [
-            Symbol::class => true,
-        ];
+        return [Symbol::class => true];
     }
 }

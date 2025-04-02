@@ -56,6 +56,19 @@ services:
     App\Normalizer\SymbolNormalizer:
         arguments:
             $normalizer: '@serializer.normalizer.object'
+            $security: '@security.helper'
+        tags: ['serializer.normalizer']
+
+    App\Normalizer\UserAssetNormalizer:
+        arguments:
+            $normalizer: '@serializer.normalizer.object'
+            $security: '@security.helper'
+        tags: [ 'serializer.normalizer' ]
+
+    App\Normalizer\UserAssetOperationNormalizer:
+        arguments:
+            $normalizer: '@serializer.normalizer.object'
+            $security: '@security.helper'
         tags: [ 'serializer.normalizer' ]
 
     Fidry\AliceDataFixtures\LoaderInterface: '@fidry_alice_data_fixtures.doctrine.persister_loader'

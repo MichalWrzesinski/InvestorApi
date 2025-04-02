@@ -4,15 +4,74 @@ App\Entity\User:
     password: 'root'
     roles: ['ROLE_ADMIN']
     active: true
+    defaultQuoteSymbol: '@symbol_pln'
 
   user_1:
     email: 'user@example.com'
     password: 'root'
     roles: [ 'ROLE_USER' ]
     active: true
+    defaultQuoteSymbol: '@symbol_eur'
 
-  user_{2..10}:
+  user_2:
     email: '<email()>'
     password: 'root'
     roles: [ 'ROLE_USER' ]
     active: <boolean(95)>
+    defaultQuoteSymbol: '@symbol_usd'
+
+  user_3:
+    email: '<email()>'
+    password: 'root'
+    roles: [ 'ROLE_USER' ]
+    active: <boolean(95)>
+    defaultQuoteSymbol: '@symbol_gbp'
+
+  user_4:
+    email: '<email()>'
+    password: 'root'
+    roles: [ 'ROLE_USER' ]
+    active: <boolean(95)>
+    defaultQuoteSymbol: '@symbol_chf'
+
+  user_5:
+    email: '<email()>'
+    password: 'root'
+    roles: [ 'ROLE_USER' ]
+    active: <boolean(95)>
+    defaultQuoteSymbol: '@symbol_jpy'
+
+  user_6:
+    email: '<email()>'
+    password: 'root'
+    roles: [ 'ROLE_USER' ]
+    active: <boolean(95)>
+    defaultQuoteSymbol: '@symbol_pln'
+
+  user_7:
+    email: '<email()>'
+    password: 'root'
+    roles: [ 'ROLE_USER' ]
+    active: <boolean(95)>
+    defaultQuoteSymbol: '@symbol_usd'
+
+  user_8:
+    email: '<email()>'
+    password: 'root'
+    roles: [ 'ROLE_USER' ]
+    active: <boolean(95)>
+    defaultQuoteSymbol: '@symbol_eur'
+
+  user_9:
+    email: '<email()>'
+    password: 'root'
+    roles: [ 'ROLE_USER' ]
+    active: <boolean(95)>
+    defaultQuoteSymbol: '@symbol_pln'
+
+  user_10:
+    email: '<email()>'
+    password: 'root'
+    roles: [ 'ROLE_USER' ]
+    active: <boolean(95)>
+    defaultQuoteSymbol: '@symbol_usd'

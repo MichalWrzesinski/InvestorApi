@@ -6,6 +6,7 @@ namespace App\Entity;
 
 use ApiPlatform\Metadata;
 use ApiPlatform\Metadata\ApiResource;
+use App\Dto\ValueInDefaultCurrencyDtoOutput;
 use App\Entity\Trait\SoftDeletableTrait;
 use App\Entity\Trait\SoftDeletableTraitInterface;
 use App\Entity\Trait\TimestampableTrait;
@@ -69,6 +70,9 @@ class UserAssetOperation implements SoftDeletableTraitInterface, TimestampableTr
     #[Groups(['user_asset_operation:read', 'user_asset_operation:write'])]
     private AssetOperationTypeEnum $type;
 
+    #[Groups(['user_asset_operation:read'])]
+    private ?ValueInDefaultCurrencyDtoOutput $valueInDefaultCurrency = null;
+
     public function getId(): ?Uuid
     {
         return $this->id;
@@ -119,5 +123,15 @@ class UserAssetOperation implements SoftDeletableTraitInterface, TimestampableTr
     public function getUser(): User
     {
         return $this->getUserAsset()->getUser();
+    }
+
+    public function getValueInDefaultCurrency(): ?ValueInDefaultCurrencyDtoOutput
+    {
+        return $this->valueInDefaultCurrency;
+    }
+
+    public function setValueInDefaultCurrency(?ValueInDefaultCurrencyDtoOutput $value): void
+    {
+        $this->valueInDefaultCurrency = $value;
     }
 }

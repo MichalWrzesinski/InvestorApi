@@ -163,7 +163,7 @@
             },
             "body": {
               "mode": "raw",
-              "raw": "{\n    \"email\": \"admin@example.com\",\n    \"password\": \"root\"\n}"
+              "raw": "{\n    \"email\": \"admin@example.com\",\n    \"password\": \"root\",\n    \"defaultQuoteSymbol\": \"/api/symbols/0195f16c-9f11-72e4-bc2e-c742a745dbc4\"\n}"
             },
             "url": {
               "raw": "{{base_url}}/users/:id",

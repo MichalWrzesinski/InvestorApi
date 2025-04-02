@@ -62,6 +62,11 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface, SoftDel
     #[Groups(['user:read'])]
     private ?bool $active = null;
 
+    #[ORM\ManyToOne(targetEntity: Symbol::class)]
+    #[ORM\JoinColumn(nullable: true)]
+    #[Groups(['user:read', 'user:write'])]
+    private ?Symbol $defaultQuoteSymbol = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -137,5 +142,17 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface, SoftDel
 
     public function eraseCredentials(): void
     {
+    }
+
+    public function getDefaultQuoteSymbol(): ?Symbol
+    {
+        return $this->defaultQuoteSymbol;
+    }
+
+    public function setDefaultQuoteSymbol(?Symbol $symbol): self
+    {
+        $this->defaultQuoteSymbol = $symbol;
+
+        return $this;
     }
 }
