@@ -1,77 +1,35 @@
 App\Entity\User:
   admin:
     email: 'admin@example.com'
-    password: 'root'
+    password: 'abcdefgh'
     roles: ['ROLE_ADMIN']
     active: true
+    defaultQuoteSymbol: ~
+
+  michal:
+    email: 'michal@example.com'
+    password: 'abcdefgh'
+    roles: ['ROLE_USER']
+    active: true
     defaultQuoteSymbol: '@symbol_pln'
 
-  user_1:
-    email: 'user@example.com'
-    password: 'root'
-    roles: [ 'ROLE_USER' ]
+  adam:
+    email: 'adam@example.com'
+    password: 'abcdefgh'
+    roles: ['ROLE_USER']
     active: true
     defaultQuoteSymbol: '@symbol_eur'
 
-  user_2:
-    email: '<email()>'
-    password: 'root'
-    roles: [ 'ROLE_USER' ]
-    active: <boolean(95)>
+  tomek:
+    email: 'tomek@example.com'
+    password: 'abcdefgh'
+    roles: ['ROLE_USER']
+    active: true
     defaultQuoteSymbol: '@symbol_usd'
 
-  user_3:
-    email: '<email()>'
-    password: 'root'
-    roles: [ 'ROLE_USER' ]
-    active: <boolean(95)>
+  bartek:
+    email: 'bartek@example.com'
+    password: 'abcdefgh'
+    roles: ['ROLE_USER']
+    active: false
     defaultQuoteSymbol: '@symbol_gbp'
-
-  user_4:
-    email: '<email()>'
-    password: 'root'
-    roles: [ 'ROLE_USER' ]
-    active: <boolean(95)>
-    defaultQuoteSymbol: '@symbol_chf'
-
-  user_5:
-    email: '<email()>'
-    password: 'root'
-    roles: [ 'ROLE_USER' ]
-    active: <boolean(95)>
-    defaultQuoteSymbol: '@symbol_jpy'
-
-  user_6:
-    email: '<email()>'
-    password: 'root'
-    roles: [ 'ROLE_USER' ]
-    active: <boolean(95)>
-    defaultQuoteSymbol: '@symbol_pln'
-
-  user_7:
-    email: '<email()>'
-    password: 'root'
-    roles: [ 'ROLE_USER' ]
-    active: <boolean(95)>
-    defaultQuoteSymbol: '@symbol_usd'
-
-  user_8:
-    email: '<email()>'
-    password: 'root'
-    roles: [ 'ROLE_USER' ]
-    active: <boolean(95)>
-    defaultQuoteSymbol: '@symbol_eur'
-
-  user_9:
-    email: '<email()>'
-    password: 'root'
-    roles: [ 'ROLE_USER' ]
-    active: <boolean(95)>
-    defaultQuoteSymbol: '@symbol_pln'
-
-  user_10:
-    email: '<email()>'
-    password: 'root'
-    roles: [ 'ROLE_USER' ]
-    active: <boolean(95)>
-    defaultQuoteSymbol: '@symbol_usd'

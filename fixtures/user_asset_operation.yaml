@@ -1,5 +1,118 @@
+App\Entity\UserAsset:
+  michal_1:
+    user: '@michal'
+    symbol: '@symbol_pln'
+    name: 'Poduszka finansowa'
+    balance: 1200.00
+
+  michal_2:
+    user: '@michal'
+    symbol: '@symbol_usd'
+    name: 'Konto walutowe USD'
+    balance: 320.50
+
+  michal_3:
+    user: '@michal'
+    symbol: '@symbol_eth'
+    name: 'Kryptowaluty ETH'
+    balance: 0.08
+
+  adam_1:
+    user: '@adam'
+    symbol: '@symbol_eur'
+    name: 'Konto oszczędnościowe'
+    balance: 860.00
+
+  adam_2:
+    user: '@adam'
+    symbol: '@symbol_btc'
+    name: 'Kryptowaluty BTC'
+    balance: 0.035
+
+  tomek_1:
+    user: '@tomek'
+    symbol: '@symbol_usd'
+    name: 'Poduszka finansowa'
+    balance: 950.00
+
+  tomek_2:
+    user: '@tomek'
+    symbol: '@symbol_aapl'
+    name: 'Moje akcje Apple'
+    balance: 3
+
 App\Entity\UserAssetOperation:
-  user_asset_operation_{1..150}:
-    userAsset: '@user_asset_<numberBetween(1,50)>'
-    amount: <randomFloat(2, 1, 1000)>
-    type: '<randomElement(["CREDIT", "DEBIT", "INTEREST", "DIVIDEND", "FEE", "TRANSFER", "CORRECTION"])>'
+  michal_op1:
+    userAsset: '@michal_1'
+    amount: 500
+    type: 'CREDIT'
+
+  michal_op2:
+    userAsset: '@michal_1'
+    amount: 300
+    type: 'CREDIT'
+
+  michal_op3:
+    userAsset: '@michal_1'
+    amount: 100
+    type: 'DEBIT'
+
+  michal_op4:
+    userAsset: '@michal_2'
+    amount: 100
+    type: 'CREDIT'
+
+  michal_op5:
+    userAsset: '@michal_2'
+    amount: 50
+    type: 'CREDIT'
+
+  adam_op1:
+    userAsset: '@adam_1'
+    amount: 400
+    type: 'CREDIT'
+
+  adam_op2:
+    userAsset: '@adam_1'
+    amount: 300
+    type: 'CREDIT'
+
+  adam_op3:
+    userAsset: '@adam_1'
+    amount: 60
+    type: 'DEBIT'
+
+  adam_op4:
+    userAsset: '@adam_2'
+    amount: 0.01
+    type: 'CREDIT'
+
+  adam_op5:
+    userAsset: '@adam_2'
+    amount: 0.025
+    type: 'CREDIT'
+
+  tomek_op1:
+    userAsset: '@tomek_1'
+    amount: 500
+    type: 'CREDIT'
+
+  tomek_op2:
+    userAsset: '@tomek_1'
+    amount: 300
+    type: 'CREDIT'
+
+  tomek_op3:
+    userAsset: '@tomek_1'
+    amount: 150
+    type: 'DEBIT'
+
+  tomek_op4:
+    userAsset: '@tomek_2'
+    amount: 2
+    type: 'CREDIT'
+
+  tomek_op5:
+    userAsset: '@tomek_2'
+    amount: 1
+    type: 'CREDIT'
