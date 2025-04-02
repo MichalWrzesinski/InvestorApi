@@ -4,7 +4,12 @@ declare(strict_types=1);
 
 namespace App\Entity;
 
+use ApiPlatform\Doctrine\Orm\Filter\DateFilter;
+use ApiPlatform\Doctrine\Orm\Filter\OrderFilter;
+use ApiPlatform\Doctrine\Orm\Filter\RangeFilter;
+use ApiPlatform\Doctrine\Orm\Filter\SearchFilter;
 use ApiPlatform\Metadata;
+use ApiPlatform\Metadata\ApiFilter;
 use ApiPlatform\Metadata\ApiProperty;
 use ApiPlatform\Metadata\ApiResource;
 use App\Entity\Trait\SoftDeletableTrait;
@@ -33,6 +38,23 @@ use Symfony\Component\Validator\Constraints as Assert;
     normalizationContext: ['groups' => ['exchange_rate:read']],
     denormalizationContext: ['groups' => ['exchange_rate:write']]
 )]
+#[ApiFilter(SearchFilter::class, properties: [
+    'base' => 'exact',
+    'quote' => 'exact',
+])]
+#[ApiFilter(RangeFilter::class, properties: [
+    'price',
+])]
+#[ApiFilter(DateFilter::class, properties: [
+    'createdAt',
+    'updatedAt',
+    'deletedAt',
+])]
+#[ApiFilter(OrderFilter::class, properties: [
+    'base',
+    'quote',
+    'price',
+])]
 class ExchangeRate implements SoftDeletableTraitInterface, TimestampableTraitInterface
 {
     use TimestampableTrait;

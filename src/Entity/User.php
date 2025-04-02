@@ -4,7 +4,11 @@ declare(strict_types=1);
 
 namespace App\Entity;
 
+use ApiPlatform\Doctrine\Orm\Filter\DateFilter;
+use ApiPlatform\Doctrine\Orm\Filter\OrderFilter;
+use ApiPlatform\Doctrine\Orm\Filter\SearchFilter;
 use ApiPlatform\Metadata;
+use ApiPlatform\Metadata\ApiFilter;
 use ApiPlatform\Metadata\ApiResource;
 use App\Entity\Trait\SoftDeletableTrait;
 use App\Entity\Trait\SoftDeletableTraitInterface;
@@ -33,6 +37,24 @@ use Symfony\Component\Validator\Constraints as Assert;
     normalizationContext: ['groups' => ['user:read']],
     denormalizationContext: ['groups' => ['user:write']]
 )]
+#[ApiFilter(SearchFilter::class, properties: [
+    'email' => 'partial',
+    'roles' => 'exact',
+    'active' => 'exact',
+    'defaultQuoteSymbol' => 'exact',
+    'defaultQuoteSymbol.code' => 'exact',
+])]
+#[ApiFilter(DateFilter::class, properties: [
+    'createdAt',
+    'updatedAt',
+    'deletedAt',
+])]
+#[ApiFilter(OrderFilter::class, properties: [
+    'email',
+    'roles',
+    'active',
+    'defaultQuoteSymbol',
+])]
 class User implements UserInterface, PasswordAuthenticatedUserInterface, SoftDeletableTraitInterface, TimestampableTraitInterface
 {
     use TimestampableTrait;

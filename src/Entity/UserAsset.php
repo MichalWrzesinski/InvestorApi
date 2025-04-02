@@ -4,7 +4,12 @@ declare(strict_types=1);
 
 namespace App\Entity;
 
+use ApiPlatform\Doctrine\Orm\Filter\DateFilter;
+use ApiPlatform\Doctrine\Orm\Filter\OrderFilter;
+use ApiPlatform\Doctrine\Orm\Filter\RangeFilter;
+use ApiPlatform\Doctrine\Orm\Filter\SearchFilter;
 use ApiPlatform\Metadata;
+use ApiPlatform\Metadata\ApiFilter;
 use ApiPlatform\Metadata\ApiResource;
 use App\Dto\ValueInDefaultCurrencyDtoOutput;
 use App\Entity\Trait\SoftDeletableTrait;
@@ -42,6 +47,23 @@ use Symfony\Component\Validator\Constraints as Assert;
     normalizationContext: ['groups' => ['user_asset:read']],
     denormalizationContext: ['groups' => ['user_asset:write']]
 )]
+#[ApiFilter(SearchFilter::class, properties: [
+    'user' => 'exact',
+    'symbol' => 'exact',
+    'name' => 'partial',
+])]
+#[ApiFilter(RangeFilter::class, properties: [
+    'balance',
+])]
+#[ApiFilter(DateFilter::class, properties: [
+    'createdAt',
+    'updatedAt',
+    'deletedAt',
+])]
+#[ApiFilter(OrderFilter::class, properties: [
+    'symbol',
+    'name',
+])]
 class UserAsset implements SoftDeletableTraitInterface, TimestampableTraitInterface, OwnedByUserInterface
 {
     use SoftDeletableTrait;

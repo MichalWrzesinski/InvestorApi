@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Entity;
 
+use ApiPlatform\Doctrine\Orm\Filter\DateFilter;
 use ApiPlatform\Doctrine\Orm\Filter\OrderFilter;
 use ApiPlatform\Doctrine\Orm\Filter\SearchFilter;
 use ApiPlatform\Metadata;
@@ -37,13 +38,17 @@ use Symfony\Component\Validator\Constraints as Assert;
         new Metadata\Delete(security: 'is_granted("ROLE_ADMIN")'),
     ],
     normalizationContext: ['groups' => ['symbol:read']],
-    denormalizationContext: ['groups' => ['symbol:write']],
-    filters: ['symbol.search_filter', 'symbol.order_filter']
+    denormalizationContext: ['groups' => ['symbol:write']]
 )]
 #[ApiFilter(SearchFilter::class, properties: [
-    'symbol' => 'partial',
-    'name' => 'partial',
+    'symbol' => 'exact',
+    'name' => 'exact',
     'type' => 'exact',
+])]
+#[ApiFilter(DateFilter::class, properties: [
+    'createdAt',
+    'updatedAt',
+    'deletedAt',
 ])]
 #[ApiFilter(OrderFilter::class, properties: [
     'symbol',
