@@ -7,6 +7,7 @@ namespace App\Tests\Unit\State\Processor\ExchangeRate;
 use App\Entity\ExchangeRate;
 use App\Entity\Symbol;
 use App\Enum\DataProcessorEnum;
+use App\Enum\SymbolTypeEnum;
 use App\Integration\Binance\BinanceApiClientInterface;
 use App\Repository\SymbolRepositoryInterface;
 use App\State\Processor\ExchangeRate\BinanceProcessor;
@@ -51,6 +52,7 @@ final class BinanceProcessorTest extends TestCase
 
     public function testUpdatePersistsExchangeRateWhenSymbolsExist(): void
     {
+        $type = SymbolTypeEnum::FIAT;
         $base = 'BTC';
         $quote = 'USDT';
         $price = 12345.67;
@@ -63,7 +65,7 @@ final class BinanceProcessorTest extends TestCase
 
         $this->client->expects($this->once())
             ->method('getPriceForPair')
-            ->with($base, $quote)
+            ->with($type, $base, $quote)
             ->willReturn($price);
 
         $this->symbolRepository->method('findOneBy')
@@ -82,21 +84,29 @@ final class BinanceProcessorTest extends TestCase
 
         $this->entityManager->expects($this->once())->method('flush');
 
-        $this->processor->update([[$base, $quote]]);
+        $this->processor->update($type, $base, $quote);
     }
 
     public function testUpdateSkipsWhenSymbolsAreMissing(): void
     {
+        $type = SymbolTypeEnum::FIAT;
+        $base = 'BTC';
+        $quote = 'USDT';
+
         $this->symbolRepository->method('findOneBy')->willReturn(null);
 
         $this->entityManager->expects($this->never())->method('persist');
-        $this->entityManager->expects($this->once())->method('flush');
+        $this->entityManager->expects($this->never())->method('flush');
 
-        $this->processor->update([['BTC', 'USDT']]);
+        $this->processor->update($type, $base, $quote);
     }
 
     public function testUpdateLogsErrorOnException(): void
     {
+        $type = SymbolTypeEnum::FIAT;
+        $base = 'BTC';
+        $quote = 'USDT';
+
         $this->client->method('getPriceForPair')
             ->willThrowException(new \RuntimeException('API error'));
 
@@ -107,8 +117,8 @@ final class BinanceProcessorTest extends TestCase
                 $this->arrayHasKey('exception')
             );
 
-        $this->entityManager->expects($this->once())->method('flush');
+        $this->entityManager->expects($this->never())->method('flush');
 
-        $this->processor->update([['BTC', 'USDT']]);
+        $this->processor->update($type, $base, $quote);
     }
 }

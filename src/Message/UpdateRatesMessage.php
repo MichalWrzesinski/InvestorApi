@@ -5,14 +5,21 @@ declare(strict_types=1);
 namespace App\Message;
 
 use App\Enum\DataProcessorEnum;
+use App\Enum\SymbolTypeEnum;
 
-class UpdateRatesMessage implements MessageInterface
+final readonly class UpdateRatesMessage implements MessageInterface
 {
     public function __construct(
-        public readonly string $processor,
-        /** @var array<array{base: string, quote: string}> */
-        public readonly array $pairs,
+        public string $type,
+        public string $processor,
+        public string $base,
+        public string $quote,
     ) {
+    }
+
+    public function getTypeEnum(): ?SymbolTypeEnum
+    {
+        return SymbolTypeEnum::tryFrom($this->type);
     }
 
     public function getProcessorEnum(): ?DataProcessorEnum

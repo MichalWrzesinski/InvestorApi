@@ -12,7 +12,7 @@ use Symfony\Component\Messenger\MessageBusInterface;
 use Symfony\Component\Messenger\Stamp\DelayStamp;
 
 #[AsMessageHandler]
-class UpdateRatesHandler
+final readonly class UpdateRatesHandler
 {
     /** @param iterable<ProcessorInterface> $processors */
     public function __construct(
@@ -29,22 +29,24 @@ class UpdateRatesHandler
         foreach ($this->processors as $processor) {
             if ($processorEnum && $processor->supports($processorEnum)) {
                 try {
-                    $processor->update(
-                        array_map(
-                            fn (array $pair) => [$pair['base'], $pair['quote']],
-                            $message->pairs
-                        )
-                    );
-                } catch (\Throwable $throwable) {
+                    $processor->update($message->getTypeEnum(), $message->base, $message->quote);
+                } catch (\Throwable $exception) {
                     $this->logger->error('Error processing currency rate processor', [
-                        'exception' => $throwable,
+                        'exception' => $exception,
+                        'type' => $message->type,
                         'processor' => $message->processor,
-                        'pairs' => $message->pairs,
+                        'base' => $message->base,
+                        'quote' => $message->quote,
                     ]);
                 }
 
                 $this->bus->dispatch(
-                    new UpdateRatesMessage($message->processor, $message->pairs),
+                    new UpdateRatesMessage(
+                        $message->type,
+                        $message->processor,
+                        $message->base,
+                        $message->quote
+                    ),
                     [new DelayStamp(60_000)]
                 );
 

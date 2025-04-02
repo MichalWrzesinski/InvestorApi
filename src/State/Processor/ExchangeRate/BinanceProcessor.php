@@ -6,18 +6,19 @@ namespace App\State\Processor\ExchangeRate;
 
 use App\Entity\ExchangeRate;
 use App\Enum\DataProcessorEnum;
+use App\Enum\SymbolTypeEnum;
 use App\Integration\Binance\BinanceApiClientInterface;
 use App\Repository\SymbolRepositoryInterface;
 use Doctrine\ORM\EntityManagerInterface;
 use Psr\Log\LoggerInterface;
 
-final class BinanceProcessor implements ProcessorInterface, ExchangeRateInterface
+final readonly class BinanceProcessor implements ProcessorInterface, ExchangeRateInterface
 {
     public function __construct(
-        private readonly BinanceApiClientInterface $client,
-        private readonly SymbolRepositoryInterface $symbolRepository,
-        private readonly EntityManagerInterface $entityManager,
-        private readonly LoggerInterface $logger,
+        private BinanceApiClientInterface $client,
+        private SymbolRepositoryInterface $symbolRepository,
+        private EntityManagerInterface $entityManager,
+        private LoggerInterface $logger,
     ) {
     }
 
@@ -26,35 +27,31 @@ final class BinanceProcessor implements ProcessorInterface, ExchangeRateInterfac
         return DataProcessorEnum::BINANCE === $processor;
     }
 
-    /** @param array<int, array{string, string}> $pairs */
-    public function update(array $pairs): void
+    public function update(SymbolTypeEnum $type, string $base, string $quote): void
     {
-        foreach ($pairs as [$base, $quote]) {
-            try {
-                $price = $this->client->getPriceForPair($base, $quote);
+        try {
+            $price = $this->client->getPriceForPair($type, $base, $quote);
 
-                $baseSymbol = $this->symbolRepository->findOneBy(['symbol' => strtoupper($base)]);
-                $quoteSymbol = $this->symbolRepository->findOneBy(['symbol' => strtoupper($quote)]);
+            $baseSymbol = $this->symbolRepository->findOneBy(['symbol' => strtoupper($base)]);
+            $quoteSymbol = $this->symbolRepository->findOneBy(['symbol' => strtoupper($quote)]);
 
-                if (!$baseSymbol || !$quoteSymbol) {
-                    continue;
-                }
-
-                $exchangeRate = new ExchangeRate();
-                $exchangeRate->setBase($baseSymbol);
-                $exchangeRate->setQuote($quoteSymbol);
-                $exchangeRate->setPrice($price);
-
-                $this->entityManager->persist($exchangeRate);
-            } catch (\Throwable $e) {
-                $this->logger->error('Error while updating the exchange rate from Binance', [
-                    'exception' => $e,
-                    'base' => $base,
-                    'quote' => $quote,
-                ]);
+            if (!$baseSymbol || !$quoteSymbol) {
+                return;
             }
-        }
 
-        $this->entityManager->flush();
+            $exchangeRate = new ExchangeRate();
+            $exchangeRate->setBase($baseSymbol);
+            $exchangeRate->setQuote($quoteSymbol);
+            $exchangeRate->setPrice($price);
+
+            $this->entityManager->persist($exchangeRate);
+            $this->entityManager->flush();
+        } catch (\Throwable $exception) {
+            $this->logger->error('Error while updating the exchange rate from Binance', [
+                'exception' => $exception,
+                'base' => $base,
+                'quote' => $quote,
+            ]);
+        }
     }
 }

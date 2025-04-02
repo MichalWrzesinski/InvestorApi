@@ -25,11 +25,11 @@ final class RefreshExchangeRateViewCommand extends Command
             $output->writeln('Exchange_rate_latest view refreshed');
 
             return Command::SUCCESS;
-        } catch (\Throwable $throwable) {
+        } catch (\Throwable $exception) {
             $output->writeln(
                 sprintf(
                     'Exchange_rate_latest view  not refreshed: %s',
-                    $throwable->getMessage()
+                    $exception->getMessage()
                 )
             );
 

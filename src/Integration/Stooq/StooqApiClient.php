@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Integration\Stooq;
 
+use App\Enum\SymbolTypeEnum;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Contracts\HttpClient\HttpClientInterface;
 
@@ -16,9 +17,11 @@ final class StooqApiClient implements StooqApiClientInterface
     ) {
     }
 
-    public function getPriceForSymbol(string $symbol): float
+    public function getPriceForPair(SymbolTypeEnum $type, string $base, string $quote): float
     {
-        $url = sprintf(self::URL, strtolower($symbol));
+        $symbol = strtolower($base.$quote);
+        $url = sprintf(self::URL, $symbol);
+
         $response = $this->httpClient->request('GET', $url);
 
         if (Response::HTTP_OK !== $response->getStatusCode()) {

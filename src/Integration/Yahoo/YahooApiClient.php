@@ -4,22 +4,25 @@ declare(strict_types=1);
 
 namespace App\Integration\Yahoo;
 
+use App\Enum\SymbolTypeEnum;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Contracts\HttpClient\HttpClientInterface;
 
-final class YahooApiClient implements YahooApiClientInterface
+final readonly class YahooApiClient implements YahooApiClientInterface
 {
     private const URL = 'https://query1.finance.yahoo.com/v8/finance/chart/%s?range=1d&interval=1d';
     private const HEADERS = ['User-Agent' => 'Mozilla/5.0'];
 
     public function __construct(
-        private readonly HttpClientInterface $httpClient,
+        private HttpClientInterface $httpClient,
+        private YahooSymbolBuilder $symbolBuilder,
     ) {
     }
 
-    public function getPriceForSymbol(string $symbol): float
+    public function getPriceForPair(SymbolTypeEnum $type, string $base, string $quote): float
     {
-        $url = sprintf(self::URL, strtolower($symbol));
+        $symbol = $this->symbolBuilder->build($type, $base, $quote);
+        $url = sprintf(self::URL, $symbol);
 
         $response = $this->httpClient->request('GET', $url, [
             'headers' => [

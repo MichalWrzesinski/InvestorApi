@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Integration\Binance;
 
+use App\Enum\SymbolTypeEnum;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Contracts\HttpClient\HttpClientInterface;
 
@@ -16,8 +17,16 @@ final class BinanceApiClient implements BinanceApiClientInterface
     ) {
     }
 
-    public function getPriceForPair(string $base, string $quote): float
+    public function getPriceForPair(SymbolTypeEnum $type, string $base, string $quote): float
     {
+        if ('USDC' === $base) {
+            return 1.0;
+        }
+
+        if ('USD' === strtoupper($quote)) {
+            $quote = 'USDC';
+        }
+
         $symbol = strtoupper($base.$quote);
         $url = sprintf(self::URL, $symbol);
 

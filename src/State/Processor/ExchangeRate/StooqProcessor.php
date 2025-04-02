@@ -4,18 +4,19 @@ namespace App\State\Processor\ExchangeRate;
 
 use App\Entity\ExchangeRate;
 use App\Enum\DataProcessorEnum;
+use App\Enum\SymbolTypeEnum;
 use App\Integration\Stooq\StooqApiClientInterface;
 use App\Repository\SymbolRepositoryInterface;
 use Doctrine\ORM\EntityManagerInterface;
 use Psr\Log\LoggerInterface;
 
-final class StooqProcessor implements ProcessorInterface, ExchangeRateInterface
+final readonly class StooqProcessor implements ProcessorInterface, ExchangeRateInterface
 {
     public function __construct(
-        private readonly StooqApiClientInterface $client,
-        private readonly SymbolRepositoryInterface $symbolRepository,
-        private readonly EntityManagerInterface $entityManager,
-        private readonly LoggerInterface $logger,
+        private StooqApiClientInterface $client,
+        private SymbolRepositoryInterface $symbolRepository,
+        private EntityManagerInterface $entityManager,
+        private LoggerInterface $logger,
     ) {
     }
 
@@ -24,36 +25,31 @@ final class StooqProcessor implements ProcessorInterface, ExchangeRateInterface
         return DataProcessorEnum::STOOQ === $processor;
     }
 
-    /** @param array<int, array{string, string}> $pairs */
-    public function update(array $pairs): void
+    public function update(SymbolTypeEnum $type, string $base, string $quote): void
     {
-        foreach ($pairs as [$base, $quote]) {
-            try {
-                $symbolCode = strtolower($base.$quote);
-                $price = $this->client->getPriceForSymbol($symbolCode);
+        try {
+            $price = $this->client->getPriceForPair($type, $base, $quote);
 
-                $baseSymbol = $this->symbolRepository->findOneBy(['symbol' => strtoupper($base)]);
-                $quoteSymbol = $this->symbolRepository->findOneBy(['symbol' => strtoupper($quote)]);
+            $baseSymbol = $this->symbolRepository->findOneBy(['symbol' => strtoupper($base)]);
+            $quoteSymbol = $this->symbolRepository->findOneBy(['symbol' => strtoupper($quote)]);
 
-                if (!$baseSymbol || !$quoteSymbol) {
-                    continue;
-                }
-
-                $exchangeRate = new ExchangeRate();
-                $exchangeRate->setBase($baseSymbol);
-                $exchangeRate->setQuote($quoteSymbol);
-                $exchangeRate->setPrice($price);
-
-                $this->entityManager->persist($exchangeRate);
-            } catch (\Throwable $e) {
-                $this->logger->error('Error while updating the exchange rate from Stooq', [
-                    'exception' => $e,
-                    'base' => $base,
-                    'quote' => $quote,
-                ]);
+            if (!$baseSymbol || !$quoteSymbol) {
+                return;
             }
-        }
 
-        $this->entityManager->flush();
+            $exchangeRate = new ExchangeRate();
+            $exchangeRate->setBase($baseSymbol);
+            $exchangeRate->setQuote($quoteSymbol);
+            $exchangeRate->setPrice($price);
+
+            $this->entityManager->persist($exchangeRate);
+            $this->entityManager->flush();
+        } catch (\Throwable $exception) {
+            $this->logger->error('Error while updating the exchange rate from Stooq', [
+                'exception' => $exception,
+                'base' => $base,
+                'quote' => $quote,
+            ]);
+        }
     }
 }

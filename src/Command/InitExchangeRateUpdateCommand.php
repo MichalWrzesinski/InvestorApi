@@ -26,30 +26,29 @@ final class InitExchangeRateUpdateCommand extends Command
 
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
-        /** @var array<string, array<array{base: string, quote: string}>> $grouped */
-        $grouped = [];
+        $dispatchCount = 0;
 
         foreach ($this->pairGenerator->generate() as $pair) {
-            $base = $pair['base'];
-            $quote = $pair['quote'];
-
-            $processor = $this->processorResolver->resolve($base->getType()->value);
+            $type = $pair['base']->getType()->value;
+            $processor = $this->processorResolver->resolve($type);
 
             if (!$processor) {
                 continue;
             }
 
-            $grouped[$processor][] = [
-                'base' => $base->getSymbol(),
-                'quote' => $quote->getSymbol(),
-            ];
+            $this->bus->dispatch(
+                new UpdateRatesMessage(
+                    $type,
+                    $processor,
+                    $pair['base']->getSymbol(),
+                    $pair['quote']->getSymbol()
+                )
+            );
+
+            ++$dispatchCount;
         }
 
-        foreach ($grouped as $processor => $pairs) {
-            $this->bus->dispatch(new UpdateRatesMessage($processor, $pairs));
-        }
-
-        $output->writeln('Rate update tasks were initiated from data in the database.');
+        $output->writeln(sprintf('%d rate update tasks initiated', $dispatchCount));
 
         return Command::SUCCESS;
     }
