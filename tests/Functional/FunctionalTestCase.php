@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Tests\Functional;
 
+use App\Entity\User;
 use Symfony\Bundle\FrameworkBundle\Console\Application;
 use Symfony\Bundle\FrameworkBundle\KernelBrowser;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
@@ -13,7 +14,7 @@ use Symfony\Component\HttpFoundation\Request;
 
 abstract class FunctionalTestCase extends WebTestCase
 {
-    private const USER_EMAIL = 'admin@example.com';
+    private const USER_EMAIL = 'test_admin@example.com';
 
     private const USER_PASSWORD = 'abcdefgh';
 
@@ -37,13 +38,25 @@ abstract class FunctionalTestCase extends WebTestCase
             return $this->token;
         }
 
+        $container = $this->getTestContainer();
+        $entityManager = $container->get('doctrine.orm.entity_manager');
+        $passwordHasher = $container->get('security.user_password_hasher');
+
+        $user = new User();
+        $user->setEmail($email);
+        $user->setPassword($passwordHasher->hashPassword($user, $password));
+        $user->setRoles(['ROLE_ADMIN']);
+        $user->setActive(true);
+
+        $entityManager->persist($user);
+        $entityManager->flush();
+
         $client = $this->requestJson(Request::METHOD_POST, '/api/login', [
             'email' => $email,
             'password' => $password,
         ]);
 
         $response = $client->getResponse();
-
         $content = $response->getContent();
         self::assertIsString($content);
 

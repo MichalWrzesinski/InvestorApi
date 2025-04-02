@@ -18,7 +18,7 @@ final class ActivationTokenPreviewControllerTest extends FunctionalTestCase
         $user = $container
             ->get('doctrine')
             ->getRepository(User::class)
-            ->findOneBy(['email' => 'admin@example.com']);
+            ->findOneBy(['email' => 'test_admin@example.com']);
 
         self::assertInstanceOf(User::class, $user);
 
