@@ -9,6 +9,10 @@ services:
             App\Repository\ExchangeRateRepositoryInterface: '@App\Repository\ExchangeRateRepository'
             App\Repository\SymbolRepositoryInterface: '@App\Repository\SymbolRepository'
 
+    _instanceof:
+        App\State\Processor\ExchangeRate\ProcessorInterface:
+            tags: ['app.exchange_rate_processor']
+
     App\:
         resource: '../src/'
         exclude:
@@ -22,10 +26,10 @@ services:
         public: true
 
     App\State\Processor\ExchangeRate\:
-        resource: '../src/State/Processor/ExchangeRate'
-        tags: ['app.exchange_rate_processor']
+        resource: '../src/State/Processor/ExchangeRate/'
         autowire: true
-        autoconfigure: false
+        autoconfigure: true
+        public: false
 
     App\State\Processor\:
         resource: '../src/State/Processor'
