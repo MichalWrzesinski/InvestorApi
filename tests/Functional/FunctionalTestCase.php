@@ -11,6 +11,7 @@ use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 use Symfony\Component\Console\Input\ArrayInput;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 
 abstract class FunctionalTestCase extends WebTestCase
 {
@@ -38,9 +39,9 @@ abstract class FunctionalTestCase extends WebTestCase
             return $this->token;
         }
 
-        $container = $this->getTestContainer();
+        $container = static::getContainer();
         $entityManager = $container->get('doctrine.orm.entity_manager');
-        $passwordHasher = $container->get('security.user_password_hasher');
+        $passwordHasher = $this->getTestContainer()->get(UserPasswordHasherInterface::class);
 
         $user = new User();
         $user->setEmail($email);

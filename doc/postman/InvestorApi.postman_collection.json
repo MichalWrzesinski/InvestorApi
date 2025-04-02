@@ -18,7 +18,7 @@
         ],
         "body": {
           "mode": "raw",
-          "raw": "{\n    \"email\": \"admin@example.com\",\n    \"password\": \"root\"\n}"
+          "raw": "{\n    \"email\": \"michal@example.com\",\n    \"password\": \"abcdefgh\"\n}"
         },
         "url": {
           "raw": "{{login_url}}",
@@ -29,7 +29,7 @@
       }
     },
     {
-      "name": "\ud83d\ude42 Register",
+      "name": "⭐ Register",
       "request": {
         "method": "POST",
         "header": [
@@ -49,6 +49,30 @@
           ],
           "path": [
             "register"
+          ]
+        }
+      }
+    },
+    {
+      "name": "\uD83D\uDE42 Me",
+      "request": {
+        "method": "GET",
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "{{jwt_token}}"
+            }
+          ]
+        },
+        "url": {
+          "raw": "{{base_url}}/me",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "me"
           ]
         }
       }

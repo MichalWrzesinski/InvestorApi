@@ -12,7 +12,7 @@ use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\SecurityBundle\Security;
 use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
 
-final readonly class UserAssetNormalizer implements NormalizerInterface
+final readonly class UserAssetNormalizer implements NormalizerInterface, UserAssetNormalizerInterface
 {
     public function __construct(
         private NormalizerInterface $normalizer,
