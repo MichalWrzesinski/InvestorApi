@@ -61,20 +61,20 @@ class UserAsset implements SoftDeletableTraitInterface, TimestampableTraitInterf
 
     #[ORM\ManyToOne(targetEntity: Symbol::class)]
     #[ORM\JoinColumn(nullable: false, onDelete: 'CASCADE')]
-    #[Groups(['user_asset:read', 'user_asset:write', 'user_asset_operation:read'])]
+    #[Groups(['user_asset:read', 'user_asset:write', 'user_asset_operation:read', 'me:read'])]
     private Symbol $symbol;
 
     #[ORM\Column(type: Types::FLOAT)]
     #[Assert\NotNull]
-    #[Groups(['user_asset:read', 'user_asset:write'])]
+    #[Groups(['user_asset:read', 'user_asset:write', 'me:read'])]
     private float $balance;
 
     #[ORM\Column(type: Types::STRING, length: 100)]
     #[Assert\NotBlank]
-    #[Groups(['user_asset:read', 'user_asset:write'])]
+    #[Groups(['user_asset:read', 'user_asset:write', 'me:read'])]
     private string $name;
 
-    #[Groups(['user_asset:read'])]
+    #[Groups(['user_asset:read', 'me:read'])]
     private ?ValueInDefaultCurrencyDtoOutput $valueInDefaultCurrency = null;
 
     public function getId(): ?Uuid

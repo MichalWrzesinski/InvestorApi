@@ -9,9 +9,9 @@ use Symfony\Component\Serializer\Annotation\Groups;
 final readonly class ValueInDefaultCurrencyDtoOutput
 {
     public function __construct(
-        #[Groups(['user_asset:read', 'user_asset_operation:read'])]
+        #[Groups(['user_asset:read', 'user_asset_operation:read', 'me:read'])]
         public float $value,
-        #[Groups(['user_asset:read', 'user_asset_operation:read'])]
+        #[Groups(['user_asset:read', 'user_asset_operation:read', 'me:read'])]
         public string $quote,
     ) {
     }

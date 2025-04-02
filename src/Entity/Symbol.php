@@ -71,6 +71,7 @@ class Symbol implements SoftDeletableTraitInterface, TimestampableTraitInterface
         'exchange_rate:read',
         'user_asset:read',
         'user_asset_operation:read',
+        'me:read',
     ])]
     private string $symbol;
 
@@ -82,6 +83,7 @@ class Symbol implements SoftDeletableTraitInterface, TimestampableTraitInterface
         'exchange_rate:read',
         'user_asset:read',
         'user_asset_operation:read',
+        'me:read',
     ])]
     private string $name;
 
@@ -93,6 +95,7 @@ class Symbol implements SoftDeletableTraitInterface, TimestampableTraitInterface
         'exchange_rate:read',
         'user_asset:read',
         'user_asset_operation:read',
+        'me:read',
     ])]
     private SymbolTypeEnum $type;
 
