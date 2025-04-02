@@ -8,12 +8,12 @@ use App\Enum\SymbolTypeEnum;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Contracts\HttpClient\HttpClientInterface;
 
-final class BinanceApiClient implements BinanceApiClientInterface
+final readonly class BinanceApiClient implements BinanceApiClientInterface
 {
     private const URL = 'https://api.binance.com/api/v3/ticker/price?symbol=%s';
 
     public function __construct(
-        private readonly HttpClientInterface $httpClient,
+        private HttpClientInterface $httpClient,
     ) {
     }
 

@@ -6,10 +6,10 @@ namespace App\Event;
 
 use App\Entity\Symbol;
 
-final class SymbolCreatedEvent implements EventInterface
+final readonly class SymbolCreatedEvent implements EventInterface
 {
     public function __construct(
-        public readonly Symbol $symbol,
+        public Symbol $symbol,
     ) {
     }
 

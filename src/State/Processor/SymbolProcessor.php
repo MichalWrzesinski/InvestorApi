@@ -10,12 +10,12 @@ use App\Entity\Symbol;
 use App\Service\ExchangeRateSynchronizerInterface;
 
 /** @implements ProcessorInterface<object, object> */
-final class SymbolProcessor implements ProcessorInterface
+final readonly class SymbolProcessor implements ProcessorInterface
 {
     /** @param ProcessorInterface<Symbol, Symbol> $persistProcessor */
     public function __construct(
-        private readonly ProcessorInterface $persistProcessor,
-        private readonly ExchangeRateSynchronizerInterface $synchronizer,
+        private ProcessorInterface $persistProcessor,
+        private ExchangeRateSynchronizerInterface $synchronizer,
     ) {
     }
 

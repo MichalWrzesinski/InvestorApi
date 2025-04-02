@@ -25,11 +25,16 @@ final readonly class UpdateRatesHandler
     public function __invoke(UpdateRatesMessage $message): void
     {
         $processorEnum = $message->getProcessorEnum();
+        $typeEnum = $message->getTypeEnum();
+
+        if (null === $processorEnum || null === $typeEnum) {
+            throw new \InvalidArgumentException('Message must contain both type and processor enums.');
+        }
 
         foreach ($this->processors as $processor) {
-            if ($processorEnum && $processor->supports($processorEnum)) {
+            if ($processor->supports($processorEnum)) {
                 try {
-                    $processor->update($message->getTypeEnum(), $message->base, $message->quote);
+                    $processor->update($typeEnum, $message->base, $message->quote);
                 } catch (\Throwable $exception) {
                     $this->logger->error('Error processing currency rate processor', [
                         'exception' => $exception,

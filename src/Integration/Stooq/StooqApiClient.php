@@ -8,12 +8,12 @@ use App\Enum\SymbolTypeEnum;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Contracts\HttpClient\HttpClientInterface;
 
-final class StooqApiClient implements StooqApiClientInterface
+final readonly class StooqApiClient implements StooqApiClientInterface
 {
     private const URL = 'https://stooq.com/q/l/?s=%s&f=sd2t2ohlcv&h&e=csv';
 
     public function __construct(
-        private readonly HttpClientInterface $httpClient,
+        private HttpClientInterface $httpClient,
     ) {
     }
 
